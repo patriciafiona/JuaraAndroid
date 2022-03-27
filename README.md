@@ -1,4 +1,9 @@
 # JuaraAndroid2022
+
+<p align="center">
+  <img src="https://pbs.twimg.com/media/FOH_fvmacAIp_TO.jpg"/>
+</p>
+
 ## Information
 <p align="center">
   <img src="https://img.tek.id/img/content/2019/08/23/19621/google-resmi-umumkan-nama-android-terbaru-3BlX51XEX7.jpg" width="300"/>
