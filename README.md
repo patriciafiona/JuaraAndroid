@@ -33,6 +33,6 @@ The list of the projects:
 | -------------      | ------------- |
 | [Dogglers App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-dogglers-app)  | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-dogglers-app-main) |
 | [Luch Tray App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-lunch-tray)  | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-lunch-tray-app-main) |
-| [Amphibian App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-amphibians)  | [Coming Soon] |
+| [Amphibian App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-amphibians)  | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-amphibians-app-main) |
 | [Forage App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-forage)  | [Coming Soon] |
 | [Water Me! App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-water-me)  | [Coming Soon] |
