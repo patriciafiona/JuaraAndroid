@@ -84,6 +84,7 @@ class ForageableViewModel(
     fun deleteForageable(forageable: Forageable) {
         viewModelScope.launch(Dispatchers.IO) {
             // TODO: call the DAO method to delete a forageable to the database here
+            forageableDao.delete(forageable)
         }
     }
 

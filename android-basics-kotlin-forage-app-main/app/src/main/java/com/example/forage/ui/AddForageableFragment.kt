@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -71,19 +72,23 @@ class AddForageableFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val id = navigationArgs.id
-        Log.e("RESULT ID", id.toString())
         if (id > 0) {
-
             // TODO: Observe a Forageable that is retrieved by id, set the forageable variable,
             //  and call the bindForageable method
             viewModel.getForageable(id).observe(this.viewLifecycleOwner) { item ->
-                forageable = item
-                bindForageable(forageable)
-            }
+                if (item != null) {
+                    forageable = item
+                    bindForageable(forageable)
 
-            binding.deleteBtn.visibility = View.VISIBLE
-            binding.deleteBtn.setOnClickListener {
-                deleteForageable(forageable)
+                    //move for waiting binding
+                    binding.deleteBtn.visibility = View.VISIBLE
+                    binding.deleteBtn.setOnClickListener {
+                        deleteForageable(forageable)
+                    }
+                }else{
+                    //Additional Here
+                    Toast.makeText(activity,"List updated!", Toast.LENGTH_SHORT).show()
+                }
             }
         } else {
             binding.saveBtn.setOnClickListener {
