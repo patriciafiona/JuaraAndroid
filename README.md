@@ -33,10 +33,11 @@ More about Android courses, visit this [link](https://developer.android.com/cour
 
 ## My Codelab Project Results
 The list of the projects:
-| Tutorial Link      | Project Link  |
-| -------------      | ------------- |
-| [Dogglers App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-dogglers-app)  | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-dogglers-app-main) |
-| [Lunch Tray App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-lunch-tray)  | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-lunch-tray-app-main) |
-| [Amphibian App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-amphibians)  | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-amphibians-app-main) |
-| [Forage App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-forage)  | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-forage-app-main) |
-| [Water Me! App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-water-me)  | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-water-me-app-main) |
+
+| Tutorial Link      | Result Preview  | Project Link  |
+| -------------      | :-: | -------------|
+| [Dogglers App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-dogglers-app)  | <img src="https://developer.android.com/codelabs/basic-android-kotlin-training-project-dogglers-app/img/6dac0c59577f6fbb.png" width="300"/> | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-dogglers-app-main) |
+| [Lunch Tray App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-lunch-tray)  | <img src="https://developer.android.com/codelabs/basic-android-kotlin-training-project-lunch-tray/img/a21a5d4ad1d674f5.png" width="300"/> | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-lunch-tray-app-main) |
+| [Amphibian App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-amphibians)  | <img src="https://developer.android.com/codelabs/basic-android-kotlin-training-project-amphibians/img/7697a4e0c9bb5a76.png" width="300"/> | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-amphibians-app-main) |
+| [Forage App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-forage)  | <img src="https://developer.android.com/codelabs/basic-android-kotlin-training-project-forage/img/bcc75e60b70320e8.png" width="300"/> | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-forage-app-main) |
+| [Water Me! App](https://developer.android.com/codelabs/basic-android-kotlin-training-project-water-me)  | <img src="https://developer.android.com/codelabs/basic-android-kotlin-training-project-water-me/img/df244d6749f69085.png" width="300"/><br/><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-project-water-me/img/90be029855bc3111.png" width="300"/> | [Project Link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/android-basics-kotlin-water-me-app-main) |
