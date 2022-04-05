@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TentangKu</string>
+    <string name="app_name">Tentang-Ku</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in">Sign In</string>
@@ -39,6 +39,17 @@
     <string name="deleted">One item deleted successfully</string>
     <string name="no_data">No Data</string>
     <string name="background">Background</string>
+    <string name="my_weight">My Weight</string>
+    <string name="show_indicator">Show Indicator</string>
+    <string name="weight_progress">Weight Progress</string>
+    <string name="add_new_weight">Add new weight</string>
+    <string name="weight_history">Weight History</string>
+    <string name="add_weight">Add weight</string>
+    <string name="body_weight_kg">Body weight (Kg)</string>
+    <string name="your_weight">Your weight</string>
+    <string name="date">Date</string>
+    <string name="update_weight">Update weight</string>
+    <string name="delete_weight">Delete weight</string>
 
     <string-array name="menu_name">
         <item>Body Weight</item>

@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.patriciafiona.tentangku.ui.main.notes.NoteViewModel
 import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateViewModel
+import com.patriciafiona.tentangku.ui.main.weight.WeightViewModel
+import com.patriciafiona.tentangku.ui.main.weight.addUpdate.WeightAddUpdateViewModel
 
 class ViewModelFactory private constructor(private val mApplication: Application) : ViewModelProvider.NewInstanceFactory() {
     companion object {
@@ -27,6 +29,10 @@ class ViewModelFactory private constructor(private val mApplication: Application
             return NoteViewModel(mApplication) as T
         } else if (modelClass.isAssignableFrom(NoteAddUpdateViewModel::class.java)) {
             return NoteAddUpdateViewModel(mApplication) as T
+        }else if (modelClass.isAssignableFrom(WeightViewModel::class.java)) {
+            return WeightViewModel(mApplication) as T
+        }else if (modelClass.isAssignableFrom(WeightAddUpdateViewModel::class.java)) {
+            return WeightAddUpdateViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

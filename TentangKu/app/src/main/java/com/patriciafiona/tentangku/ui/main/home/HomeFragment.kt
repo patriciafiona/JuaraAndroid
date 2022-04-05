@@ -26,6 +26,7 @@ import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.data.source.local.entity.Menu
 import com.patriciafiona.tentangku.databinding.FragmentHomeBinding
 import com.patriciafiona.tentangku.ui.main.notes.NotesActivity
+import com.patriciafiona.tentangku.ui.main.weight.WeightActivity
 import com.patriciafiona.tentangku.ui.signin.SignInActivity
 import java.io.IOException
 import java.util.*
@@ -94,6 +95,10 @@ class HomeFragment : Fragment() {
         when(menu.name){
             "Notes" ->{
                 val intent = Intent(requireActivity(), NotesActivity::class.java)
+                startActivity(intent)
+            }
+            "Body Weight" ->{
+                val intent = Intent(requireActivity(), WeightActivity::class.java)
                 startActivity(intent)
             }
         }

@@ -14,9 +14,12 @@
 
     <color name="beeswax">#FDF1C7</color>
     <color name="yellow">#FFE500</color>
+    <color name="green">#00B307</color>
+    <color name="eunry">#D3A9A2</color>
     <color name="sepia">#AF7869</color>
     <color name="apple_blossom">#A65D4A</color>
     <color name="night_shadz">#A64B33</color>
+    <color name="red">#FF0000</color>
 
     <color name="dappled_daydream">#C6CE9F</color>
 </resources>

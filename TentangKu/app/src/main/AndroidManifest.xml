@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TentangKu">
         <activity
+            android:name=".ui.main.weight.addUpdate.WeightAddUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.weight.WeightActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.notes.addUpdate.NoteAddUpdateActivity"
             android:exported="false" />
         <activity
@@ -34,10 +40,10 @@
         </activity>
         <activity
             android:name=".ui.signin.SignInActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
