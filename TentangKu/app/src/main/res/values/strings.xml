@@ -9,4 +9,38 @@
     <string name="about">About</string>
     <string name="sign_out">Sign Out</string>
     <string name="press_again">Please press again to exit</string>
+    <string name="menu_name">Menu name</string>
+    <string name="menu_img">menu_img</string>
+    <string name="time_txt">17:00</string>
+    <string name="city_txt">Bangkok</string>
+    <string name="current_time_situation">Good Evening</string>
+    <string name="user_name">Rocky Splitz</string>
+    <string name="menu">Main Menu</string>
+    <string name="sign_in_with_google">Sign In with Google</string>
+    <string name="notes">Notes</string>
+    <string name="new_note">New Note</string>
+    <string name="note_title">Note Title</string>
+    <string name="date_txt">12 March 2010</string>
+    <string name="description">This is the description content.</string>
+    <string name="input_title">Input title</string>
+    <string name="button_back">Button back</string>
+    <string name="button_save_or_update">Button Save or Update</string>
+    <string name="no_files">No Files</string>
+    <string name="button_delete">Button Delete</string>
+
+    <string-array name="menu_name">
+        <item>Body Weight</item>
+        <item>Finance</item>
+        <item>Notes</item>
+        <item>Reminder</item>
+        <item>Weather</item>
+    </string-array>
+
+    <integer-array name="menu_img">
+        <item>@drawable/weight_icon</item>
+        <item>@drawable/finance_icon</item>
+        <item>@drawable/notes_icon</item>
+        <item>@drawable/reminder_icon</item>
+        <item>@drawable/weather_icon</item>
+    </integer-array>
 </resources>

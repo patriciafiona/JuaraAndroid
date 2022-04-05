@@ -28,4 +28,10 @@
     <style name="MyWidget.MaterialComponents.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="materialThemeOverlay">@style/ThemeOverlay.BottomNavView</item>
     </style>
+
+    <style name="TitleText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/charcoal</item>
+    </style>
 </resources>

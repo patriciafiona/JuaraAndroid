@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
+import com.patriciafiona.tentangku.Utils
 import com.patriciafiona.tentangku.data.source.remote.entity.User
 import com.patriciafiona.tentangku.databinding.ActivityMainBinding
 import com.patriciafiona.tentangku.databinding.ActivitySignInBinding
@@ -133,15 +134,11 @@ class SignInActivity : AppCompatActivity() {
         val userName = user.displayName
         val userEmail = user.email
 
-        val date = Calendar.getInstance().time
-        val formatter = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-        val currentDateTime = formatter.format(date).toString()
-
         if (!userName.isNullOrEmpty() && !userEmail.isNullOrEmpty()) {
             val userData = User(
                 userName,
                 userEmail,
-                currentDateTime
+                Utils.getCurrentDate("datetime")
             )
 
             database.child("users").child(userEmail.replace(".", ",")).setValue(userData)
