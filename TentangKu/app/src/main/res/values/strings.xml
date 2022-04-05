@@ -21,12 +21,24 @@
     <string name="new_note">New Note</string>
     <string name="note_title">Note Title</string>
     <string name="date_txt">12 March 2010</string>
-    <string name="description">This is the description content.</string>
+    <string name="description">Description content.</string>
     <string name="input_title">Input title</string>
     <string name="button_back">Button back</string>
     <string name="button_save_or_update">Button Save or Update</string>
     <string name="no_files">No Files</string>
     <string name="button_delete">Button Delete</string>
+    <string name="empty">Empty</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="message_cancel">Do you want to cancel this?</string>
+    <string name="message_delete">Are you sure you want to delete this?</string>
+    <string name="added">One item added successfully</string>
+    <string name="changed">One item changed successfully</string>
+    <string name="deleted">One item deleted successfully</string>
+    <string name="no_data">No Data</string>
+    <string name="background">Background</string>
 
     <string-array name="menu_name">
         <item>Body Weight</item>

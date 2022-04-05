@@ -2,8 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/cvItemNote"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/light_gray"
+    app:cardBackgroundColor="@color/white_smoke"
     app:cardUseCompatPadding="true"
     app:cardElevation="5dp"
     app:cardCornerRadius="10dp">
@@ -37,6 +38,7 @@
             android:layout_marginEnd="16dp"
             android:text="@string/date_txt"
             android:textColor="@color/dim_gray"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_title" />
