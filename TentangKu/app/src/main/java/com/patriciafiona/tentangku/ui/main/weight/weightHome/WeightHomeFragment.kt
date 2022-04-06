@@ -61,8 +61,12 @@ class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+    }
 
+    private fun init(){
         checkWeightAvailability(false)
+        isLoading(true)
 
         with(binding){
             indicatorImage.setOnClickListener {
@@ -74,19 +78,24 @@ class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {
             }
 
             //Prepare chart
-            initLineChart()
+            resetChart()
+
+            //clean arraylist
+            sortedWeightListDesc = ArrayList()
+            sortedFiveWeightList = ArrayList()
+            listDate = ArrayList()
 
             val weightViewModel = obtainViewModel(requireActivity() as AppCompatActivity)
             weightViewModel.getAllWeight().observe(requireActivity()) { weightList ->
                 if (weightList != null  && weightList.isNotEmpty()) {
                     sortedWeightListDesc = weightList.sortedByDescending { weight -> weight.date }
 
-                    //clean arraylist
-                    sortedFiveWeightList = ArrayList()
-                    listDate = ArrayList()
-
-                    for (i in 0..4){
-                        sortedFiveWeightList.add(sortedWeightListDesc[i])
+                    if (sortedWeightListDesc.size >= 5) {
+                        for (i in 0..4) {
+                            sortedFiveWeightList.add(sortedWeightListDesc[i])
+                        }
+                    }else{
+                        sortedFiveWeightList = ArrayList(sortedWeightListDesc)
                     }
 
                     sortedFiveWeightList = ArrayList(sortedFiveWeightList.sortedBy{ weight -> weight.date })
@@ -94,11 +103,14 @@ class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {
                     for (dt in sortedFiveWeightList){
                         listDate.add(dt.date.toString())
                     }
+                    initLineChart()
                     setDataToLineChart()
 
                     //set to RV
                     adapter.setListWeight(sortedWeightListDesc)
                     checkWeightAvailability(true)
+                }else{
+                    checkWeightAvailability(false)
                 }
             }
             //End of prepare chart
@@ -115,26 +127,55 @@ class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {
         }
     }
 
+    private fun resetChart() {
+        with(binding){
+            weightProgressChart.fitScreen()
+            weightProgressChart.data?.clearValues()
+            weightProgressChart.xAxis.valueFormatter = null
+            weightProgressChart.notifyDataSetChanged()
+            weightProgressChart.clear()
+            weightProgressChart.invalidate()
+        }
+    }
+
     private fun checkWeightAvailability(status: Boolean){
         with(binding){
+            isLoading(false)
             rvWeights.isVisible = status
-            progressBar.isVisible = !status
+            noFileImg.isVisible = !status
+            noFileTxt.isVisible = !status
         }
+    }
+
+    private fun isLoading(status:Boolean){
+        binding.progressBar.isVisible = status
     }
 
     private fun setDataToLineChart() {
         //now draw bar chart with dynamic data
         val entries: ArrayList<Entry> = ArrayList()
-        for (i in sortedFiveWeightList.indices) {
-            val score = sortedFiveWeightList[i]
-            entries.add(Entry(i.toFloat(), score.value?.toFloat() ?: 0f))
+        if(sortedFiveWeightList.size > 0) {
+            for (i in sortedFiveWeightList.indices) {
+                val score = sortedFiveWeightList[i]
+                entries.add(Entry(i.toFloat(), score.value?.toFloat() ?: 0f))
+            }
         }
 
         val lineDataSet = LineDataSet(entries, "")
 
         val data = LineData(lineDataSet)
-        binding.weightProgressChart.data = data
-        binding.weightProgressChart.invalidate()
+        data.setValueTextSize(10f)
+
+        if (entries.isEmpty()){
+            binding.weightProgressChart.clear()
+            binding.weightProgressChart.data.clearValues()
+        }else {
+            binding.weightProgressChart.data = data
+        }
+
+        data.notifyDataChanged()
+        binding.weightProgressChart.notifyDataSetChanged() // let the chart know it's data changed
+        binding.weightProgressChart.invalidate() // refresh
     }
 
     private fun initLineChart() {
@@ -156,7 +197,11 @@ class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {
             // to draw label on xAxis
             val formatter: ValueFormatter = object : ValueFormatter() {
                 override fun getAxisLabel(value: Float, axis: AxisBase): String {
-                    return listDate[value.toInt()]
+                    return if(value.toInt() >= 0 && value.toInt() < sortedFiveWeightList.size){
+                        listDate[value.toInt()]
+                    }else{
+                        " "
+                    }
                 }
             }
 
@@ -165,6 +210,7 @@ class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {
             xAxis.setDrawLabels(true)
             xAxis.granularity = 1f
             xAxis.labelRotationAngle = +90f
+            xAxis.textSize = 12f
         }
 
     }
@@ -188,5 +234,6 @@ class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {
 
     override fun onResume() {
         super.onResume()
+        init()
     }
 }
