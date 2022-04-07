@@ -50,6 +50,20 @@
     <string name="date">Date</string>
     <string name="update_weight">Update weight</string>
     <string name="delete_weight">Delete weight</string>
+    <string name="money_txt">Rp.0</string>
+    <string name="balance">Balance</string>
+    <string name="total_transaction">Total transaction</string>
+    <string name="number_txt">17</string>
+    <string name="summaries">Summaries</string>
+    <string name="your_transaction">Your transaction</string>
+    <string name="spending_money">Spending money</string>
+    <string name="income">Income</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="nominal">Nominal</string>
+    <string name="insert_nominal">Insert nominal</string>
+    <string name="transaction_type">Transaction type</string>
+    <string name="add_new_transaction">Add new transaction</string>
+    <string name="delete_transaction">Delete transaction</string>
 
     <string-array name="menu_name">
         <item>Body Weight</item>
@@ -66,4 +80,19 @@
         <item>@drawable/reminder_icon</item>
         <item>@drawable/weather_icon</item>
     </integer-array>
+
+    <string-array name="transaction_type">
+        <item>Automotive</item>
+        <item>Education</item>
+        <item>Entertainment</item>
+        <item>Food</item>
+        <item>Hobby</item>
+        <item>Household needs</item>
+        <item>Income</item>
+        <item>Financial</item>
+        <item>Pet</item>
+        <item>Shopping</item>
+        <item>Telephone, Cellphone, Internet</item>
+        <item>Others</item>
+    </string-array>
 </resources>

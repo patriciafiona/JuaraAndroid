@@ -92,8 +92,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:hint="@string/your_weight"
-                        android:inputType="numberDecimal"
-                        android:textStyle="bold" />
+                        android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView

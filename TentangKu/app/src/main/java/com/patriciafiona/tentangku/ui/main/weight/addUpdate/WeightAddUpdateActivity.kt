@@ -28,8 +28,6 @@ class WeightAddUpdateActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_WEIGHT = "extra_weight"
-        const val ALERT_DIALOG_CLOSE = 10
-        const val ALERT_DIALOG_DELETE = 20
     }
     private var isEdit = false
     private var weight: Weight? = null
@@ -47,9 +45,11 @@ class WeightAddUpdateActivity : AppCompatActivity() {
             if (weight != null) {
                 isEdit = true
                 btnAddUpdateWeight.text = getString(R.string.update_weight)
+                addUpdateWeightTxt.text = getString(R.string.update_weight)
             } else {
                 weight = Weight()
                 btnAddUpdateWeight.text = getString(R.string.add_weight)
+                addUpdateWeightTxt.text = getString(R.string.add_weight)
             }
 
             if (isEdit) {
@@ -74,13 +74,15 @@ class WeightAddUpdateActivity : AppCompatActivity() {
                 }
 
             edtWeightDate.setOnClickListener {
-                DatePickerDialog(
+                val dialog = DatePickerDialog(
                     this@WeightAddUpdateActivity,
                     date,
                     myCalendar[Calendar.YEAR],
                     myCalendar[Calendar.MONTH],
                     myCalendar[Calendar.DAY_OF_MONTH]
-                ).show()
+                )
+                dialog.datePicker.maxDate = Date().time
+                dialog.show()
             }
 
             btnAddUpdateWeight.setOnClickListener {

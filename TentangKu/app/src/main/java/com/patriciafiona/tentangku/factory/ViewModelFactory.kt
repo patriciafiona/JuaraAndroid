@@ -3,6 +3,8 @@ package com.patriciafiona.tentangku.factory
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.patriciafiona.tentangku.ui.main.finance.FinanceViewModel
+import com.patriciafiona.tentangku.ui.main.finance.addUpdate.FinanceAddUpdateViewModel
 import com.patriciafiona.tentangku.ui.main.notes.NoteViewModel
 import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateViewModel
 import com.patriciafiona.tentangku.ui.main.weight.WeightViewModel
@@ -33,6 +35,10 @@ class ViewModelFactory private constructor(private val mApplication: Application
             return WeightViewModel(mApplication) as T
         }else if (modelClass.isAssignableFrom(WeightAddUpdateViewModel::class.java)) {
             return WeightAddUpdateViewModel(mApplication) as T
+        }else if (modelClass.isAssignableFrom(FinanceViewModel::class.java)) {
+            return FinanceViewModel(mApplication) as T
+        }else if (modelClass.isAssignableFrom(FinanceAddUpdateViewModel::class.java)) {
+            return FinanceAddUpdateViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

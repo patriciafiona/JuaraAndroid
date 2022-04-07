@@ -25,6 +25,7 @@ import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.data.source.local.entity.Menu
 import com.patriciafiona.tentangku.databinding.FragmentHomeBinding
+import com.patriciafiona.tentangku.ui.main.finance.FinanceActivity
 import com.patriciafiona.tentangku.ui.main.notes.NotesActivity
 import com.patriciafiona.tentangku.ui.main.weight.WeightActivity
 import com.patriciafiona.tentangku.ui.signin.SignInActivity
@@ -99,6 +100,10 @@ class HomeFragment : Fragment() {
             }
             "Body Weight" ->{
                 val intent = Intent(requireActivity(), WeightActivity::class.java)
+                startActivity(intent)
+            }
+            "Finance" ->{
+                val intent = Intent(requireActivity(), FinanceActivity::class.java)
                 startActivity(intent)
             }
         }

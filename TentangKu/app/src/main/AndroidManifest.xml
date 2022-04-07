@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TentangKu">
         <activity
+            android:name=".ui.main.finance.addUpdate.FinanceAddUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.finance.FinanceActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.weight.addUpdate.WeightAddUpdateActivity"
             android:exported="false" />
         <activity
