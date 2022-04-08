@@ -3,7 +3,6 @@ package com.patriciafiona.tentangku.ui.main.weight.addUpdate
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
-import android.provider.SyncStateContract.Helpers.update
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -11,12 +10,10 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.Utils
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.databinding.ActivityWeightAddUpdateBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
 import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateActivity
-import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -66,7 +63,7 @@ class WeightAddUpdateActivity : AppCompatActivity() {
             }
 
             val date =
-                OnDateSetListener { view, year, month, day ->
+                OnDateSetListener { _, year, month, day ->
                     myCalendar[Calendar.YEAR] = year
                     myCalendar[Calendar.MONTH] = month
                     myCalendar[Calendar.DAY_OF_MONTH] = day

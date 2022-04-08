@@ -5,9 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.patriciafiona.tentangku.data.source.local.dao.FinanceDao
-import com.patriciafiona.tentangku.data.source.local.dao.NoteDao
 import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 
 @Database(entities = [FinanceTransaction::class], version = 1)
 abstract class FinanceRoomDatabase : RoomDatabase() {

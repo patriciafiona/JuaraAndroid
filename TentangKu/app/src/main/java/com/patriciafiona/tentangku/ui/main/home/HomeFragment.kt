@@ -1,24 +1,14 @@
 package com.patriciafiona.tentangku.ui.main.home
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -30,9 +20,6 @@ import com.patriciafiona.tentangku.ui.main.notes.NotesActivity
 import com.patriciafiona.tentangku.ui.main.reminder.ReminderActivity
 import com.patriciafiona.tentangku.ui.main.weather.WeatherActivity
 import com.patriciafiona.tentangku.ui.main.weight.WeightActivity
-import com.patriciafiona.tentangku.ui.signin.SignInActivity
-import java.io.IOException
-import java.util.*
 
 
 class HomeFragment : Fragment() {

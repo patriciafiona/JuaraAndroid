@@ -2,9 +2,7 @@ package com.patriciafiona.tentangku.ui.main.reminder.addUpdate
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Reminder
-import com.patriciafiona.tentangku.data.source.local.repository.NoteRepository
 import com.patriciafiona.tentangku.data.source.local.repository.ReminderRepository
 
 class ReminderAddUpdateViewModel (application: Application) : ViewModel() {
@@ -17,5 +15,9 @@ class ReminderAddUpdateViewModel (application: Application) : ViewModel() {
     }
     fun delete(reminder: Reminder) {
         mReminderAddUpdateViewModel.delete(reminder)
+    }
+
+    fun deleteById(id: Int) {
+        mReminderAddUpdateViewModel.deleteById(id)
     }
 }

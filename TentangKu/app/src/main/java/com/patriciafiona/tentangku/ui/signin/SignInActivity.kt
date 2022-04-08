@@ -1,7 +1,6 @@
 package com.patriciafiona.tentangku.ui.signin
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -20,10 +19,8 @@ import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.Utils
 import com.patriciafiona.tentangku.data.source.remote.entity.User
-import com.patriciafiona.tentangku.databinding.ActivityMainBinding
 import com.patriciafiona.tentangku.databinding.ActivitySignInBinding
 import com.patriciafiona.tentangku.ui.main.MainActivity
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.system.exitProcess
 

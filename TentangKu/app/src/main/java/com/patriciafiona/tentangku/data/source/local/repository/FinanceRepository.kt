@@ -3,11 +3,8 @@ package com.patriciafiona.tentangku.data.source.local.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.patriciafiona.tentangku.data.source.local.dao.FinanceDao
-import com.patriciafiona.tentangku.data.source.local.dao.NoteDao
 import com.patriciafiona.tentangku.data.source.local.databases.FinanceRoomDatabase
-import com.patriciafiona.tentangku.data.source.local.databases.NoteRoomDatabase
 import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 

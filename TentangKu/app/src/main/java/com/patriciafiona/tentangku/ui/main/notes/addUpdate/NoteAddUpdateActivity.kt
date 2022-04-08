@@ -3,7 +3,6 @@ package com.patriciafiona.tentangku.ui.main.notes.addUpdate
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +14,6 @@ import com.patriciafiona.tentangku.Utils
 import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.databinding.ActivityNoteAddUpdateBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
-import java.nio.file.Files.delete
-import java.util.*
 
 
 class NoteAddUpdateActivity : AppCompatActivity() {

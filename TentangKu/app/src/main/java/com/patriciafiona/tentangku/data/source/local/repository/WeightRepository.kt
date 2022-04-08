@@ -2,11 +2,8 @@ package com.patriciafiona.tentangku.data.source.local.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.patriciafiona.tentangku.data.source.local.dao.NoteDao
 import com.patriciafiona.tentangku.data.source.local.dao.WeightDao
-import com.patriciafiona.tentangku.data.source.local.databases.NoteRoomDatabase
 import com.patriciafiona.tentangku.data.source.local.databases.WeightRoomDatabase
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors

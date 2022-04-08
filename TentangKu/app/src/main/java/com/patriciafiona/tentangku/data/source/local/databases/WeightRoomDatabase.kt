@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.patriciafiona.tentangku.data.source.local.dao.NoteDao
 import com.patriciafiona.tentangku.data.source.local.dao.WeightDao
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 
 @Database(entities = [Weight::class], version = 1)

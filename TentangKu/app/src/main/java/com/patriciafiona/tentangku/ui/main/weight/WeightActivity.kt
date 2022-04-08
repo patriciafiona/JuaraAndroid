@@ -1,14 +1,12 @@
 package com.patriciafiona.tentangku.ui.main.weight
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.bottom_sheet.OnBottomSheetCallbacks
-import com.patriciafiona.tentangku.databinding.ActivityMainBinding
 import com.patriciafiona.tentangku.databinding.ActivityWeightBinding
-import com.patriciafiona.tentangku.ui.main.notes.NoteAdapter
 
 class WeightActivity : AppCompatActivity() {
 

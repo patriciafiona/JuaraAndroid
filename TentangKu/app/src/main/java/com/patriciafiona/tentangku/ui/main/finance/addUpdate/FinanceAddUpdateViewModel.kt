@@ -3,7 +3,6 @@ package com.patriciafiona.tentangku.ui.main.finance.addUpdate
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.repository.FinanceRepository
 
 class FinanceAddUpdateViewModel (application: Application) : ViewModel() {

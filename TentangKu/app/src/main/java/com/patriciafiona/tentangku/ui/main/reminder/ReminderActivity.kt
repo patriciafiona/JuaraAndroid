@@ -1,15 +1,20 @@
 package com.patriciafiona.tentangku.ui.main.reminder
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.databinding.ActivityMainBinding
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.patriciafiona.tentangku.Utils
+import com.patriciafiona.tentangku.data.source.local.entity.Reminder
 import com.patriciafiona.tentangku.databinding.ActivityReminderBinding
-import com.patriciafiona.tentangku.ui.main.notes.NoteAdapter
-import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateActivity
+import com.patriciafiona.tentangku.factory.ViewModelFactory
+import com.patriciafiona.tentangku.ui.main.finance.FinanceAdapter
+import com.patriciafiona.tentangku.ui.main.finance.FinanceViewModel
 import com.patriciafiona.tentangku.ui.main.reminder.addUpdate.ReminderAddUpdateActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReminderActivity : AppCompatActivity() {
 
@@ -21,9 +26,42 @@ class ReminderActivity : AppCompatActivity() {
         binding = ActivityReminderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        init()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        init()
+    }
+
+    private fun init(){
         checkReminderAvailability(false)
 
         with(binding){
+            val reminderViewModel = obtainViewModel(this@ReminderActivity)
+            reminderViewModel.getAllReminder().observe(this@ReminderActivity) { reminderList ->
+                if (reminderList != null  && reminderList.isNotEmpty()) {
+                    val sortedList = reminderList.sortedByDescending { data -> data.date }
+                    adapter.setListReminders(sortedList)
+                    checkReminderAvailability(true)
+                }else{
+                    checkReminderAvailability(false)
+                }
+            }
+
+            adapter = ReminderAdapter(this@ReminderActivity)
+            rvReminder.layoutManager = LinearLayoutManager(this@ReminderActivity)
+            rvReminder.setHasFixedSize(true)
+            rvReminder.adapter = adapter
+
+            adapter.setOnItemClickCallback(object : ReminderAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: Reminder) {
+                    val intent = Intent(this@ReminderActivity, ReminderAddUpdateActivity::class.java)
+                    intent.putExtra(ReminderAddUpdateActivity.EXTRA_REMINDER, data)
+                    startActivity(intent)
+                }
+            })
+
             btnBack.setOnClickListener {
                 super.onBackPressed()
             }
@@ -33,6 +71,11 @@ class ReminderActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): ReminderViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory).get(ReminderViewModel::class.java)
     }
 
     private fun checkReminderAvailability(status: Boolean){

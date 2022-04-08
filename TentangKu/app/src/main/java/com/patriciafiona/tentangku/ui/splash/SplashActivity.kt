@@ -1,10 +1,9 @@
 package com.patriciafiona.tentangku.ui.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import com.patriciafiona.tentangku.databinding.ActivitySignInBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.patriciafiona.tentangku.databinding.ActivitySplashBinding
 import com.patriciafiona.tentangku.ui.signin.SignInActivity
 

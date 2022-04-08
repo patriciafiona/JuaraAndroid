@@ -1,13 +1,11 @@
 package com.patriciafiona.tentangku.ui.main
 
 import android.Manifest
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,6 +14,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -29,7 +28,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.databinding.ActivityMainBinding
-import com.patriciafiona.tentangku.databinding.ActivitySignInBinding
 import com.patriciafiona.tentangku.ui.main.about.AboutActivity
 import com.patriciafiona.tentangku.ui.signin.SignInActivity
 import kotlin.system.exitProcess

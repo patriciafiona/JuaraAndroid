@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.Utils
 import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
-import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.databinding.ActivityFinanceAddUpdateBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
 import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateActivity

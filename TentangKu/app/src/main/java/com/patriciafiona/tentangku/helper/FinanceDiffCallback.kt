@@ -2,7 +2,6 @@ package com.patriciafiona.tentangku.helper
 
 import androidx.recyclerview.widget.DiffUtil
 import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
-import com.patriciafiona.tentangku.data.source.local.entity.Weight
 
 class FinanceDiffCallback (private val mOldTransactionList: List<FinanceTransaction>,
                            private val mNewTransactionList: List<FinanceTransaction>) : DiffUtil.Callback() {

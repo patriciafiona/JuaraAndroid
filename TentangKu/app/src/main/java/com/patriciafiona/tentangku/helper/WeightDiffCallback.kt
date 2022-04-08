@@ -1,7 +1,6 @@
 package com.patriciafiona.tentangku.helper
 
 import androidx.recyclerview.widget.DiffUtil
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 
 class WeightDiffCallback(private val mOldWeightList: List<Weight>, private val mNewWeightList: List<Weight>) : DiffUtil.Callback() {

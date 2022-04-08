@@ -6,14 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
-import com.patriciafiona.tentangku.databinding.ItemNoteBinding
 import com.patriciafiona.tentangku.databinding.ItemWeightBinding
-import com.patriciafiona.tentangku.helper.NoteDiffCallback
 import com.patriciafiona.tentangku.helper.WeightDiffCallback
-import com.patriciafiona.tentangku.ui.main.notes.NoteAdapter
-import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateActivity
 import com.patriciafiona.tentangku.ui.main.weight.addUpdate.WeightAddUpdateActivity
 
 class WeightAdapter : RecyclerView.Adapter<WeightAdapter.WeightViewHolder>() {

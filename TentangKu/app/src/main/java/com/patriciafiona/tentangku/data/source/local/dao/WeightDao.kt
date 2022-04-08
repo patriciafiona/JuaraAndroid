@@ -2,7 +2,6 @@ package com.patriciafiona.tentangku.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 
 @Dao

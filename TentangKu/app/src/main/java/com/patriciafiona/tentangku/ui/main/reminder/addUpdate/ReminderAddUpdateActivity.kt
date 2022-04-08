@@ -2,25 +2,25 @@ package com.patriciafiona.tentangku.ui.main.reminder.addUpdate
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.data.source.local.entity.Note
+import com.patriciafiona.tentangku.Utils
+import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
 import com.patriciafiona.tentangku.data.source.local.entity.Reminder
-import com.patriciafiona.tentangku.databinding.ActivityMainBinding
 import com.patriciafiona.tentangku.databinding.ActivityReminderAddUpdateBinding
-import com.patriciafiona.tentangku.databinding.ActivityReminderBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
+import com.patriciafiona.tentangku.ui.main.finance.addUpdate.FinanceAddUpdateActivity
 import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateActivity
-import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateViewModel
+import com.patriciafiona.tentangku.ui.main.reminder.AlarmReceiver
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,10 +32,12 @@ class ReminderAddUpdateActivity : AppCompatActivity() {
         const val EXTRA_REMINDER = "extra_reminder"
         const val ALERT_DIALOG_CLOSE = 10
         const val ALERT_DIALOG_DELETE = 20
+        const val TAG_REMINDER = "Reminder"
     }
     private var isEdit = false
     private var reminder: Reminder? = null
 
+    private lateinit var alarmReceiver: AlarmReceiver
     val myCalendar: Calendar = Calendar.getInstance()
 
     private lateinit var reminderAddUpdateViewModel: ReminderAddUpdateViewModel
@@ -46,6 +48,9 @@ class ReminderAddUpdateActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         isOneTimeReminder(true)
+        alarmReceiver = AlarmReceiver()
+        reminderAddUpdateViewModel = obtainViewModel(this)
+
         with(binding){
             //set spinner dropdown
             val dropdown = edtReminderType
@@ -56,6 +61,37 @@ class ReminderAddUpdateActivity : AppCompatActivity() {
                     android.R.layout.simple_spinner_dropdown_item,
                     items)
             dropdown.adapter = adapter
+
+            reminder = intent.getParcelableExtra(EXTRA_REMINDER)
+            if (reminder != null) {
+                isEdit = true
+                btnAddUpdateReminder.isVisible = false
+                addUpdateReminderTxt.text = getString(R.string.reminder_data)
+            } else {
+                reminder = Reminder()
+                btnAddUpdateReminder.text = getString(R.string.add_reminder)
+                addUpdateReminderTxt.text = getString(R.string.add_reminder)
+            }
+
+            if (isEdit) {
+                if (reminder != null) {
+                    reminder?.let { reminder ->
+                        //set selected dropdown
+                        if (reminder.type != null) {
+                            val spinnerPosition = adapter.getPosition(reminder.type)
+                            dropdown.setSelection(spinnerPosition)
+                        }
+
+                        edtDate.setText(reminder.date.toString())
+                        edtTime.setText(reminder.time.toString())
+                        edtDescription.setText(reminder.description.toString())
+                        btnDelete.isVisible = true
+                    }
+                }
+            } else {
+                btnDelete.isVisible = false
+                edtDate.setText(Utils.getCurrentDate("date"))
+            }
 
             edtReminderType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -112,6 +148,56 @@ class ReminderAddUpdateActivity : AppCompatActivity() {
             edtTime.setOnClickListener {
                 timePicker.show()
             }
+
+            btnAddUpdateReminder.setOnClickListener {
+                val typeVal = edtReminderType.selectedItem.toString().trim()
+                val descVal = edtDescription.text.toString().trim()
+                val dateVal = edtDate.text.toString().trim()
+                val timeVal = edtTime.text.toString().trim()
+
+                when {
+                    descVal.isEmpty() -> {
+                        edtDescription.error = getString(R.string.empty)
+                    }
+                    descVal.isEmpty() -> {
+                        edtDescription.error = getString(R.string.empty)
+                    }
+                    timeVal.isEmpty() -> {
+                        edtTime.error = getString(R.string.empty)
+                    }
+                    else -> {
+                        val idTimemillis = System.currentTimeMillis().toInt()
+                        if(typeVal == "One time"){
+                            alarmReceiver.setOneTimeAlarm(this@ReminderAddUpdateActivity, AlarmReceiver.TYPE_ONE_TIME,
+                                dateVal,
+                                timeVal,
+                                descVal,
+                                idTimemillis)
+                        }else if(typeVal == "Daily"){
+                            alarmReceiver.setRepeatingAlarm(this@ReminderAddUpdateActivity, AlarmReceiver.TYPE_REPEATING,
+                                timeVal,
+                                descVal,
+                                idTimemillis)
+                        }else{
+                            Log.e(TAG_REMINDER, "Reminder type not found!")
+                        }
+
+                        reminder.let { reminder ->
+                            reminder?.id = idTimemillis
+                            reminder?.time = timeVal
+                            reminder?.description = descVal
+                            reminder?.type = typeVal
+                            reminder?.date = dateVal
+                        }
+                        if (isEdit) {
+                            reminderAddUpdateViewModel.update(reminder as Reminder)
+                        } else {
+                            reminderAddUpdateViewModel.insert(reminder as Reminder)
+                        }
+                        finish()
+                    }
+                }
+            }
         }
     }
 
@@ -123,8 +209,8 @@ class ReminderAddUpdateActivity : AppCompatActivity() {
 
     private fun isOneTimeReminder(status: Boolean){
         with(binding){
-            textViewDate.isVisible = !status
-            textInputLayoutTitle2.isVisible = !status
+            textViewDate.isVisible = status
+            textInputLayoutTitle2.isVisible = status
         }
     }
 
@@ -159,8 +245,12 @@ class ReminderAddUpdateActivity : AppCompatActivity() {
             setCancelable(false)
             setPositiveButton(getString(R.string.yes)) { _, _ ->
                 if (!isDialogClose) {
+                    reminder?.let {
+                        alarmReceiver.cancelAlarm(
+                            this@ReminderAddUpdateActivity,
+                            it.id)
+                    }
                     reminderAddUpdateViewModel.delete(reminder as Reminder)
-                    showToast(getString(R.string.deleted))
                 }
                 finish()
             }

@@ -1,13 +1,11 @@
 package com.patriciafiona.tentangku.ui.main.notes
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.databinding.ActivityMainBinding
 import com.patriciafiona.tentangku.databinding.ActivityNotesBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
 import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateActivity

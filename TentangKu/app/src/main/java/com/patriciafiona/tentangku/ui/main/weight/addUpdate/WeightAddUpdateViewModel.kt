@@ -2,7 +2,6 @@ package com.patriciafiona.tentangku.ui.main.weight.addUpdate
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.data.source.local.repository.WeightRepository
 

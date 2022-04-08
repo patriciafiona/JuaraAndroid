@@ -1,7 +1,6 @@
 package com.patriciafiona.tentangku.ui.main.finance
 
 import android.annotation.SuppressLint
-import android.content.ClipData
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,14 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.Utils
 import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
-import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.databinding.ItemTransactionBinding
-import com.patriciafiona.tentangku.databinding.ItemWeightBinding
 import com.patriciafiona.tentangku.helper.FinanceDiffCallback
-import com.patriciafiona.tentangku.helper.WeightDiffCallback
 import com.patriciafiona.tentangku.ui.main.finance.addUpdate.FinanceAddUpdateActivity
-import com.patriciafiona.tentangku.ui.main.weight.WeightAdapter
-import com.patriciafiona.tentangku.ui.main.weight.addUpdate.WeightAddUpdateActivity
 
 class FinanceAdapter(private val activity: FinanceActivity) : RecyclerView.Adapter<FinanceAdapter.FinanceViewHolder>() {
     private val listTransactions = ArrayList<FinanceTransaction>()

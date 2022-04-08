@@ -2,11 +2,8 @@ package com.patriciafiona.tentangku.data.source.local.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.patriciafiona.tentangku.data.source.local.dao.NoteDao
 import com.patriciafiona.tentangku.data.source.local.dao.ReminderDao
-import com.patriciafiona.tentangku.data.source.local.databases.NoteRoomDatabase
 import com.patriciafiona.tentangku.data.source.local.databases.ReminderRoomDatabase
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Reminder
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -25,6 +22,11 @@ class ReminderRepository(application: Application) {
     fun delete(reminder: Reminder) {
         executorService.execute { mReminderDao.delete(reminder) }
     }
+
+    fun deleteById(id: Int) {
+        executorService.execute { mReminderDao.deleteById(id) }
+    }
+
     fun update(reminder: Reminder) {
         executorService.execute { mReminderDao.update(reminder) }
     }

@@ -15,7 +15,6 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -24,13 +23,10 @@ import com.patriciafiona.tentangku.bottom_sheet.OnBottomSheetCallbacks
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.databinding.FragmentWeightHomeBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
-import com.patriciafiona.tentangku.ui.main.notes.NoteAdapter
 import com.patriciafiona.tentangku.ui.main.weight.WeightActivity
 import com.patriciafiona.tentangku.ui.main.weight.WeightAdapter
 import com.patriciafiona.tentangku.ui.main.weight.WeightViewModel
 import com.patriciafiona.tentangku.ui.main.weight.addUpdate.WeightAddUpdateActivity
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {

@@ -1,9 +1,7 @@
 package com.patriciafiona.tentangku.ui.main.weather
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.patriciafiona.tentangku.databinding.ActivityWeatherBinding
 
 class WeatherActivity : AppCompatActivity() {

@@ -1,7 +1,6 @@
 package com.patriciafiona.tentangku.helper
 
 import androidx.recyclerview.widget.DiffUtil
-import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Reminder
 
 class ReminderDiffCallback (private val mOldReminderList: List<Reminder>,
