@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dappled_daydream"
-    tools:context=".ui.main.notes.NotesActivity">
+    tools:context=".ui.main.reminder.ReminderActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/notes_bg"
+        android:src="@drawable/reminder_bg"
         app:layout_constraintHeight_percent=".4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         android:layout_height="0dp"
         android:background="@drawable/corner"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent=".6">
+        app:layout_constraintHeight_percent=".63">
 
         <TextView
             android:id="@+id/textView3"
@@ -46,25 +46,25 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/notes"
+            android:text="@string/current_active_reminder"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_notes"
+            android:id="@+id/rv_reminder"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_add_note"
+            app:layout_constraintBottom_toTopOf="@+id/btn_add_reminder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            tools:listitem="@layout/item_note" />
+            tools:listitem="@layout/item_reminder" />
 
         <ImageView
             android:id="@+id/no_file_img"
@@ -92,26 +92,26 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/btn_add_note"
+            app:layout_constraintBottom_toTopOf="@+id/btn_add_reminder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/no_file_img" />
 
         <Button
-            android:id="@+id/btn_add_note"
+            android:id="@+id/btn_add_reminder"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/verona_green"
-            android:text="@string/new_note"
+            android:backgroundTint="@color/studio"
+            android:text="@string/new_reminder"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".12"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_notes" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_reminder" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

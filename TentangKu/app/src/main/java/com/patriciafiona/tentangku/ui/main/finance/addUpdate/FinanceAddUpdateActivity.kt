@@ -85,7 +85,7 @@ class FinanceAddUpdateActivity : AppCompatActivity() {
 
             //Set button onclick
             val date =
-                DatePickerDialog.OnDateSetListener { view, year, month, day ->
+                DatePickerDialog.OnDateSetListener { _, year, month, day ->
                     myCalendar[Calendar.YEAR] = year
                     myCalendar[Calendar.MONTH] = month
                     myCalendar[Calendar.DAY_OF_MONTH] = day

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.finance.addUpdate.FinanceAddUpdateActivity">
+    tools:context=".ui.main.reminder.addUpdate.ReminderAddUpdateActivity">
 
     <ImageView
         android:id="@+id/imageView5"
@@ -12,8 +12,8 @@
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/finance_bg"
-        app:layout_constraintHeight_percent=".38"
+        android:src="@drawable/reminder_bg_2"
+        app:layout_constraintHeight_percent=".35"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         android:layout_marginTop="16dp"
         android:background="@null"
         android:contentDescription="@string/button_back"
-        android:src="@drawable/ic_baseline_arrow_back_black"
+        android:src="@drawable/ic_baseline_arrow_back_white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +35,7 @@
         android:layout_height="0dp"
         android:background="@drawable/corner"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent=".65">
+        app:layout_constraintHeight_percent=".7">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/add_update_finance_txt"
+                        android:id="@+id/add_update_reminder_txt"
                         style="@style/TitleText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:gravity="center"
-                        android:text="@string/add_transaction"
+                        android:text="@string/add_reminder"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -78,14 +78,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="@string/transaction_type"
+                        android:text="@string/type_of_reminder"
                         app:layout_constraintBottom_toBottomOf="@+id/edt_transaction_type"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/edt_transaction_type"
+                        app:layout_constraintTop_toTopOf="@+id/edt_reminder_type"
                         app:layout_constraintWidth_percent=".4" />
 
                     <Spinner
-                        android:id="@+id/edt_transaction_type"
+                        android:id="@+id/edt_reminder_type"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -93,7 +93,7 @@
                         android:background="@android:drawable/btn_dropdown"
                         android:spinnerMode="dropdown"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/add_update_finance_txt"
+                        app:layout_constraintTop_toBottomOf="@+id/add_update_reminder_txt"
                         app:layout_constraintWidth_percent=".5" />
 
                     <TextView
@@ -101,7 +101,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="@string/nominal"
+                        android:text="@string/time"
                         app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutTitle"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textInputLayoutTitle"
@@ -114,20 +114,24 @@
                         android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView6"
-                        app:layout_constraintTop_toBottomOf="@+id/edt_transaction_type"
+                        app:layout_constraintTop_toBottomOf="@+id/edt_reminder_type"
                         app:layout_constraintWidth_percent=".5">
 
                         <EditText
-                            android:id="@+id/edt_nominal_val"
+                            android:id="@+id/edt_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
-                            android:hint="@string/insert_nominal"
-                            android:inputType="numberDecimal" />
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/time" />
+
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/textViewDate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -148,7 +152,7 @@
                         app:layout_constraintWidth_percent=".5">
 
                         <EditText
-                            android:id="@+id/edt_transaction_date"
+                            android:id="@+id/edt_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
@@ -192,15 +196,15 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
-                        android:id="@+id/btn_add_update_transaction"
+                        android:id="@+id/btn_add_update_reminder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/green"
-                        android:text="@string/add_transaction"
+                        android:text="@string/add_reminder"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTitle2"
+                        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutDescription3"
                         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescription3" />
 
                     <Button
@@ -214,7 +218,7 @@
                         android:text="@string/delete"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTitle2"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_add_update_transaction"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_add_update_reminder"
                         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescription3" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

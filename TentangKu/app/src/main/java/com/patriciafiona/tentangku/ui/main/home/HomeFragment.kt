@@ -27,6 +27,8 @@ import com.patriciafiona.tentangku.data.source.local.entity.Menu
 import com.patriciafiona.tentangku.databinding.FragmentHomeBinding
 import com.patriciafiona.tentangku.ui.main.finance.FinanceActivity
 import com.patriciafiona.tentangku.ui.main.notes.NotesActivity
+import com.patriciafiona.tentangku.ui.main.reminder.ReminderActivity
+import com.patriciafiona.tentangku.ui.main.weather.WeatherActivity
 import com.patriciafiona.tentangku.ui.main.weight.WeightActivity
 import com.patriciafiona.tentangku.ui.signin.SignInActivity
 import java.io.IOException
@@ -94,16 +96,24 @@ class HomeFragment : Fragment() {
 
     private fun showSelectedHero(menu: Menu) {
         when(menu.name){
-            "Notes" ->{
+            "Notes" -> {
                 val intent = Intent(requireActivity(), NotesActivity::class.java)
                 startActivity(intent)
             }
-            "Body Weight" ->{
+            "Body Weight" -> {
                 val intent = Intent(requireActivity(), WeightActivity::class.java)
                 startActivity(intent)
             }
-            "Finance" ->{
+            "Finance" -> {
                 val intent = Intent(requireActivity(), FinanceActivity::class.java)
+                startActivity(intent)
+            }
+            "Reminder" -> {
+                val intent = Intent(requireActivity(), ReminderActivity::class.java)
+                startActivity(intent)
+            }
+            "Weather" -> {
+                val intent = Intent(requireActivity(), WeatherActivity::class.java)
                 startActivity(intent)
             }
         }
