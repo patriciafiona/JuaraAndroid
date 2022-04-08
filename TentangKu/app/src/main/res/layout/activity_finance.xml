@@ -56,19 +56,43 @@
 
     <TextView
         android:id="@+id/current_total_transaction"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:text="@string/number_txt"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/scrollView3"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintWidth_percent=".3" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/total_transaction_in_month"
+        android:textColor="@color/cotton_candy"
+        app:layout_constraintStart_toEndOf="@+id/current_total_transaction"
+        app:layout_constraintTop_toBottomOf="@+id/current_total_balance" />
+
+    <TextView
+        android:id="@+id/current_total_transaction_in_month"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/number_txt"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:layout_constraintWidth_percent=".3" />
 
     <ScrollView
         android:id="@+id/scrollView3"
@@ -92,7 +116,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/summaries"
+                android:text="@string/summaries_this_month"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -221,14 +245,12 @@
                 android:id="@+id/btn_add_transaction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/chathams_blue"
                 android:drawableRight="@drawable/ic_baseline_arrow_forward_white"
                 android:text="@string/add_new_transaction"
                 android:textSize="10sp"
-                android:backgroundTint="@color/chathams_blue"
-                app:layout_constraintBottom_toTopOf="@+id/rv_income_outcome"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView3"
                 tools:ignore="SmallSp" />
@@ -238,15 +260,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent=".7"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13"
-                tools:listitem="@layout/item_note" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_transaction"
+                tools:listitem="@layout/item_transaction" />
 
             <ImageView
                 android:id="@+id/no_file_img"
@@ -258,7 +280,6 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/no_files"
                 android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/no_file_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView13"
@@ -268,16 +289,16 @@
                 android:id="@+id/no_file_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="100dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:text="@string/no_files"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/no_file_img" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

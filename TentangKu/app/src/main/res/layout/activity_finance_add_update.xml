@@ -160,8 +160,39 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/description"
+                        app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutDescription3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textInputLayoutDescription3"
+                        app:layout_constraintWidth_percent=".4" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayoutDescription3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView8"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTitle2"
+                        app:layout_constraintWidth_percent=".5">
+
+                        <EditText
+                            android:id="@+id/edt_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:hint="@string/description"
+                            android:inputType="text|textMultiLine"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <Button
-                        android:id="@+id/btn_add_update_weight"
+                        android:id="@+id/btn_add_update_transaction"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -170,7 +201,7 @@
                         android:text="@string/add_transaction"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTitle2"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTitle2" />
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescription3" />
 
                     <Button
                         android:id="@+id/btn_delete"
@@ -183,8 +214,8 @@
                         android:text="@string/delete"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTitle2"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_add_update_weight"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTitle2" />
+                        app:layout_constraintEnd_toStartOf="@+id/btn_add_update_transaction"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescription3" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

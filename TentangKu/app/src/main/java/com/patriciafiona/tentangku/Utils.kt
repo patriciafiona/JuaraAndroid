@@ -1,8 +1,11 @@
 package com.patriciafiona.tentangku
 
 import android.annotation.SuppressLint
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 object Utils {
     @SuppressLint("SimpleDateFormat")
@@ -20,5 +23,14 @@ object Utils {
             }
         }
         return "-"
+    }
+
+    fun setRupiahFormat(nominal: Double): String{
+        val formatter: NumberFormat = DecimalFormat("#,###")
+        return if (nominal >= 0){
+            "Rp.${formatter.format(nominal)}"
+        }else{
+            "- Rp.${formatter.format(Math.abs(nominal))}"
+        }
     }
 }
