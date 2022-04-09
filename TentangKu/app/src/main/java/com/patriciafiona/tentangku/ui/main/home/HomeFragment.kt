@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     private lateinit var rvMenu: RecyclerView
     private val list = ArrayList<Menu>()
 
-    lateinit var valueList: ArrayList<Double>
+    private var valueList= ArrayList<Double>()
     private var thisMonthIncome: Double = 0.0
     private var thisMonthOutcome: Double = 0.0
 
@@ -58,11 +58,6 @@ class HomeFragment : Fragment() {
     @SuppressLint("SimpleDateFormat")
     private fun init(){
         list.clear()
-        resetChart()
-        valueList = ArrayList<Double>()
-        thisMonthIncome = 0.0
-        thisMonthOutcome = 0.0
-
         with(binding){
             val user = Firebase.auth.currentUser
             if (user != null) {
@@ -81,6 +76,11 @@ class HomeFragment : Fragment() {
 
             val financeViewModel = obtainFinanceViewModel(requireActivity() as AppCompatActivity)
             financeViewModel.getAllTransaction().observe(requireActivity()) { transactionList ->
+                resetChart()
+                valueList.clear()
+                thisMonthIncome = 0.0
+                thisMonthOutcome = 0.0
+
                 if (transactionList != null  && transactionList.isNotEmpty()) {
                     chartDetail.isVisible = true
 
@@ -133,23 +133,29 @@ class HomeFragment : Fragment() {
                     )
                     val data = BarData(barDataSet)
 
+                    if (entries.isEmpty()){
+                        financeBalanceChart.clear()
+                        financeBalanceChart.data.clearValues()
+                    }else {
+                        financeBalanceChart.data = data
+                    }
+
                     data.notifyDataChanged()
                     data.setValueTextSize(10f)
-                    financeBalanceChart.data = data
                     financeBalanceChart.notifyDataSetChanged()
                     financeBalanceChart.invalidate()
 
-                    // to draw label on xAxis
-                    val listX = arrayListOf<String>("Income", "Outcome")
-                    val formatter: ValueFormatter = object : ValueFormatter() {
-                        override fun getAxisLabel(value: Float, axis: AxisBase): String {
-                            return if(value.toInt() >= 0 && value.toInt() < valueList.size){
-                                listX[value.toInt()]
-                            }else{
-                                " "
-                            }
-                        }
-                    }
+                    //init bar chart
+                    val listX = arrayListOf("Income", "Outcome")
+//                    val formatter: ValueFormatter = object : ValueFormatter() {
+//                        override fun getAxisLabel(value: Float, axis: AxisBase): String {
+//                            return if(value.toInt() >= 0 && value.toInt() < valueList.size){
+//                                listX[value.toInt()]
+//                            }else{
+//                                " "
+//                            }
+//                        }
+//                    }
 
                     //remove legend
                     financeBalanceChart.legend.isEnabled = false
@@ -162,7 +168,7 @@ class HomeFragment : Fragment() {
 
                     val xAxis: XAxis = financeBalanceChart.xAxis
                     xAxis.position = XAxis.XAxisPosition.BOTTOM
-                    xAxis.valueFormatter = formatter
+                    //xAxis.valueFormatter = formatter
                     xAxis.setDrawLabels(true)
                     xAxis.granularity = 1f
                     xAxis.textSize = 12f
