@@ -92,6 +92,15 @@
     <string name="pressure_text">30hPa</string>
     <string name="powered_by_openweathermap_org">Powered by openweathermap.org</string>
     <string name="last_update">Last update</string>
+    <string name="current_location">Current Location</string>
+    <string name="my_finance">My Finance</string>
+    <string name="about_details">This is the apps for #JuaraAndroid2022 projects.
+        I tried to develop the apps that can be used for add some notes, create reminder,
+        save the weight history, finance history, and see the current weather.
+        I hope this apps can inspire other developers to continue or improve this app idea.
+    </string>
+    <string name="copyright_txt">Patricia Fiona © 2022</string>
+    <string name="this_is_your_finance_summary_in_this_month">This is your finance summary in this month.</string>
 
     <string-array name="menu_name">
         <item>Body Weight</item>

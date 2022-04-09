@@ -6,15 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.patriciafiona.tentangku.Utils
 import com.patriciafiona.tentangku.data.source.local.entity.Reminder
 import com.patriciafiona.tentangku.databinding.ActivityReminderBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
-import com.patriciafiona.tentangku.ui.main.finance.FinanceAdapter
-import com.patriciafiona.tentangku.ui.main.finance.FinanceViewModel
 import com.patriciafiona.tentangku.ui.main.reminder.addUpdate.ReminderAddUpdateActivity
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ReminderActivity : AppCompatActivity() {
 

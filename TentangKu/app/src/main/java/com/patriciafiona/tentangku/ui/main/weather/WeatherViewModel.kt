@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.patriciafiona.tentangku.BuildConfig
 import com.patriciafiona.tentangku.data.source.remote.ApiConfig
-import com.patriciafiona.tentangku.data.source.remote.entity.Weather
 import com.patriciafiona.tentangku.data.source.remote.responses.WeatherResponse
 import retrofit2.Call
 import retrofit2.Callback

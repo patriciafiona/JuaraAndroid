@@ -80,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/add_new_weight"
+                android:backgroundTint="@color/eunry"
                 app:layout_constraintEnd_toEndOf="@+id/weight_progress_chart"
                 app:layout_constraintTop_toBottomOf="@+id/weight_progress_chart" />
 

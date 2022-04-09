@@ -1,8 +1,5 @@
 package com.patriciafiona.tentangku.data.source.remote.entity
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
 data class Weather(
     val visibility: Int? = null,
     val timezone: Int? = null,

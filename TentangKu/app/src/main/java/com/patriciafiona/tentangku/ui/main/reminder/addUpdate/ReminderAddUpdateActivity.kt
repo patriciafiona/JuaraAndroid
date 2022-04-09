@@ -14,11 +14,9 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.Utils
-import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
 import com.patriciafiona.tentangku.data.source.local.entity.Reminder
 import com.patriciafiona.tentangku.databinding.ActivityReminderAddUpdateBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
-import com.patriciafiona.tentangku.ui.main.finance.addUpdate.FinanceAddUpdateActivity
 import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateActivity
 import com.patriciafiona.tentangku.ui.main.reminder.AlarmReceiver
 import java.text.SimpleDateFormat

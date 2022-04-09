@@ -1,6 +1,5 @@
 package com.patriciafiona.tentangku.ui.main.reminder
 
-import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
