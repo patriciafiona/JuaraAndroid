@@ -33,4 +33,15 @@ object Utils {
             "- Rp.${formatter.format(Math.abs(nominal))}"
         }
     }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getDateFromTimemillis(milliSeconds: Long, dateFormat: String?): String? {
+        // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat(dateFormat)
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = milliSeconds
+        return formatter.format(calendar.time)
+    }
 }

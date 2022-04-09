@@ -14,6 +14,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="TextShadow">
+        <item name="android:shadowColor">@color/text_shadow</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">10</item>
+    </style>
+
     <style name="MainActivityDrawerLayoutBg" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>

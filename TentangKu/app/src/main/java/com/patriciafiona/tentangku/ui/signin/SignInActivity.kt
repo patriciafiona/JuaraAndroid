@@ -18,7 +18,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.Utils
-import com.patriciafiona.tentangku.data.source.remote.entity.User
+import com.patriciafiona.tentangku.data.source.remote.responses.UserResponse
 import com.patriciafiona.tentangku.databinding.ActivitySignInBinding
 import com.patriciafiona.tentangku.ui.main.MainActivity
 import java.util.*
@@ -132,7 +132,7 @@ class SignInActivity : AppCompatActivity() {
         val userEmail = user.email
 
         if (!userName.isNullOrEmpty() && !userEmail.isNullOrEmpty()) {
-            val userData = User(
+            val userData = UserResponse(
                 userName,
                 userEmail,
                 Utils.getCurrentDate("datetime")
