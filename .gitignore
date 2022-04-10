@@ -31,3 +31,8 @@ google-services.json
 
 # apikey.properties
 apikey.properties
+
+# Video & GIF
+*.mp4
+*.mov
+*.gif
