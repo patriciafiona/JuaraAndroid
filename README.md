@@ -13,13 +13,13 @@
 ```diff
 Type                  : Juara Android 2022 Challenges
 
-Information           : Project results for #JuaraAndroid2022 based on the Google Developers Codelab
+Information           : Project results for #JuaraAndroid2022 based on the Google Developers Codelabs
 
 Platform              : Android - [Android](https://www.android.com/)
 
 Programming Language  : [Kotlin](https://kotlinlang.org/)
 
-Data source           : Google Developers platform
+Data source           : Google Developers platform!
 ```
 
 ## Learn Android Now!
@@ -27,9 +27,39 @@ You can learn Android with Kotlin by accessing this [link](https://developer.and
 
 More about Android courses, visit this [link](https://developer.android.com/courses) now!
 
-
 ## My Android Project Idea & Result
-[Coming Soon]
+
+[Video Coming Soon]
+
+Welcome to Tentang-Ku App. This is the result of my #JuaraAndroid2022 project. I developed simple one stop solution app that can solve what I need in one apps without opening or download another apps. In current version (v01.01), I added 5 functions, there are: <b>Notes</b>, <b>Weight Tracker</b>, <b>My Finance</b>, <b>Reminder</b>, and <b>Weather</b>.
+
+<b>About this project:</b>
+```diff
+App Name              : Tentang-Ku
+
+Developer             : [Personal] Patricia Fiona
+
+Information           : Project results for #JuaraAndroid2022.
+
+Platform              : Android - [Android](https://www.android.com/)
+
+Programming Language  : [Kotlin](https://kotlinlang.org/)
+
+Main Components       : Retrofit, Firebase, and Android Jetpack Libraries (https://developer.android.com/jetpack/androidx/explorer?case=all), exp: constraintLayout, binding, navigation, Room database, and many more.
+
+Open API              : openweather.org (https://openweathermap.org/current)
+
+Version               : V01.01
+```
+
+For the preview of each function, please see the details bellow:
+| Function      | Result Preview  | Function      | Result Preview  |
+| :-: | :-: | :-: | :-: | 
+| Sign In & Location Permission | <img src="https://user-images.githubusercontent.com/32255348/162610517-c872bd04-8e97-493e-a28f-424859f49bf3.gif" width="200"/> | About Page | <img src="https://user-images.githubusercontent.com/32255348/162610606-4fa0c380-b131-4bc0-81f9-52f65ee6f37d.gif" width="200"/> |
+| Notes | <img src="https://user-images.githubusercontent.com/32255348/162610649-d53b80e6-a37a-478f-a82c-4234b58b84d7.gif" width="200"/> | Weight Tracker | <img src="https://user-images.githubusercontent.com/32255348/162610676-6e54cad5-8a0f-4fdd-beb5-5c44a21c5337.gif" width="200"/> |
+| My Finance | <img src="https://user-images.githubusercontent.com/32255348/162617582-8573e46b-321e-4f31-8140-9c11a891bde5.gif" width="200"/> | Weather | <img src="https://user-images.githubusercontent.com/32255348/162610862-ba329ba1-2bce-4fdd-82a4-27388ef01fdc.gif" width="200"/> |
+| Reminder - One time | <img src="https://user-images.githubusercontent.com/32255348/162610990-9222ddc8-dcdb-4216-8a31-3a47f7927f2b.gif" width="200"/> | Reminder - Daily | <img src="https://user-images.githubusercontent.com/32255348/162610733-18c8be2a-ea53-40e7-a379-e36c378ece8c.gif" width="200"/> |
+
 
 ## My Codelab Project Results
 The list of the projects:
