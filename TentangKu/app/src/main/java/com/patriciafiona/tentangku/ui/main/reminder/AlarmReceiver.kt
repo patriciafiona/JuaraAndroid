@@ -150,7 +150,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_IMMUTABLE)
         pendingIntent.cancel()
         alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, "Repeating alarm canceled.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "This alarm canceled.", Toast.LENGTH_SHORT).show()
     }
 
 }

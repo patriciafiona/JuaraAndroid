@@ -66,18 +66,18 @@ class ReminderAdapter(private val activity: ReminderActivity) : RecyclerView.Ada
                     }
 
                     if (isChecked){
+                        // turn on again
+                        alarmReceiver.setRepeatingAlarm(activity, AlarmReceiver.TYPE_REPEATING,
+                            data.time.toString(),
+                            data.description.toString(),
+                            data.id)
+                    } else {
                         // turn of reminder
                         reminder?.let {
                             alarmReceiver.cancelAlarm(
                                 activity,
                                 it.id)
                         }
-                    } else {
-                        // turn on again
-                        alarmReceiver.setRepeatingAlarm(activity, AlarmReceiver.TYPE_REPEATING,
-                            data.time.toString(),
-                            data.description.toString(),
-                            data.id)
                     }
                 }
 
