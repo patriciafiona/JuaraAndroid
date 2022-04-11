@@ -28,8 +28,7 @@ You can learn Android with Kotlin by accessing this [link](https://developer.and
 More about Android courses, visit this [link](https://developer.android.com/courses) now!
 
 ## My Android Project Idea & Result
-
-[Video Coming Soon]
+[![Watch the video](https://user-images.githubusercontent.com/32255348/162662520-b6a782f1-2173-405c-8a91-30a721ad034f.png)](https://youtu.be/Sdztak9FDVo)
 
 Welcome to Tentang-Ku App. This is the result of my #JuaraAndroid2022 project. I developed simple one stop solution app that can solve what I need in one apps without opening or download another apps. In current version (v01.01), I added 5 functions, there are: <b>Notes</b>, <b>Weight Tracker</b>, <b>My Finance</b>, <b>Reminder</b>, and <b>Weather</b>.
 
