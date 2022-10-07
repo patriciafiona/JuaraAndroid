@@ -34,7 +34,7 @@ More about Android courses, visit this [link](https://developer.android.com/cour
 
 If you are curious about learning UI development with Jetpack Compose, Google have two pathways that you can try! Complete [Compose Camp for beginners](https://developer.android.com/courses/android-basics-compose/course) and [Compose Camp for Expert](https://developer.android.com/courses/jetpack-compose/course). 
 
-Also, now we have another platform to discuss about #JuaraAndroid in Google Developer Communitiy Indonesia! Wanna join us? Join the [Discord](https://discord.com/invite/zM6V4REz) group now!
+Also, now we have another platform to discuss about #JuaraAndroid in Google Developer Community Indonesia! Wanna join us? Join the [Discord](https://discord.com/invite/zM6V4REz) group now!
 
 ## Table of Contents
 | Season      | Details  | Periode  | Poster  | Project Link |
