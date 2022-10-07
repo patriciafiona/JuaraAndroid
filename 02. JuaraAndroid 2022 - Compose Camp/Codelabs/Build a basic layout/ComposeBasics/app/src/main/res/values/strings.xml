@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Compose Basics</string>
+
+    <string name="main_opening">
+        Congratulations! You built your first app and acquired knowledge of the basics of Jetpack Compose. Now you\'re
+        ready to put what you learned into practice.\n\nLet\'s see how I solve the challenges in this codelab! For see the results please select one of these buttons:
+    </string>
+
+    <string name="article_paragraph_01">
+        Jetpack Compose is a modern toolkit for building native Android UI.
+        Compose simplifies and accelerates UI development on Android with less code, powerful tools, and intuitive Kotlin APIs.
+    </string>
+    <string name="article_paragraph_02">
+        In this tutorial, you build a simple UI component with declarative functions.
+        You call Compose functions to say what elements you want and the Compose compiler does the rest.
+        Compose is built around Composable functions. These functions let you define your app\'s UI programmatically
+        because they let you describe how it should look and provide data dependencies, rather than focus on the process of
+        the UI\'s construction, such as initializing an element and then attaching it to a parent. To create a Composable function,
+        you add the @Composable annotation to the function name.
+    </string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_task_manager">TaskManager</string>
+    <string name="title_activity_compose_quardant">ComposeQuardant</string>
+</resources>
