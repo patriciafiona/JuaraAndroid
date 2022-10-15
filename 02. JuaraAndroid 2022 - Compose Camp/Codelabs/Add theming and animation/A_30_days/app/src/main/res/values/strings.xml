@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">30 Days of Recipes</string>
+    <string name="expand_button_content_description">See more or less information about a the recipe.</string>
+</resources>
