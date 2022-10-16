@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">My City</string>
+    <string name="tab_museum">Museum</string>
+    <string name="tab_shopping_center">Shopping Center</string>
+    <string name="navigation_drawer">Navigation Drawer</string>
+    <string name="navigation_rail">Navigation Rail</string>
+    <string name="navigation_bottom">Navigation Bottom</string>
+    <string name="navigation_back">Back</string>
+    <string name="details_screen">Detail Screen</string>
+    <string name="profile">Profile</string>
+    <string name="logo">Jaki</string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+</resources>
