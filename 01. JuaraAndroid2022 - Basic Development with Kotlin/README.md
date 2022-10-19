@@ -1,4 +1,4 @@
-# JuaraAndroid2022
+# JuaraAndroid2022 - Season 01
 
 <p align="center">
   <img src="https://pbs.twimg.com/media/FOH_fvmacAIp_TO.jpg"/>
