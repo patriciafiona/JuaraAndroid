@@ -1,7 +1,7 @@
 # JuaraAndroid2022 - Season 02
 
 <p align="center">
-  <img src="https://media-exp1.licdn.com/dms/image/C5622AQGxTzpq9OdcFw/feedshare-shrink_480/0/1665038985847?e=1668038400&v=beta&t=Sdu8O91dubFzyFLjkYPyu6zKjtk8XZ14wZmosPVj3mY"/>
+  <img src="https://pbs.twimg.com/media/Fe9lYvuacAIcK5D.jpg" width="550"/>
 </p>
 
 ## Information
