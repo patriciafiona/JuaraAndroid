@@ -127,4 +127,6 @@
         <item>One time</item>
         <item>Daily</item>
     </string-array>
+    <string name="title_tentangku_app">TentakuApp</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
 </resources>

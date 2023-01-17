@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.patriciafiona.tentangku.databinding.ActivitySplashBinding
+import com.patriciafiona.tentangku.ui.main.TentangKuApp
 import com.patriciafiona.tentangku.ui.signin.SignInActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -17,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Handler(mainLooper).postDelayed({
-            val intent = Intent(this@SplashActivity, SignInActivity::class.java)
+            val intent = Intent(this@SplashActivity, TentangKuApp::class.java)
             startActivity(intent)
             finish()
         },2000)
