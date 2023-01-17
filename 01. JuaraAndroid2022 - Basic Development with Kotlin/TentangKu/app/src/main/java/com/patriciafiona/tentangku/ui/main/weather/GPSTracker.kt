@@ -197,9 +197,11 @@ class GPSTracker(private val mContext: AppCompatActivity) : Service(), LocationL
     </Address> */
     fun getGeocoderAddress(context: Context?): List<Address>? {
         if (location != null) {
-            val geocoder = Geocoder(context, Locale.ENGLISH)
+            val geocoder = context?.let { Geocoder(it, Locale.ENGLISH) }
             try {
-                return geocoder.getFromLocation(latitude, longitude, geocoderMaxResults)
+                if (geocoder != null) {
+                    return geocoder.getFromLocation(latitude, longitude, geocoderMaxResults)
+                }
             } catch (e: IOException) {
                 //e.printStackTrace();
                 Log.e(TAG, "Impossible to connect to Geocoder", e)
