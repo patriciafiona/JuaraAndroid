@@ -17,9 +17,15 @@
         android:theme="@style/Theme.TentangKu">
         <activity
             android:name=".ui.main.TentangKuApp"
-            android:exported="false"
             android:label="@string/title_tentangku_app"
-            android:theme="@style/Theme.TentangKu" />
+            android:theme="@style/Theme.TentangKu"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".ui.main.reminder.AlarmReceiver"
@@ -56,15 +62,6 @@
         <activity
             android:name=".ui.main.about.AboutActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.splash.SplashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".ui.signin.SignInActivity"
             android:exported="true" />
