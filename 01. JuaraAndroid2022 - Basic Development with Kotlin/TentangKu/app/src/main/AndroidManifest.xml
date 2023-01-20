@@ -63,9 +63,6 @@
             android:name=".ui.main.about.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.signin.SignInActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.main.MainActivity"
             android:exported="true" />
 

@@ -4,13 +4,19 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberUpdatedState
@@ -26,6 +32,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat.startActivityForResult
@@ -34,11 +42,14 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -67,6 +78,26 @@ fun SignInScreen (navController: NavController) {
     val activity = LocalContext.current as Activity
 
     onLifecycle(activity = activity, navController)
+
+    val startForResult =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+                if (result.data != null) {
+                    val task: Task<GoogleSignInAccount> =
+                        GoogleSignIn.getSignedInAccountFromIntent(intent)
+                    try {
+                        // Google Sign In was successful, authenticate with Firebase
+                        val account = task.getResult(ApiException::class.java)!!
+                        Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+                        firebaseAuthWithGoogle(account.idToken!!, activity = activity, navController = navController)
+                    } catch (e: ApiException) {
+                        // Google Sign In failed, update UI appropriately
+                        Log.w(TAG, "Google sign in failed", e)
+                    }
+                }
+            }
+        }
 
     Column(
         modifier = Modifier
@@ -98,10 +129,9 @@ fun SignInScreen (navController: NavController) {
         Button(
             modifier = Modifier
                 .height(50.dp)
-                .fillMaxWidth(.6f),
+                .fillMaxWidth(.7f),
             onClick = {
-                val signInIntent = googleSignInClient.signInIntent
-                startActivityForResult(activity, signInIntent, RC_SIGN_IN, null)
+                startForResult.launch(googleSignInClient.signInIntent)
             },
             colors = ButtonDefaults.buttonColors(backgroundColor = DimGray)
         ) {
@@ -221,5 +251,18 @@ private fun updateUI(user: FirebaseUser?, navController: NavController) {
         navController.navigate(TentangkuScreen.MainScreen.route)
     }else{
         Log.e("Status", "Null User Data")
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview(device = Devices.PIXEL_2_XL, showBackground = true)
+@Preview(device = Devices.PIXEL_4, showBackground = true)
+@Composable
+fun SignInScreenPreview() {
+    val navController = rememberNavController()
+
+    Scaffold() {
+        SignInScreen(navController)
     }
 }
