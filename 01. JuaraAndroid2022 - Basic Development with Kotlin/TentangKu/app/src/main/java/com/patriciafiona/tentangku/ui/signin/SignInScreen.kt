@@ -248,21 +248,8 @@ private fun updateUI(user: FirebaseUser?, navController: NavController) {
         Log.e("Status", "Updating UI")
 
         //Go to Main Screen
-        navController.navigate(TentangkuScreen.MainScreen.route)
+        navController.navigate(TentangkuScreen.HomeScreen.route)
     }else{
         Log.e("Status", "Null User Data")
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview(device = Devices.PIXEL_2_XL, showBackground = true)
-@Preview(device = Devices.PIXEL_4, showBackground = true)
-@Composable
-fun SignInScreenPreview() {
-    val navController = rememberNavController()
-
-    Scaffold() {
-        SignInScreen(navController)
     }
 }
