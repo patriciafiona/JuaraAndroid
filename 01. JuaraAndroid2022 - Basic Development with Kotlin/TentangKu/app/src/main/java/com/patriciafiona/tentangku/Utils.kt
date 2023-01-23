@@ -1,6 +1,7 @@
 package com.patriciafiona.tentangku
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -43,5 +44,33 @@ object Utils {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = milliSeconds
         return formatter.format(calendar.time)
+    }
+
+
+    fun getTimeGreetingStatus() : String {
+        val c = Calendar.getInstance()
+
+        when (c[Calendar.HOUR_OF_DAY]) {
+            in 0..11 -> {
+                return "Good Morning"
+            }
+            in 12..15 -> {
+                return "Good Afternoon"
+            }
+            in 16..20 -> {
+                return "Good Evening"
+            }
+            in 21..23 -> {
+                return "Good Night"
+            }
+        }
+
+        return "Unknown time"
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getCurrentTime(): String {
+        val sdf = SimpleDateFormat("HH:mm z")
+        return sdf.format(Date())
     }
 }

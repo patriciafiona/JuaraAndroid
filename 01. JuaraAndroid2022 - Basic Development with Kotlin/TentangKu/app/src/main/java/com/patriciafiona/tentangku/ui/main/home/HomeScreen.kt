@@ -2,6 +2,7 @@ package com.patriciafiona.tentangku.ui.main.home
 
 import android.Manifest
 import android.accounts.Account
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -14,16 +15,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
@@ -42,14 +40,19 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.Key.Companion.Help
 import androidx.compose.ui.input.key.Key.Companion.Home
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.startActivity
@@ -63,19 +66,30 @@ import coil.request.ImageRequest
 import com.github.mikephil.charting.charts.BarChart
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.internal.service.Common
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
+import com.patriciafiona.tentangku.Utils.getCurrentTime
+import com.patriciafiona.tentangku.Utils.getTimeGreetingStatus
 import com.patriciafiona.tentangku.data.source.local.entity.Menu
 import com.patriciafiona.tentangku.helper.PermissionAction
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
+import com.patriciafiona.tentangku.ui.main.ui.theme.Sepia
 import com.patriciafiona.tentangku.ui.main.ui.theme.WhiteSmoke
 import kotlinx.coroutines.launch
 
 private lateinit var mAuth: FirebaseAuth
+@SuppressLint("StaticFieldLeak")
+private lateinit var googleSignInClient: GoogleSignInClient
+
+@SuppressLint("StaticFieldLeak")
 private var fusedLocationProvider: FusedLocationProviderClient? = null
 private val locationRequest: LocationRequest = LocationRequest.create().apply {
     interval = 30
@@ -84,15 +98,27 @@ private val locationRequest: LocationRequest = LocationRequest.create().apply {
     maxWaitTime = 60
 }
 
+private var valueList= java.util.ArrayList<Double>()
+private var thisMonthIncome: Double = 0.0
+private var thisMonthOutcome: Double = 0.0
+private lateinit var userFirebase: FirebaseUser
+
 @OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(navController: NavController){
     val context = LocalContext.current
 
+    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestIdToken(context.getString(R.string.default_web_client_id))
+        .requestEmail()
+        .build()
+
+    googleSignInClient = GoogleSignIn.getClient(context, gso)
+
     val locationPermissionsState = rememberMultiplePermissionsState(
         listOf(
-            android.Manifest.permission.ACCESS_COARSE_LOCATION,
-            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
         )
     )
 
@@ -116,15 +142,6 @@ fun HomeScreen(navController: NavController){
         listMenu.add(menu)
     }
 
-    //Drawer state
-    val drawerState = rememberDrawerState(DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-    val openDrawer = {
-        scope.launch {
-            drawerState.open()
-        }
-    }
-
     var locationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val locationList = locationResult.locations
@@ -143,16 +160,14 @@ fun HomeScreen(navController: NavController){
 
     fusedLocationProvider = LocationServices.getFusedLocationProviderClient(context)
     //Check location permission
+    //NOT YET
 
     val user = Firebase.auth.currentUser
     if (user != null) {
         // User is signed in
         mAuth = FirebaseAuth.getInstance()
-    } else {
-        // No user is signed in
-        navController.navigate(TentangkuScreen.SignInScreen.route)
+        userFirebase = Firebase.auth.currentUser!!
     }
-
 
     //View Section
     if (locationPermissionsState.allPermissionsGranted) {
@@ -184,7 +199,7 @@ fun HomeScreen(navController: NavController){
             },
             drawerGesturesEnabled = true,
             drawerContent = {
-                DrawerContent()
+                DrawerContent(navController)
             },
             drawerBackgroundColor = Color.White
         ) {
@@ -216,6 +231,84 @@ fun HomeScreen(navController: NavController){
                                 contentDescription = "Wave",
                                 contentScale = ContentScale.Crop
                             )
+                        }
+
+                        Box (
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(bottom = 160.dp, start = 20.dp, end = 20.dp),
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                 horizontalArrangement = Arrangement.Center
+                            ) {
+                                Card(
+                                    modifier = Modifier
+                                        .weight(1.3f),
+                                    elevation = 5.dp,
+                                ) {
+                                    Column (
+                                        modifier = Modifier
+                                            .padding(8.dp),
+                                    ) {
+                                        Text(
+                                            getTimeGreetingStatus(),
+                                            style = TextStyle(
+                                                color = Sepia,
+                                                fontSize = 14.sp
+                                            )
+                                        )
+                                        if (user != null) {
+                                            user.displayName?.let { it1 ->
+                                                Text(
+                                                    it1,
+                                                    style = TextStyle(
+                                                        color = Sepia,
+                                                        fontSize = 18.sp,
+                                                        fontWeight = FontWeight.Bold
+                                                    ),
+                                                    maxLines = 1,
+                                                    overflow = TextOverflow.Ellipsis
+                                                )
+                                            }
+                                        }else{
+                                            Text(
+                                                "Unknown username",
+                                                style = TextStyle(
+                                                    color = Sepia,
+                                                    fontSize = 18.sp,
+                                                    fontWeight = FontWeight.Bold,
+                                                ),
+                                                maxLines = 1,
+                                                overflow = TextOverflow.Ellipsis
+                                            )
+                                        }
+                                    }
+                                }
+
+                                Spacer(modifier = Modifier.width(8.dp))
+
+                                Card(
+                                    modifier = Modifier
+                                        .weight(.7f),
+                                    elevation = 5.dp
+                                ) {
+                                    Column (
+                                        modifier = Modifier
+                                            .padding(8.dp),
+                                    ) {
+                                        Text(
+                                            getCurrentTime(),
+                                            style = TextStyle(
+                                                color = Sepia,
+                                                fontSize = 20.sp,
+                                                textAlign = TextAlign.Center
+                                            ),
+                                            maxLines = 1,
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -270,7 +363,11 @@ fun HomeScreen(navController: NavController){
                                         Spacer(modifier = Modifier.height(10.dp))
                                         Text(
                                             text = menu.name,
-                                            style = androidx.compose.material3.MaterialTheme.typography.titleSmall,
+                                            style = TextStyle(
+                                                color = Color.Black,
+                                                fontSize = 12.sp,
+                                                fontWeight = FontWeight.Bold
+                                            ),
                                             textAlign = TextAlign.Center
                                         )
                                     }
@@ -285,7 +382,9 @@ fun HomeScreen(navController: NavController){
                                 text = stringResource(id = R.string.my_finance),
                                 style = androidx.compose.material3.MaterialTheme.typography.titleLarge,
                             )
-                            IconButton(onClick = { /*TODO*/ }) {
+                            IconButton(onClick = {
+                                navController.navigate(TentangkuScreen.FinanceScreen.route)
+                            }) {
                                 Icon(
                                     imageVector = Icons.Default.ArrowForwardIos,
                                     contentDescription = "My Finance button"
@@ -294,6 +393,7 @@ fun HomeScreen(navController: NavController){
                         }
 
                         AndroidView(
+                            modifier = Modifier.fillMaxWidth(),
                             factory = { context ->
                                 val view = LayoutInflater.from(context)
                                     .inflate(R.layout.bar_chart_finance, null, false)
@@ -313,7 +413,7 @@ fun HomeScreen(navController: NavController){
                     }
                 },
                 // Defaults to BackdropScaffoldDefaults.PeekHeight
-                peekHeight = 400.dp,
+                peekHeight = (LocalConfiguration.current.screenHeightDp * 0.4).dp,
                 // Defaults to BackdropScaffoldDefaults.HeaderHeight
                 headerHeight = 60.dp,
                 // Defaults to true
@@ -380,51 +480,65 @@ private val drawerScreens = listOf(
 )
 
 @Composable
-fun DrawerContent() {
-    val user = Firebase.auth.currentUser
-
+fun DrawerContent(navController: NavController) {
     Column (
         modifier = Modifier
             .width(300.dp)
             .padding(start = 24.dp, top = 48.dp)
     ) {
-        if (user != null) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(user.photoUrl)
-                    .crossfade(true)
-                    .build(),
-                placeholder = painterResource(R.drawable.ic_person_gray),
-                contentDescription = stringResource(R.string.description),
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(150.dp)
-                    .clip(CircleShape)
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(userFirebase.photoUrl)
+                .crossfade(true)
+                .build(),
+            placeholder = painterResource(R.drawable.ic_person_gray),
+            contentDescription = stringResource(R.string.description),
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(100.dp)
+                .clip(CircleShape)
+                .border(3.dp, Color.LightGray, CircleShape)
+        )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+
+        userFirebase.displayName?.let {
+            Text(
+                text = it,
+                style = MaterialTheme.typography.h6,
+                color = Color.LightGray,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
             )
         }
-
-        if (user != null) {
-            user.displayName?.let {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.h5,
-                    color = Color.LightGray
-                )
-            }
-        }
-        if (user != null) {
-            user.email?.let {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.subtitle1,
-                )
-            }
+        userFirebase.email?.let {
+            Text(
+                text = it,
+                style = MaterialTheme.typography.subtitle1,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
 
         drawerScreens.forEach { screen ->
             Spacer(Modifier.height(24.dp))
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        if(screen.title == "About") {
+                            navController.navigate(TentangkuScreen.AboutScreen.route)
+                        }else{
+                            googleSignInClient.signOut().addOnSuccessListener {
+                                mAuth.signOut()
+
+                                //Back to Sign in Page
+                                navController.navigate(TentangkuScreen.SignInScreen.route) {
+                                    popUpTo(TentangkuScreen.SignInScreen.route) { inclusive = true }
+                                }
+                            }
+                        }
+                    }
             ) {
                 Icon(
                     imageVector = screen.icon,
