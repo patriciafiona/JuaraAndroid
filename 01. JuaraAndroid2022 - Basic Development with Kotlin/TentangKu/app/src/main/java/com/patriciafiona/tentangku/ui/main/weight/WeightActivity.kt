@@ -5,13 +5,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.bottom_sheet.OnBottomSheetCallbacks
 import com.patriciafiona.tentangku.databinding.ActivityWeightBinding
 
 class WeightActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWeightBinding
-    private var listener: OnBottomSheetCallbacks? = null
+//    private var listener: OnBottomSheetCallbacks? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +30,9 @@ class WeightActivity : AppCompatActivity() {
         }
     }
 
-    fun setOnBottomSheetCallbacks(onBottomSheetCallbacks: OnBottomSheetCallbacks) {
-        this.listener = onBottomSheetCallbacks
-    }
+//    fun setOnBottomSheetCallbacks(onBottomSheetCallbacks: OnBottomSheetCallbacks) {
+//        this.listener = onBottomSheetCallbacks
+//    }
 
     fun closeBottomSheet() {
         mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_HALF_EXPANDED
@@ -54,7 +53,7 @@ class WeightActivity : AppCompatActivity() {
                     override fun onSlide(bottomSheet: View, slideOffset: Float) {}
 
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        listener?.onStateChanged(bottomSheet, newState)
+//                        listener?.onStateChanged(bottomSheet, newState)
                     }
                 })
 

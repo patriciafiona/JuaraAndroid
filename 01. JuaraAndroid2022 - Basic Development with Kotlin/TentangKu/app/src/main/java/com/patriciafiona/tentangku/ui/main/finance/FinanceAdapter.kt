@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.Utils
+import com.patriciafiona.tentangku.utils.Utils
 import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
 import com.patriciafiona.tentangku.databinding.ItemTransactionBinding
 import com.patriciafiona.tentangku.helper.FinanceDiffCallback

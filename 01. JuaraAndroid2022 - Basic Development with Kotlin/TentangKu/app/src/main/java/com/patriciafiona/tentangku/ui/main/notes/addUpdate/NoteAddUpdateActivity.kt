@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
 import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.Utils
+import com.patriciafiona.tentangku.utils.Utils
 import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.databinding.ActivityNoteAddUpdateBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory

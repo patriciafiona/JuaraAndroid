@@ -1,7 +1,6 @@
 package com.patriciafiona.tentangku.ui.splash
 
 import android.view.animation.OvershootInterpolator
-import android.window.SplashScreen
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

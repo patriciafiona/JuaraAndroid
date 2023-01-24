@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/drawerAbout"
-        android:icon="@drawable/ic_info_gray"
-        android:title="@string/about"/>
-    <item android:id="@+id/drawerLogout"
-        android:icon="@drawable/ic_lock_gray"
-        android:title="@string/sign_out"/>
-</menu>

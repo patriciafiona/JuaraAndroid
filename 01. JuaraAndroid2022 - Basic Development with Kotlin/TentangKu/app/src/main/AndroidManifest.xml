@@ -18,6 +18,7 @@
         <activity
             android:name=".ui.main.TentangKuApp"
             android:label="@string/title_tentangku_app"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TentangKu"
             android:exported="true">
             <intent-filter>
@@ -34,9 +35,6 @@
 
         <activity
             android:name=".ui.main.reminder.addUpdate.ReminderAddUpdateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.weather.WeatherActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.reminder.ReminderActivity"
@@ -58,9 +56,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.main.notes.NotesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.about.AboutActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"

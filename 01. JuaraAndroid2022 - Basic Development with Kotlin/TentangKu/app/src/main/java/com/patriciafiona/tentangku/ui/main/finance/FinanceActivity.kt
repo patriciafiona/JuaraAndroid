@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.patriciafiona.tentangku.Utils
+import com.patriciafiona.tentangku.utils.Utils
 import com.patriciafiona.tentangku.databinding.ActivityFinanceBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
 import com.patriciafiona.tentangku.ui.main.finance.addUpdate.FinanceAddUpdateActivity

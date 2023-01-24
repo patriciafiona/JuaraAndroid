@@ -19,7 +19,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.bottom_sheet.OnBottomSheetCallbacks
+//import com.patriciafiona.tentangku.bottom_sheet.OnBottomSheetCallbacks
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.databinding.FragmentWeightHomeBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
@@ -29,7 +29,7 @@ import com.patriciafiona.tentangku.ui.main.weight.WeightViewModel
 import com.patriciafiona.tentangku.ui.main.weight.addUpdate.WeightAddUpdateActivity
 
 
-class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {
+class WeightHomeFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentWeightHomeBinding? = null
     private val binding get() = _binding as FragmentWeightHomeBinding
@@ -51,7 +51,7 @@ class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {
         val view = binding.root
 
         //set bottomSheet Callbacks
-        (activity as WeightActivity).setOnBottomSheetCallbacks(this)
+//        (activity as WeightActivity).setOnBottomSheetCallbacks(this)
         return view
     }
 
@@ -216,17 +216,17 @@ class WeightHomeFragment : BottomSheetDialogFragment(), OnBottomSheetCallbacks {
         return ViewModelProvider(activity, factory).get(WeightViewModel::class.java)
     }
 
-    override fun onStateChanged(bottomSheet: View, newState: Int) {
-        currentState = newState
-        when (newState) {
-            BottomSheetBehavior.STATE_EXPANDED -> {
-                binding.indicatorImage.setImageResource(R.drawable.ic_baseline_expand_more_eunry)
-            }
-            BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-                binding.indicatorImage.setImageResource(R.drawable.ic_baseline_expand_less_eunry)
-            }
-        }
-    }
+//    override fun onStateChanged(bottomSheet: View, newState: Int) {
+//        currentState = newState
+//        when (newState) {
+//            BottomSheetBehavior.STATE_EXPANDED -> {
+//                binding.indicatorImage.setImageResource(R.drawable.ic_baseline_expand_more_eunry)
+//            }
+//            BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+//                binding.indicatorImage.setImageResource(R.drawable.ic_baseline_expand_less_eunry)
+//            }
+//        }
+//    }
 
     override fun onResume() {
         super.onResume()

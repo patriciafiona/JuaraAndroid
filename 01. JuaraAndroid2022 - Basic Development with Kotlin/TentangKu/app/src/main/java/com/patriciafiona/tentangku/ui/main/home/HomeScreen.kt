@@ -1,20 +1,15 @@
 package com.patriciafiona.tentangku.ui.main.home
 
 import android.Manifest
-import android.accounts.Account
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.graphics.drawable.Icon
-import android.util.Log
+import android.content.pm.PackageManager
+import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.TextClock
 import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -25,20 +20,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.key.Key.Companion.Help
-import androidx.compose.ui.input.key.Key.Companion.Home
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -54,14 +41,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import coil.compose.AsyncImagePainter.State.Empty.painter
 import coil.request.ImageRequest
 import com.github.mikephil.charting.charts.BarChart
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -69,35 +53,31 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.internal.service.Common
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.Utils.getCurrentTime
-import com.patriciafiona.tentangku.Utils.getTimeGreetingStatus
+import com.patriciafiona.tentangku.utils.Utils.OnLifecycleEvent
+import com.patriciafiona.tentangku.utils.Utils.getTimeGreetingStatus
 import com.patriciafiona.tentangku.data.source.local.entity.Menu
-import com.patriciafiona.tentangku.helper.PermissionAction
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
 import com.patriciafiona.tentangku.ui.main.ui.theme.Sepia
 import com.patriciafiona.tentangku.ui.main.ui.theme.WhiteSmoke
+import com.patriciafiona.tentangku.ui.widgets.DrawerContent
+import com.patriciafiona.tentangku.ui.widgets.LocationPermission
+import com.patriciafiona.tentangku.utils.DrawerScreens
+import com.patriciafiona.tentangku.utils.BackPress
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 private lateinit var mAuth: FirebaseAuth
 @SuppressLint("StaticFieldLeak")
 private lateinit var googleSignInClient: GoogleSignInClient
 
-@SuppressLint("StaticFieldLeak")
-private var fusedLocationProvider: FusedLocationProviderClient? = null
-private val locationRequest: LocationRequest = LocationRequest.create().apply {
-    interval = 30
-    fastestInterval = 10
-    priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-    maxWaitTime = 60
-}
-
+//Finance bar
 private var valueList= java.util.ArrayList<Double>()
 private var thisMonthIncome: Double = 0.0
 private var thisMonthOutcome: Double = 0.0
@@ -108,6 +88,30 @@ private lateinit var userFirebase: FirebaseUser
 fun HomeScreen(navController: NavController){
     val context = LocalContext.current
 
+    //Back press exit attributes
+    var showToast by remember { mutableStateOf(false) }
+
+    var backPressState by remember { mutableStateOf<BackPress>(BackPress.Idle) }
+
+    if(showToast){
+        Toast.makeText(context, "Press again to exit", Toast.LENGTH_SHORT).show()
+        showToast= false
+    }
+
+
+    LaunchedEffect(key1 = backPressState) {
+        if (backPressState == BackPress.InitialTouch) {
+            delay(2000)
+            backPressState = BackPress.Idle
+        }
+    }
+
+    BackHandler(backPressState == BackPress.Idle) {
+        backPressState = BackPress.InitialTouch
+        showToast = true
+    }
+
+    //Prepare for Google Account info
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestIdToken(context.getString(R.string.default_web_client_id))
         .requestEmail()
@@ -115,6 +119,15 @@ fun HomeScreen(navController: NavController){
 
     googleSignInClient = GoogleSignIn.getClient(context, gso)
 
+    val user = Firebase.auth.currentUser
+    if (user != null) {
+        // User is signed in
+        mAuth = FirebaseAuth.getInstance()
+        userFirebase = Firebase.auth.currentUser!!
+    }
+
+
+    //Prepare for location detection
     val locationPermissionsState = rememberMultiplePermissionsState(
         listOf(
             Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -128,6 +141,7 @@ fun HomeScreen(navController: NavController){
         BackdropValue.Concealed
     )
 
+    // Home menu data preparation
     val dataName = stringArrayResource(R.array.menu_name)
     val imageRes = arrayOf(
         R.drawable.weight_icon,
@@ -140,33 +154,6 @@ fun HomeScreen(navController: NavController){
     for (i in dataName.indices) {
         val menu = Menu(dataName[i], imageRes[i])
         listMenu.add(menu)
-    }
-
-    var locationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            val locationList = locationResult.locations
-            if (locationList.isNotEmpty()) {
-                //The last location in the list is the newest
-                val location = locationList.last()
-                Toast.makeText(
-                    context,
-                    "Got Location: $location",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-            }
-        }
-    }
-
-    fusedLocationProvider = LocationServices.getFusedLocationProviderClient(context)
-    //Check location permission
-    //NOT YET
-
-    val user = Firebase.auth.currentUser
-    if (user != null) {
-        // User is signed in
-        mAuth = FirebaseAuth.getInstance()
-        userFirebase = Firebase.auth.currentUser!!
     }
 
     //View Section
@@ -199,7 +186,14 @@ fun HomeScreen(navController: NavController){
             },
             drawerGesturesEnabled = true,
             drawerContent = {
-                DrawerContent(navController)
+                DrawerContent(
+                    navController,
+                    coroutineScope,
+                    scaffoldState,
+                    mAuth = mAuth,
+                    googleSignInClient = googleSignInClient,
+                    userFirebase = userFirebase
+                )
             },
             drawerBackgroundColor = Color.White
         ) {
@@ -293,20 +287,23 @@ fun HomeScreen(navController: NavController){
                                         .weight(.7f),
                                     elevation = 5.dp
                                 ) {
-                                    Column (
-                                        modifier = Modifier
-                                            .padding(8.dp),
-                                    ) {
-                                        Text(
-                                            getCurrentTime(),
-                                            style = TextStyle(
-                                                color = Sepia,
-                                                fontSize = 20.sp,
-                                                textAlign = TextAlign.Center
-                                            ),
-                                            maxLines = 1,
-                                        )
-                                    }
+                                    AndroidView(
+                                        // on below line we are initializing our text clock.
+                                        factory = { context ->
+                                            TextClock(context).apply {
+                                                // on below line we are setting 12 hour format.
+                                                format12Hour?.let { this.format12Hour = "hh:mm a" }
+                                                // on below line we are setting time zone.
+                                                timeZone?.let { timeZone -> this.timeZone = timeZone }
+                                                // on below line we are setting text size.
+                                                textSize.let { this.textSize = 18f }
+                                                gravity.let { this.gravity = Gravity.CENTER }
+                                                setTextColor(ContextCompat.getColor(context, R.color.sepia))
+                                            }
+                                        },
+                                        // on below line we are adding padding.
+                                        modifier = Modifier.padding(5.dp),
+                                    )
                                 }
                             }
                         }
@@ -352,7 +349,32 @@ fun HomeScreen(navController: NavController){
                                     ) {
                                         Card(
                                             shape = RoundedCornerShape(10.dp),
-                                            modifier = Modifier.size(50.dp)
+                                            modifier = Modifier
+                                                .size(50.dp)
+                                                .clickable {
+                                                   when(menu.name){
+                                                       dataName[0] -> {
+                                                           // Body weight
+                                                           navController.navigate(TentangkuScreen.WeightScreen.route)
+                                                       }
+                                                       dataName[1] -> {
+                                                           //Finance
+                                                           navController.navigate(TentangkuScreen.FinanceScreen.route)
+                                                       }
+                                                       dataName[2] -> {
+                                                           //Notes
+                                                           navController.navigate(TentangkuScreen.NotesScreen.route)
+                                                       }
+                                                       dataName[3] -> {
+                                                           //Reminder
+                                                           navController.navigate(TentangkuScreen.ReminderScreen.route)
+                                                       }
+                                                       dataName[4] -> {
+                                                           //Weather
+                                                           navController.navigate(TentangkuScreen.WeatherScreen.route)
+                                                       }
+                                                   }
+                                                },
                                         ) {
                                             Image(
                                                 painter = painterResource(id = menu.icon),
@@ -382,12 +404,15 @@ fun HomeScreen(navController: NavController){
                                 text = stringResource(id = R.string.my_finance),
                                 style = androidx.compose.material3.MaterialTheme.typography.titleLarge,
                             )
-                            IconButton(onClick = {
-                                navController.navigate(TentangkuScreen.FinanceScreen.route)
-                            }) {
+                            IconButton(
+                                onClick = {
+                                    navController.navigate(TentangkuScreen.FinanceScreen.route)
+                                },
+                                modifier = Modifier.size(30.dp)
+                            ) {
                                 Icon(
                                     imageVector = Icons.Default.ArrowForwardIos,
-                                    contentDescription = "My Finance button"
+                                    contentDescription = "My Finance button",
                                 )
                             }
                         }
@@ -421,138 +446,9 @@ fun HomeScreen(navController: NavController){
             )
         }
     }else {
-        Column (
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            val allPermissionsRevoked =
-                locationPermissionsState.permissions.size ==
-                        locationPermissionsState.revokedPermissions.size
-
-            val textToShow = if (!allPermissionsRevoked) {
-                // If not all the permissions are revoked, it's because the user accepted the COARSE
-                // location permission, but not the FINE one.
-                "Yay! Thanks for letting me access your approximate location. " +
-                        "But you know what would be great? If you allow me to know where you " +
-                        "exactly are. Thank you!"
-            } else if (locationPermissionsState.shouldShowRationale) {
-                // Both location permissions have been denied
-                "Getting your exact location is important for this app. " +
-                        "Please grant us fine location. Thank you :D"
-            } else {
-                // First time the user sees this feature or the user doesn't want to be asked again
-                "This feature requires location permission"
-            }
-
-            val buttonText = if (!allPermissionsRevoked) {
-                "Allow precise location"
-            } else {
-                "Request permissions"
-            }
-
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth(.7f),
-                painter = painterResource(id = R.drawable.location_permission),
-                contentDescription = "Location permission image",
-                contentScale = ContentScale.Crop
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            Text(text = textToShow)
-            Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = { locationPermissionsState.launchMultiplePermissionRequest() }) {
-                Text(buttonText)
-            }
-        }
-    }
-}
-
-sealed class DrawerScreens(val title: String, val icon: ImageVector) {
-    object About : DrawerScreens("About", Icons.Default.Info)
-    object SignOut : DrawerScreens("Sign Out", Icons.Default.Lock)
-}
-
-private val drawerScreens = listOf(
-    DrawerScreens.About,
-    DrawerScreens.SignOut,
-)
-
-@Composable
-fun DrawerContent(navController: NavController) {
-    Column (
-        modifier = Modifier
-            .width(300.dp)
-            .padding(start = 24.dp, top = 48.dp)
-    ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(userFirebase.photoUrl)
-                .crossfade(true)
-                .build(),
-            placeholder = painterResource(R.drawable.ic_person_gray),
-            contentDescription = stringResource(R.string.description),
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(100.dp)
-                .clip(CircleShape)
-                .border(3.dp, Color.LightGray, CircleShape)
+        LocationPermission(
+            locationPermissionsState
         )
-        
-        Spacer(modifier = Modifier.height(16.dp))
-
-        userFirebase.displayName?.let {
-            Text(
-                text = it,
-                style = MaterialTheme.typography.h6,
-                color = Color.LightGray,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-        userFirebase.email?.let {
-            Text(
-                text = it,
-                style = MaterialTheme.typography.subtitle1,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-
-        drawerScreens.forEach { screen ->
-            Spacer(Modifier.height(24.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        if(screen.title == "About") {
-                            navController.navigate(TentangkuScreen.AboutScreen.route)
-                        }else{
-                            googleSignInClient.signOut().addOnSuccessListener {
-                                mAuth.signOut()
-
-                                //Back to Sign in Page
-                                navController.navigate(TentangkuScreen.SignInScreen.route) {
-                                    popUpTo(TentangkuScreen.SignInScreen.route) { inclusive = true }
-                                }
-                            }
-                        }
-                    }
-            ) {
-                Icon(
-                    imageVector = screen.icon,
-                    contentDescription = "Drawer icon",
-                    tint = Color.LightGray
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = screen.title,
-                    style = MaterialTheme.typography.body1
-                )
-            }
-        }
     }
 }
 

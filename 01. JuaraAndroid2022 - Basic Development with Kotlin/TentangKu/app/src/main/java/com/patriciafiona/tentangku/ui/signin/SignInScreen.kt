@@ -12,36 +12,26 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -57,28 +47,31 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.Utils
+import com.patriciafiona.tentangku.utils.Utils
+import com.patriciafiona.tentangku.utils.Utils.OnLifecycleEvent
 import com.patriciafiona.tentangku.data.source.remote.responses.UserResponse
-import com.patriciafiona.tentangku.databinding.ActivitySignInBinding
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
-import com.patriciafiona.tentangku.ui.main.MainActivity
-import com.patriciafiona.tentangku.ui.main.TentangKuApp
 import com.patriciafiona.tentangku.ui.main.ui.theme.*
 import com.patriciafiona.tentangku.ui.widgets.Loader
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 private lateinit var auth: FirebaseAuth
 @SuppressLint("StaticFieldLeak")
 private lateinit var googleSignInClient: GoogleSignInClient
 private lateinit var database: DatabaseReference
 private const val TAG = "GoogleSignInActivity"
-private const val RC_SIGN_IN = 9001
 
 private lateinit var startForResult: ManagedActivityResultLauncher<Intent, ActivityResult>
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen (navController: NavController) {
     val activity = LocalContext.current as Activity
-    val isLoading = remember{ mutableStateOf(false) }
+    val isLoading = remember{ mutableStateOf(true) }
+
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     startForResult = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -94,92 +87,111 @@ fun SignInScreen (navController: NavController) {
                         account.idToken!!,
                         activity = activity,
                         navController = navController,
-                        isLoading = isLoading
+                        isLoading = isLoading,
+                        scope = scope,
+                        snackbarHostState = snackbarHostState
                     )
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            "Google sign in failed"
+                        )
+                    }
+
                     Log.e(TAG, "Google sign in failed", e)
                 }
             }
         }
     }
 
-    onLifecycle(activity = activity, navController, isLoading = isLoading)
+    OnLifecycle(
+        activity = activity,
+        navController,
+        isLoading = isLoading,
+        scope = scope,
+        snackbarHostState = snackbarHostState
+    )
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Beeswax),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) {
-        if(isLoading.value){
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.DarkGray.copy(alpha = .8f))
-            ){
-                Loader(
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .fillMaxSize()
+                .background(Beeswax),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if(isLoading.value){
+                Box(
                     modifier = Modifier
                         .fillMaxSize()
-                )
-            }
-        }else {
-            Image(
-                painter = painterResource(id = R.drawable.signin_bg),
-                contentScale = ContentScale.Crop,
-                contentDescription = "Sign In Image"
-            )
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Text(
-                text = "Sign in",
-                style = TextStyle(
-                    color = Sepia,
-                    fontSize = 30.sp,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold
-                )
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                modifier = Modifier
-                    .height(50.dp)
-                    .fillMaxWidth(.7f),
-                onClick = {
-                    isLoading.value = true
-                    startForResult.launch(googleSignInClient.signInIntent)
-                },
-                colors = ButtonDefaults.buttonColors(backgroundColor = DimGray)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Box(
+                        .background(Color.DarkGray.copy(alpha = .8f))
+                ){
+                    Loader(
                         modifier = Modifier
-                            .size(20.dp)
+                            .fillMaxSize()
+                    )
+                }
+            }else {
+                Image(
+                    painter = painterResource(id = R.drawable.signin_bg),
+                    contentScale = ContentScale.Crop,
+                    contentDescription = "Sign In Image"
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Text(
+                    text = "Sign in",
+                    style = TextStyle(
+                        color = Sepia,
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    modifier = Modifier
+                        .height(50.dp)
+                        .fillMaxWidth(.7f),
+                    onClick = {
+                        isLoading.value = true
+                        startForResult.launch(googleSignInClient.signInIntent)
+                    },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = DimGray)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        Image(
-                            modifier = Modifier.fillMaxSize(),
-                            painter = rememberDrawablePainter(
-                                drawable = AppCompatResources.getDrawable(
-                                    LocalContext.current,
-                                    R.drawable.google_logo
-                                )
-                            ),
-                            contentScale = ContentScale.Fit,
-                            contentDescription = "Google icon"
+                        Box(
+                            modifier = Modifier
+                                .size(20.dp)
+                        ) {
+                            Image(
+                                modifier = Modifier.fillMaxSize(),
+                                painter = rememberDrawablePainter(
+                                    drawable = AppCompatResources.getDrawable(
+                                        LocalContext.current,
+                                        R.drawable.google_logo
+                                    )
+                                ),
+                                contentScale = ContentScale.Fit,
+                                contentDescription = "Google icon"
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(id = R.string.sign_in_with_google),
+                            color = Color.White
                         )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = stringResource(id = R.string.sign_in_with_google),
-                        color = Color.White
-                    )
                 }
             }
         }
@@ -187,7 +199,13 @@ fun SignInScreen (navController: NavController) {
 }
 
 @Composable
-fun onLifecycle(activity: Activity, navController: NavController, isLoading: MutableState<Boolean>) {
+fun OnLifecycle(
+    activity: Activity,
+    navController: NavController,
+    isLoading: MutableState<Boolean>,
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState
+) {
     OnLifecycleEvent { _, event ->
         // do stuff on event
         when (event) {
@@ -205,29 +223,18 @@ fun onLifecycle(activity: Activity, navController: NavController, isLoading: Mut
                 googleSignInClient = GoogleSignIn.getClient(activity, gso)
             }
             Lifecycle.Event.ON_RESUME -> {
+                isLoading.value = true
                 // Check if user is signed in (non-null) and update UI accordingly.
                 val currentUser = auth.currentUser
-                updateUI(currentUser, navController, isLoading = isLoading)
+                updateUI(
+                    currentUser,
+                    navController,
+                    isLoading = isLoading,
+                    scope = scope,
+                    snackbarHostState = snackbarHostState
+                )
             }
             else -> { /* other stuff */ }
-        }
-    }
-}
-
-@Composable
-fun OnLifecycleEvent(onEvent: (owner: LifecycleOwner, event: Lifecycle.Event) -> Unit) {
-    val eventHandler = rememberUpdatedState(onEvent)
-    val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
-
-    DisposableEffect(lifecycleOwner.value) {
-        val lifecycle = lifecycleOwner.value.lifecycle
-        val observer = LifecycleEventObserver { owner, event ->
-            eventHandler.value(owner, event)
-        }
-
-        lifecycle.addObserver(observer)
-        onDispose {
-            lifecycle.removeObserver(observer)
         }
     }
 }
@@ -236,8 +243,11 @@ private fun firebaseAuthWithGoogle(
     idToken: String,
     activity: Activity,
     navController: NavController,
-    isLoading: MutableState<Boolean>
+    isLoading: MutableState<Boolean>,
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState
 ) {
+    isLoading.value = true
     val credential = GoogleAuthProvider.getCredential(idToken, null)
     auth.signInWithCredential(credential)
         .addOnCompleteListener(activity) { task ->
@@ -245,17 +255,33 @@ private fun firebaseAuthWithGoogle(
                 // Sign in success, update UI with the signed-in user's information
                 Log.d(TAG, "signInWithCredential:success")
                 val user = auth.currentUser
-                updateUI(user, navController, isLoading = isLoading)
+                updateUI(
+                    user,
+                    navController,
+                    isLoading = isLoading,
+                    scope = scope,
+                    snackbarHostState = snackbarHostState
+                )
             } else {
                 // If sign in fails, display a message to the user.
                 Log.w(TAG, "signInWithCredential:failure", task.exception)
-                updateUI(null, navController, isLoading = isLoading)
+                updateUI(
+                    null,
+                    navController,
+                    isLoading = isLoading,
+                    scope = scope,
+                    snackbarHostState = snackbarHostState
+                )
             }
         }
 }
 
 @SuppressLint("SimpleDateFormat")
-private fun writeNewUserLogin(user: FirebaseUser) {
+private fun writeNewUserLogin(
+    user: FirebaseUser,
+    snackbarHostState: SnackbarHostState,
+    scope: CoroutineScope
+) {
     val userName = user.displayName
     val userEmail = user.email
 
@@ -268,13 +294,28 @@ private fun writeNewUserLogin(user: FirebaseUser) {
 
         database.child("users").child(userEmail.replace(".", ",")).setValue(userData)
     }else{
+        scope.launch {
+            snackbarHostState.showSnackbar(
+                "Can't Added to Database! Null User Data"
+            )
+        }
         Log.e("Status", "Can't Added to Database! Null User Data")
     }
 }
 
-private fun updateUI(user: FirebaseUser?, navController: NavController, isLoading: MutableState<Boolean>) {
+private fun updateUI(
+    user: FirebaseUser?,
+    navController: NavController,
+    isLoading: MutableState<Boolean>,
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState
+) {
     if (user != null) {
-        writeNewUserLogin(user)
+        writeNewUserLogin(
+            user,
+            snackbarHostState,
+            scope
+        )
         Log.e("Status", "Updating UI")
 
         //Go to Main Screen
@@ -284,6 +325,7 @@ private fun updateUI(user: FirebaseUser?, navController: NavController, isLoadin
         isLoading.value = false
     }else{
         isLoading.value = false
+
         Log.e("Status", "Null User Data")
     }
 }

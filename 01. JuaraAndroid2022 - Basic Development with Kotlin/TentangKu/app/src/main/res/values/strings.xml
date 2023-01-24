@@ -129,4 +129,12 @@
     </string-array>
     <string name="title_tentangku_app">TentakuApp</string>
     <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="juaraAndroid_final_submission">#JuaraAndroid 2022 Final Submission</string>
+    <string name="challenge_accepted">Challenge Accepted!</string>
+    <string name="compose_migration_desc">After success finished challenge from #JuaraAndroid 2022,
+        TentangKu comeback with code improvement by following challenge from Dicoding Indonesia and Google Indonesia. With name:
+        <b>\'Compose Champion Indonesia 2023: Compose Migration Champion Challenge\'</b>, this challenge has a goal,
+        is to produce to superior Android Developers in the future. The target of this challenge is all Android
+        Developers who already have applications to migrate their UI to Jetpack Compose.
+    </string>
 </resources>

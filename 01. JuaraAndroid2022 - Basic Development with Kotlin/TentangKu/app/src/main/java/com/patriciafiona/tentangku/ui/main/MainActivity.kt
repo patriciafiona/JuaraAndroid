@@ -1,42 +1,21 @@
 package com.patriciafiona.tentangku.ui.main
 
-import android.Manifest
-import android.app.AlertDialog
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.provider.Settings
-import android.view.Gravity
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.databinding.ActivityMainBinding
-import com.patriciafiona.tentangku.ui.main.about.AboutActivity
-import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
     private var drawerLayout: DrawerLayout? = null
     private var navigationView: NavigationView? = null
     private var doubleBackToExitPressedOnce = false
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var binding:ActivityMainBinding
 
     private var fusedLocationProvider: FusedLocationProviderClient? = null
     private val locationRequest: LocationRequest = LocationRequest.create().apply {
@@ -69,8 +48,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
 
 //        fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
 //        checkLocationPermission()
