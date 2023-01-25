@@ -50,6 +50,7 @@ import coil.request.ImageRequest
 import com.github.mikephil.charting.charts.BarChart
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -63,6 +64,8 @@ import com.patriciafiona.tentangku.utils.Utils.OnLifecycleEvent
 import com.patriciafiona.tentangku.utils.Utils.getTimeGreetingStatus
 import com.patriciafiona.tentangku.data.source.local.entity.Menu
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
+import com.patriciafiona.tentangku.ui.main.ui.theme.Boulder
+import com.patriciafiona.tentangku.ui.main.ui.theme.Eunry
 import com.patriciafiona.tentangku.ui.main.ui.theme.Sepia
 import com.patriciafiona.tentangku.ui.main.ui.theme.WhiteSmoke
 import com.patriciafiona.tentangku.ui.widgets.DrawerContent
@@ -87,6 +90,11 @@ private lateinit var userFirebase: FirebaseUser
 @Composable
 fun HomeScreen(navController: NavController){
     val context = LocalContext.current
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setSystemBarsColor(
+        color = Boulder
+    )
+
 
     //Back press exit attributes
     var showToast by remember { mutableStateOf(false) }
@@ -352,28 +360,28 @@ fun HomeScreen(navController: NavController){
                                             modifier = Modifier
                                                 .size(50.dp)
                                                 .clickable {
-                                                   when(menu.name){
-                                                       dataName[0] -> {
-                                                           // Body weight
-                                                           navController.navigate(TentangkuScreen.WeightScreen.route)
-                                                       }
-                                                       dataName[1] -> {
-                                                           //Finance
-                                                           navController.navigate(TentangkuScreen.FinanceScreen.route)
-                                                       }
-                                                       dataName[2] -> {
-                                                           //Notes
-                                                           navController.navigate(TentangkuScreen.NotesScreen.route)
-                                                       }
-                                                       dataName[3] -> {
-                                                           //Reminder
-                                                           navController.navigate(TentangkuScreen.ReminderScreen.route)
-                                                       }
-                                                       dataName[4] -> {
-                                                           //Weather
-                                                           navController.navigate(TentangkuScreen.WeatherScreen.route)
-                                                       }
-                                                   }
+                                                    when (menu.name) {
+                                                        dataName[0] -> {
+                                                            // Body weight
+                                                            navController.navigate(TentangkuScreen.WeightScreen.route)
+                                                        }
+                                                        dataName[1] -> {
+                                                            //Finance
+                                                            navController.navigate(TentangkuScreen.FinanceScreen.route)
+                                                        }
+                                                        dataName[2] -> {
+                                                            //Notes
+                                                            navController.navigate(TentangkuScreen.NotesScreen.route)
+                                                        }
+                                                        dataName[3] -> {
+                                                            //Reminder
+                                                            navController.navigate(TentangkuScreen.ReminderScreen.route)
+                                                        }
+                                                        dataName[4] -> {
+                                                            //Weather
+                                                            navController.navigate(TentangkuScreen.WeatherScreen.route)
+                                                        }
+                                                    }
                                                 },
                                         ) {
                                             Image(
@@ -437,11 +445,8 @@ fun HomeScreen(navController: NavController){
 
                     }
                 },
-                // Defaults to BackdropScaffoldDefaults.PeekHeight
                 peekHeight = (LocalConfiguration.current.screenHeightDp * 0.4).dp,
-                // Defaults to BackdropScaffoldDefaults.HeaderHeight
                 headerHeight = 60.dp,
-                // Defaults to true
                 gesturesEnabled = false
             )
         }

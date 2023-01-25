@@ -21,12 +21,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.ui.main.ui.theme.AppleBlossom
+import com.patriciafiona.tentangku.ui.main.ui.theme.Eunry
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AboutScreen (navController: NavController) {
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setSystemBarsColor(
+        color = AppleBlossom
+    )
+
     val backdropScaffoldState = rememberBackdropScaffoldState(
         BackdropValue.Concealed
     )
@@ -37,11 +44,8 @@ fun AboutScreen (navController: NavController) {
             .statusBarsPadding()
             .navigationBarsPadding()
             .fillMaxSize(),
-        // Defaults to BackdropScaffoldDefaults.PeekHeight
         peekHeight = (LocalConfiguration.current.screenHeightDp * 0.2).dp,
-        // Defaults to BackdropScaffoldDefaults.HeaderHeight
         headerHeight = 60.dp,
-        // Defaults to true
         gesturesEnabled = false,
         appBar = {
             TopAppBar(

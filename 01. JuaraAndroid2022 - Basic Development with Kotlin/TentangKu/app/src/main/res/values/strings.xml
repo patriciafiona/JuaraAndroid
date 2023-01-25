@@ -137,4 +137,5 @@
         is to produce to superior Android Developers in the future. The target of this challenge is all Android
         Developers who already have applications to migrate their UI to Jetpack Compose.
     </string>
+    <string name="please_fill_correct_value">Please fill correct value</string>
 </resources>

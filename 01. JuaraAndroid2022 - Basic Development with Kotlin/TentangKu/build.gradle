@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        composeVersion = '1.1.1'
+        composeVersion = '1.3.3'
         lottie_version = '5.0.3'
         compose_version = '1.2.0'
         compose_ui_version = '1.2.0'
@@ -13,7 +13,7 @@ buildscript {
 plugins {
     id 'com.android.application' version '7.4.0' apply false
     id 'com.android.library' version '7.4.0' apply false
-    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
 }
 
 task clean(type: Delete) {

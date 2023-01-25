@@ -1,6 +1,9 @@
 package com.patriciafiona.tentangku.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.ContextWrapper
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberUpdatedState
@@ -110,5 +113,11 @@ object Utils {
             }
         }
         return R.drawable.gradient_morning
+    }
+
+    fun Context.getActivity(): AppCompatActivity? = when (this) {
+        is AppCompatActivity -> this
+        is ContextWrapper -> baseContext.getActivity()
+        else -> null
     }
 }

@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TentangKu">
         <activity
-            android:name=".ui.main.TentangKuApp"
+            android:name=".ui.TentangKuApp"
             android:label="@string/title_tentangku_app"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TentangKu"
@@ -46,21 +46,11 @@
             android:name=".ui.main.finance.FinanceActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.weight.addUpdate.WeightAddUpdateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.weight.WeightActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.main.notes.addUpdate.NoteAddUpdateActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.notes.NotesActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="true" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
