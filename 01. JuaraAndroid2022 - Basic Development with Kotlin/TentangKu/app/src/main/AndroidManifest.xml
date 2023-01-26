@@ -40,12 +40,6 @@
             android:name=".ui.main.reminder.ReminderActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.finance.addUpdate.FinanceAddUpdateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.finance.FinanceActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.main.notes.addUpdate.NoteAddUpdateActivity"
             android:exported="false" />
         <activity

@@ -24,6 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.ui.main.ui.theme.AppleBlossom
+import com.patriciafiona.tentangku.ui.main.ui.theme.Boulder
 import com.patriciafiona.tentangku.ui.main.ui.theme.Eunry
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -41,7 +42,8 @@ fun AboutScreen (navController: NavController) {
     BackdropScaffold(
         scaffoldState = backdropScaffoldState,
         modifier = Modifier
-            .statusBarsPadding()
+            .background(AppleBlossom)
+            .padding(top = 26.dp)
             .navigationBarsPadding()
             .fillMaxSize(),
         peekHeight = (LocalConfiguration.current.screenHeightDp * 0.2).dp,

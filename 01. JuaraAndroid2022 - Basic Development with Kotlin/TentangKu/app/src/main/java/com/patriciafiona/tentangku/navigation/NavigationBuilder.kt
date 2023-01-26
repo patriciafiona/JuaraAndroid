@@ -5,9 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.ui.main.about.AboutScreen
 import com.patriciafiona.tentangku.ui.main.finance.FinanceScreen
+import com.patriciafiona.tentangku.ui.main.finance.addUpdate.FinanceAddUpdateScreen
 import com.patriciafiona.tentangku.ui.main.home.HomeScreen
 import com.patriciafiona.tentangku.ui.main.notes.NotesScreen
 import com.patriciafiona.tentangku.ui.main.reminder.ReminderScreen
@@ -32,7 +34,7 @@ fun NavigationBuilder(appCompatActivity: AppCompatActivity) {
         }
 
         composable(route = TentangkuScreen.HomeScreen.route) {
-            HomeScreen(navController = navigationController)
+            HomeScreen(navController = navigationController, appCompatActivity = appCompatActivity)
         }
 
         composable(route = TentangkuScreen.AboutScreen.route) {
@@ -40,7 +42,16 @@ fun NavigationBuilder(appCompatActivity: AppCompatActivity) {
         }
 
         composable(route = TentangkuScreen.FinanceScreen.route) {
-            FinanceScreen(navController = navigationController)
+            FinanceScreen(navController = navigationController, appCompatActivity = appCompatActivity)
+        }
+
+        composable(route = TentangkuScreen.FinanceAddUpdateScreen.route) { previousBackStackEntry ->
+            val transaction = previousBackStackEntry.arguments?.getParcelable<FinanceTransaction>("transaction")
+            if (transaction != null) {
+                FinanceAddUpdateScreen(navController = navigationController, finance = transaction, appCompatActivity = appCompatActivity)
+            }else{
+                FinanceAddUpdateScreen(navController = navigationController, finance = null, appCompatActivity = appCompatActivity)
+            }
         }
 
         composable(route = TentangkuScreen.NotesScreen.route) {

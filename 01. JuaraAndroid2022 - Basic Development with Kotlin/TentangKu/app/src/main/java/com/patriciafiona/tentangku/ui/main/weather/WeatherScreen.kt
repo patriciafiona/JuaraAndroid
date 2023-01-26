@@ -45,15 +45,13 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.patriciafiona.tentangku.R
+import com.patriciafiona.tentangku.ui.main.ui.theme.AppleBlossom
 import com.patriciafiona.tentangku.ui.main.ui.theme.Boulder
 import com.patriciafiona.tentangku.ui.widgets.Loader
 import com.patriciafiona.tentangku.ui.widgets.LocationPermission
 import com.patriciafiona.tentangku.utils.Utils
 import com.patriciafiona.tentangku.utils.Utils.setBackgroundBaseOnTime
 import java.util.*
-
-@SuppressLint("StaticFieldLeak")
-private lateinit var mMap: GoogleMap
 
 private lateinit var viewModel: WeatherViewModel
 
@@ -66,8 +64,6 @@ private val locationRequest: LocationRequest = LocationRequest.create().apply {
     priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
     maxWaitTime = 60
 }
-
-private const val TAG = "lat_long_getter"
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -152,7 +148,6 @@ fun WeatherScreen (navController: NavController) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .statusBarsPadding()
                     .navigationBarsPadding()
             ) {
                 Image(
@@ -174,6 +169,8 @@ fun WeatherScreen (navController: NavController) {
                     horizontalAlignment = Alignment.Start
                 ) {
                     IconButton(
+                        modifier =Modifier
+                            .padding(top = 12.dp),
                         onClick = {
                             navController.navigateUp()
                         }
@@ -442,7 +439,7 @@ fun Map(
 }
 
 @Composable
-fun OnLifecycle(
+private fun OnLifecycle(
     context: Context,
     locationCallback: LocationCallback
 ) {

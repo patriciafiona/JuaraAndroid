@@ -49,10 +49,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.factory.ViewModelFactory
 import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateActivity
+import com.patriciafiona.tentangku.ui.main.ui.theme.Boulder
 import com.patriciafiona.tentangku.ui.main.ui.theme.Eunry
 import com.patriciafiona.tentangku.ui.main.ui.theme.Green
 import com.patriciafiona.tentangku.ui.main.ui.theme.WhiteSmoke
@@ -72,6 +74,11 @@ fun WeightAddUpdateScreen (
 ) {
     val context = LocalContext.current
     val openAlertDialog = remember { mutableStateOf(false)  }
+
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setStatusBarColor(
+        color = Boulder
+    )
 
     weightAddUpdateViewModel = obtainViewModel(appCompatActivity)
 
@@ -210,7 +217,7 @@ fun WeightAddUpdateScreen (
                                             false
                                         }
                                     },
-                                mTitle = "Your Weight",
+                                mTitle = stringResource(id = R.string.your_weight),
                                 mValue = weightField,
                                 keyboardActions = KeyboardActions(
                                     onNext = { focusManager.moveFocus(FocusDirection.Down) }
@@ -254,7 +261,7 @@ fun WeightAddUpdateScreen (
                             ) {
                                 TextFieldStringTemplate(
                                     modifier = Modifier.weight(1f),
-                                    mTitle = "Date",
+                                    mTitle = stringResource(id = R.string.date),
                                     mValue = dateField,
                                     keyboardActions = KeyboardActions(
                                         onDone = {keyboardController?.hide()}

@@ -46,6 +46,7 @@ import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.factory.ViewModelFactory
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
+import com.patriciafiona.tentangku.ui.main.ui.theme.AppleBlossom
 import com.patriciafiona.tentangku.ui.main.ui.theme.Eunry
 import com.patriciafiona.tentangku.ui.widgets.ItemWeight
 import com.patriciafiona.tentangku.ui.widgets.Loader
@@ -101,10 +102,10 @@ fun WeightScreen (navController: NavController, appCompatActivity: AppCompatActi
         BackdropScaffold(
             scaffoldState = backdropScaffoldState,
             modifier = Modifier
-                .statusBarsPadding()
+                .background(Eunry)
+                .padding(top = 26.dp)
                 .navigationBarsPadding()
-                .fillMaxSize()
-                .background(Eunry),
+                .fillMaxSize(),
             peekHeight = (LocalConfiguration.current.screenHeightDp * 0.5).dp,
             headerHeight = 60.dp,
             gesturesEnabled = true,
@@ -156,7 +157,7 @@ fun WeightScreen (navController: NavController, appCompatActivity: AppCompatActi
 }
 
 @Composable
-fun OnLifecycle(
+private fun OnLifecycle(
     appCompatActivity: AppCompatActivity,
     isLoading: MutableState<Boolean>,
     weightAvailability: MutableState<Boolean>

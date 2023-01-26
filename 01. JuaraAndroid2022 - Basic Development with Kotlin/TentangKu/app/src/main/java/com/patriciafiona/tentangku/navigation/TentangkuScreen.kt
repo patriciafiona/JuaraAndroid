@@ -5,6 +5,7 @@ sealed class TentangkuScreen(val route: String) {
     object HomeScreen: TentangkuScreen("home_screen")
     object AboutScreen: TentangkuScreen("about_screen")
     object FinanceScreen: TentangkuScreen("finance_screen")
+    object FinanceAddUpdateScreen: TentangkuScreen("finance__add_update_screen")
     object NotesScreen: TentangkuScreen("notes_screen")
     object ReminderScreen: TentangkuScreen("reminder_screen")
     object WeightScreen: TentangkuScreen("weight_screen")
