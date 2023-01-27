@@ -6,12 +6,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
+import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.ui.main.about.AboutScreen
 import com.patriciafiona.tentangku.ui.main.finance.FinanceScreen
 import com.patriciafiona.tentangku.ui.main.finance.addUpdate.FinanceAddUpdateScreen
 import com.patriciafiona.tentangku.ui.main.home.HomeScreen
 import com.patriciafiona.tentangku.ui.main.notes.NotesScreen
+import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NotesAddUpdateScreen
 import com.patriciafiona.tentangku.ui.main.reminder.ReminderScreen
 import com.patriciafiona.tentangku.ui.main.weather.WeatherScreen
 import com.patriciafiona.tentangku.ui.main.weight.WeightScreen
@@ -55,7 +57,16 @@ fun NavigationBuilder(appCompatActivity: AppCompatActivity) {
         }
 
         composable(route = TentangkuScreen.NotesScreen.route) {
-            NotesScreen(navController = navigationController)
+            NotesScreen(navController = navigationController, appCompatActivity = appCompatActivity)
+        }
+
+        composable(route = TentangkuScreen.NotesAddUpdateScreen.route) { previousBackStackEntry ->
+            val notes = previousBackStackEntry.arguments?.getParcelable<Note>("notes")
+            if (notes != null) {
+                NotesAddUpdateScreen(navController = navigationController, notes = notes, appCompatActivity = appCompatActivity)
+            }else{
+                NotesAddUpdateScreen(navController = navigationController, notes = null, appCompatActivity = appCompatActivity)
+            }
         }
 
         composable(route = TentangkuScreen.ReminderScreen.route) {

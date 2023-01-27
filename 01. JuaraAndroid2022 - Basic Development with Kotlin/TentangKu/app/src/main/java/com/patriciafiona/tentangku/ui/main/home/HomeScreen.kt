@@ -2,11 +2,8 @@ package com.patriciafiona.tentangku.ui.main.home
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Color.GREEN
 import android.graphics.Color.RED
-import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextClock
@@ -18,7 +15,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -28,7 +24,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -41,8 +36,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -51,17 +44,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -74,30 +62,22 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
-import com.patriciafiona.tentangku.utils.Utils.OnLifecycleEvent
-import com.patriciafiona.tentangku.utils.Utils.getTimeGreetingStatus
 import com.patriciafiona.tentangku.data.source.local.entity.Menu
-import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.factory.ViewModelFactory
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
 import com.patriciafiona.tentangku.ui.main.finance.FinanceViewModel
 import com.patriciafiona.tentangku.ui.main.ui.theme.Boulder
-import com.patriciafiona.tentangku.ui.main.ui.theme.Eunry
 import com.patriciafiona.tentangku.ui.main.ui.theme.Sepia
 import com.patriciafiona.tentangku.ui.main.ui.theme.WhiteSmoke
-import com.patriciafiona.tentangku.ui.signin.OnLifecycle
 import com.patriciafiona.tentangku.ui.widgets.DrawerContent
 import com.patriciafiona.tentangku.ui.widgets.LocationPermission
-import com.patriciafiona.tentangku.utils.DrawerScreens
 import com.patriciafiona.tentangku.utils.BackPress
-import com.patriciafiona.tentangku.utils.Utils
-import kotlinx.coroutines.CoroutineScope
+import com.patriciafiona.tentangku.utils.Utils.OnLifecycleEvent
+import com.patriciafiona.tentangku.utils.Utils.getTimeGreetingStatus
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 private lateinit var mAuth: FirebaseAuth
 @SuppressLint("StaticFieldLeak")

@@ -24,8 +24,6 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.ui.main.ui.theme.AppleBlossom
-import com.patriciafiona.tentangku.ui.main.ui.theme.Boulder
-import com.patriciafiona.tentangku.ui.main.ui.theme.Eunry
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

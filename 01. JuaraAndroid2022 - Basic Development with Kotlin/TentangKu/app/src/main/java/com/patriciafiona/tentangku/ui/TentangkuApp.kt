@@ -1,7 +1,6 @@
 package com.patriciafiona.tentangku.ui
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.graphics.Color

@@ -47,12 +47,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.utils.Utils
-import com.patriciafiona.tentangku.utils.Utils.OnLifecycleEvent
 import com.patriciafiona.tentangku.data.source.remote.responses.UserResponse
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
 import com.patriciafiona.tentangku.ui.main.ui.theme.*
 import com.patriciafiona.tentangku.ui.widgets.Loader
+import com.patriciafiona.tentangku.utils.Utils
+import com.patriciafiona.tentangku.utils.Utils.OnLifecycleEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

@@ -13,12 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.patriciafiona.tentangku.R
-import com.patriciafiona.tentangku.utils.Utils
 import com.patriciafiona.tentangku.data.source.local.entity.Reminder
 import com.patriciafiona.tentangku.databinding.ActivityReminderAddUpdateBinding
 import com.patriciafiona.tentangku.factory.ViewModelFactory
-import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NoteAddUpdateActivity
 import com.patriciafiona.tentangku.ui.main.reminder.AlarmReceiver
+import com.patriciafiona.tentangku.utils.Utils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -108,12 +107,12 @@ class ReminderAddUpdateActivity : AppCompatActivity() {
             }
 
             //button on click listener
-            btnBack.setOnClickListener {
-                showAlertDialog(NoteAddUpdateActivity.ALERT_DIALOG_CLOSE)
-            }
-            btnDelete.setOnClickListener {
-                showAlertDialog(NoteAddUpdateActivity.ALERT_DIALOG_DELETE)
-            }
+//            btnBack.setOnClickListener {
+//                showAlertDialog(NoteAddUpdateActivity.ALERT_DIALOG_CLOSE)
+//            }
+//            btnDelete.setOnClickListener {
+//                showAlertDialog(NoteAddUpdateActivity.ALERT_DIALOG_DELETE)
+//            }
 
             val date =
                 DatePickerDialog.OnDateSetListener { _, year, month, day ->
@@ -222,7 +221,7 @@ class ReminderAddUpdateActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        showAlertDialog(NoteAddUpdateActivity.ALERT_DIALOG_CLOSE)
+//        showAlertDialog(NoteAddUpdateActivity.ALERT_DIALOG_CLOSE)
     }
 
     private fun showAlertDialog(type: Int) {

@@ -13,22 +13,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.patriciafiona.tentangku.data.source.local.entity.Weight
+import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
 import com.patriciafiona.tentangku.ui.main.ui.theme.WhiteSmoke
 
 @Composable
-fun ItemWeight(data: Weight, navController: NavController) {
+fun ItemNotes(data: Note, navController: NavController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
             .clickable {
-                navController.navigate(TentangkuScreen.WeightAddUpdateScreen.route)
-                navController.currentBackStackEntry?.arguments?.putParcelable("weight", data)
+                navController.navigate(TentangkuScreen.NotesAddUpdateScreen.route)
+                navController.currentBackStackEntry?.arguments?.putParcelable("notes", data)
             },
         colors = CardDefaults.cardColors(
             containerColor =  WhiteSmoke,
@@ -42,13 +43,17 @@ fun ItemWeight(data: Weight, navController: NavController) {
             modifier = Modifier
                 .padding(20.dp)
         ) {
-            Text(
-                text = "${data.value} Kg",
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold
+            data.title?.let {
+                Text(
+                    text = it,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
-            )
+            }
             Text(
                 text = data.date.toString(),
                 style = TextStyle(
@@ -56,6 +61,17 @@ fun ItemWeight(data: Weight, navController: NavController) {
                     color = Color.Gray
                 )
             )
+
+            data.description?.let {
+                Text(
+                    text = it,
+                    style = TextStyle(
+                        fontSize = 14.sp
+                    ),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
     }
 }

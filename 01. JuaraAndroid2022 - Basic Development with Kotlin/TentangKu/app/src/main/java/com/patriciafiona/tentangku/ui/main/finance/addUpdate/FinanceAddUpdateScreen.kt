@@ -19,7 +19,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -48,7 +47,6 @@ import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
-import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.factory.ViewModelFactory
 import com.patriciafiona.tentangku.ui.main.ui.theme.Boulder
 import com.patriciafiona.tentangku.ui.main.ui.theme.Eunry
@@ -108,9 +106,6 @@ fun FinanceAddUpdateScreen(
     var optionExpanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf( finance?.type ?: transactionTypes[0]) }
 
-    // Fetching the Local Context
-    val mContext = LocalContext.current
-
     //Date picker section
     val mYear: Int
     val mMonth: Int
@@ -124,7 +119,7 @@ fun FinanceAddUpdateScreen(
     mCalendar.time = Date()
 
     val mDatePickerDialog = DatePickerDialog(
-        mContext,
+        context,
         { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
             val monthInString = if(selectedMonth+1 < 10){
                 "0${selectedMonth+1}"
@@ -410,7 +405,7 @@ fun FinanceAddUpdateScreen(
                                     keyboardActions = KeyboardActions(
                                         onDone = {keyboardController?.hide()}
                                     ),
-                                    isError = nominalFieldError,
+                                    isError = descriptionFieldError,
                                     keyboardOptions = KeyboardOptions(
                                         keyboardType = KeyboardType.Text,
                                         imeAction = ImeAction.Done

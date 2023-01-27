@@ -46,7 +46,6 @@ import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.factory.ViewModelFactory
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
-import com.patriciafiona.tentangku.ui.main.ui.theme.AppleBlossom
 import com.patriciafiona.tentangku.ui.main.ui.theme.Eunry
 import com.patriciafiona.tentangku.ui.widgets.ItemWeight
 import com.patriciafiona.tentangku.ui.widgets.Loader

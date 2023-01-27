@@ -21,7 +21,7 @@
     <string name="new_note">New Note</string>
     <string name="note_title">Note Title</string>
     <string name="date_txt">12 March 2010</string>
-    <string name="description">Description content.</string>
+    <string name="description">Description content</string>
     <string name="input_title">Input title</string>
     <string name="button_back">Button back</string>
     <string name="button_save_or_update">Button Save or Update</string>
@@ -138,4 +138,5 @@
         Developers who already have applications to migrate their UI to Jetpack Compose.
     </string>
     <string name="please_fill_correct_value">Please fill correct value</string>
+    <string name="note_history">Note History</string>
 </resources>
