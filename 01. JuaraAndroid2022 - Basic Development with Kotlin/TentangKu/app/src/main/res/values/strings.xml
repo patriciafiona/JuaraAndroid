@@ -21,7 +21,7 @@
     <string name="new_note">New Note</string>
     <string name="note_title">Note Title</string>
     <string name="date_txt">12 March 2010</string>
-    <string name="description">Description content.</string>
+    <string name="description">Description content</string>
     <string name="input_title">Input title</string>
     <string name="button_back">Button back</string>
     <string name="button_save_or_update">Button Save or Update</string>
@@ -99,7 +99,7 @@
         save the weight history, finance history, and see the current weather.
         I hope this apps can inspire other developers to continue or improve this app idea.
     </string>
-    <string name="copyright_txt">Patricia Fiona © 2022</string>
+    <string name="copyright_txt">Patricia Fiona © 2023</string>
     <string name="this_is_your_finance_summary_in_this_month">This is your finance summary in this month.</string>
 
     <string-array name="menu_name">
@@ -127,4 +127,16 @@
         <item>One time</item>
         <item>Daily</item>
     </string-array>
+    <string name="title_tentangku_app">TentakuApp</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="juaraAndroid_final_submission">#JuaraAndroid 2022 Final Submission</string>
+    <string name="challenge_accepted">Challenge Accepted!</string>
+    <string name="compose_migration_desc">After success finished challenge from #JuaraAndroid 2022,
+        TentangKu comeback with code improvement by following challenge from Dicoding Indonesia and Google Indonesia. With name:
+        <b>\'Compose Champion Indonesia 2023: Compose Migration Champion Challenge\'</b>, this challenge has a goal,
+        is to produce to superior Android Developers in the future. The target of this challenge is all Android
+        Developers who already have applications to migrate their UI to Jetpack Compose.
+    </string>
+    <string name="please_fill_correct_value">Please fill correct value</string>
+    <string name="note_history">Note History</string>
 </resources>

@@ -9,4 +9,7 @@ import com.patriciafiona.tentangku.data.source.local.repository.ReminderReposito
 class ReminderViewModel (application: Application) : ViewModel() {
     private val mReminderRepository: ReminderRepository = ReminderRepository(application)
     fun getAllReminder(): LiveData<List<Reminder>> = mReminderRepository.getAllReminders()
+    fun update(reminder: Reminder) {
+        mReminderRepository.update(reminder)
+    }
 }

@@ -14,8 +14,8 @@ class WeightDiffCallback(private val mOldWeightList: List<Weight>, private val m
         return mOldWeightList[oldItemPosition].id == mNewWeightList[newItemPosition].id
     }
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldEmployee = mOldWeightList[oldItemPosition]
-        val newEmployee = mNewWeightList[newItemPosition]
-        return oldEmployee.value == newEmployee.value && oldEmployee.date == newEmployee.date
+        val oldWeight = mOldWeightList[oldItemPosition]
+        val newWeight = mNewWeightList[newItemPosition]
+        return oldWeight.value == newWeight.value && oldWeight.date == newWeight.date
     }
 }

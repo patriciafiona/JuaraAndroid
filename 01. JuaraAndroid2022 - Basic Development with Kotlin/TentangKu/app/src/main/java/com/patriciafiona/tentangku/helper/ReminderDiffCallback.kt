@@ -15,9 +15,9 @@ class ReminderDiffCallback (private val mOldReminderList: List<Reminder>,
         return mOldReminderList[oldItemPosition].id == mNewReminderList[newItemPosition].id
     }
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldEmployee = mOldReminderList[oldItemPosition]
-        val newEmployee = mNewReminderList[newItemPosition]
-        return oldEmployee.title == newEmployee.title && oldEmployee.description == newEmployee.description
-                && oldEmployee.type == newEmployee.type
+        val oldReminder = mOldReminderList[oldItemPosition]
+        val newReminder = mNewReminderList[newItemPosition]
+        return oldReminder.type == newReminder.type && oldReminder.description == newReminder.description
+                && oldReminder.type == newReminder.type
     }
 }

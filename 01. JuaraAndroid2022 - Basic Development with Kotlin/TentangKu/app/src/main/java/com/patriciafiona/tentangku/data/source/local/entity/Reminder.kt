@@ -13,9 +13,6 @@ data class Reminder(
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
-    @ColumnInfo(name = "title")
-    var title: String? = null,
-
     @ColumnInfo(name = "time")
     var time: String? = null,
 
@@ -26,5 +23,8 @@ data class Reminder(
     var description: String? = null,
 
     @ColumnInfo(name = "type")
-    var type: String? = null
+    var type: String? = null,
+
+    @ColumnInfo(name = "status")
+    var status: String? = "ON"
 ) : Parcelable

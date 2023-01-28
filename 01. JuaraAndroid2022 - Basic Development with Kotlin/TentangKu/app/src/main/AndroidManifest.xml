@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.patriciafiona.tentangku">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -16,43 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TentangKu">
-        <receiver
-            android:name=".ui.main.reminder.AlarmReceiver"
-            android:enabled="true"
-            android:exported="false"/>
-
         <activity
-            android:name=".ui.main.reminder.addUpdate.ReminderAddUpdateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.weather.WeatherActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.reminder.ReminderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.finance.addUpdate.FinanceAddUpdateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.finance.FinanceActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.weight.addUpdate.WeightAddUpdateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.weight.WeightActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.notes.addUpdate.NoteAddUpdateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.notes.NotesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.about.AboutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".ui.TentangKuApp"
+            android:label="@string/title_tentangku_app"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TentangKu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,13 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.signin.SignInActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="true" />
 
+        <receiver
+            android:name=".ui.main.reminder.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
