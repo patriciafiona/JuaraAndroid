@@ -32,13 +32,6 @@
             android:name=".ui.main.reminder.AlarmReceiver"
             android:enabled="true"
             android:exported="false" />
-
-        <activity
-            android:name=".ui.main.reminder.addUpdate.ReminderAddUpdateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.reminder.ReminderActivity"
-            android:exported="false" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />

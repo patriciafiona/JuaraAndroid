@@ -25,8 +25,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.patriciafiona.tentangku.R
+import com.patriciafiona.tentangku.helper.DrawerScreens
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
-import com.patriciafiona.tentangku.utils.DrawerScreens
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

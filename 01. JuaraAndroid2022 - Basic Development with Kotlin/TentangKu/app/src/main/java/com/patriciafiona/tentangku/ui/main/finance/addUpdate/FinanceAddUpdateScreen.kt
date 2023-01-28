@@ -434,11 +434,7 @@ fun FinanceAddUpdateScreen(
                                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
                                 ) {
                                     Text(
-                                        text = if (isEdit.value) {
-                                            stringResource(id = R.string.delete)
-                                        } else {
-                                            stringResource(id = R.string.cancel)
-                                        },
+                                        text = stringResource(id = R.string.delete),
                                         color = Color.White
                                     )
                                 }

@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.patriciafiona.tentangku.data.source.local.entity.FinanceTransaction
 import com.patriciafiona.tentangku.data.source.local.entity.Note
+import com.patriciafiona.tentangku.data.source.local.entity.Reminder
 import com.patriciafiona.tentangku.data.source.local.entity.Weight
 import com.patriciafiona.tentangku.ui.main.about.AboutScreen
 import com.patriciafiona.tentangku.ui.main.finance.FinanceScreen
@@ -15,6 +16,7 @@ import com.patriciafiona.tentangku.ui.main.home.HomeScreen
 import com.patriciafiona.tentangku.ui.main.notes.NotesScreen
 import com.patriciafiona.tentangku.ui.main.notes.addUpdate.NotesAddUpdateScreen
 import com.patriciafiona.tentangku.ui.main.reminder.ReminderScreen
+import com.patriciafiona.tentangku.ui.main.reminder.addUpdate.ReminderAddUpdateScreen
 import com.patriciafiona.tentangku.ui.main.weather.WeatherScreen
 import com.patriciafiona.tentangku.ui.main.weight.WeightScreen
 import com.patriciafiona.tentangku.ui.main.weight.addUpdate.WeightAddUpdateScreen
@@ -70,7 +72,16 @@ fun NavigationBuilder(appCompatActivity: AppCompatActivity) {
         }
 
         composable(route = TentangkuScreen.ReminderScreen.route) {
-            ReminderScreen(navController = navigationController)
+            ReminderScreen(navController = navigationController, appCompatActivity = appCompatActivity)
+        }
+
+        composable(route = TentangkuScreen.ReminderAddUpdateScreen.route) { previousBackStackEntry ->
+            val reminder = previousBackStackEntry.arguments?.getParcelable<Reminder>("reminder")
+            if (reminder != null) {
+                ReminderAddUpdateScreen(navController = navigationController, reminder = reminder, appCompatActivity = appCompatActivity)
+            }else{
+                ReminderAddUpdateScreen(navController = navigationController, reminder = null, appCompatActivity = appCompatActivity)
+            }
         }
 
         composable(route = TentangkuScreen.WeatherScreen.route) {

@@ -64,6 +64,7 @@ import com.google.firebase.ktx.Firebase
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.data.source.local.entity.Menu
 import com.patriciafiona.tentangku.factory.ViewModelFactory
+import com.patriciafiona.tentangku.helper.BackPress
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
 import com.patriciafiona.tentangku.ui.main.finance.FinanceViewModel
 import com.patriciafiona.tentangku.ui.main.ui.theme.Boulder
@@ -71,7 +72,6 @@ import com.patriciafiona.tentangku.ui.main.ui.theme.Sepia
 import com.patriciafiona.tentangku.ui.main.ui.theme.WhiteSmoke
 import com.patriciafiona.tentangku.ui.widgets.DrawerContent
 import com.patriciafiona.tentangku.ui.widgets.LocationPermission
-import com.patriciafiona.tentangku.utils.BackPress
 import com.patriciafiona.tentangku.utils.Utils.OnLifecycleEvent
 import com.patriciafiona.tentangku.utils.Utils.getTimeGreetingStatus
 import kotlinx.coroutines.delay
@@ -480,12 +480,14 @@ fun HomeScreen(
 }
 
 private fun resetChart() {
-    financeBalanceChart.fitScreen()
-    financeBalanceChart.data?.clearValues()
-    financeBalanceChart.xAxis.valueFormatter = null
-    financeBalanceChart.notifyDataSetChanged()
-    financeBalanceChart.clear()
-    financeBalanceChart.invalidate()
+    if(::financeBalanceChart.isInitialized) {
+        financeBalanceChart.fitScreen()
+        financeBalanceChart.data?.clearValues()
+        financeBalanceChart.xAxis.valueFormatter = null
+        financeBalanceChart.notifyDataSetChanged()
+        financeBalanceChart.clear()
+        financeBalanceChart.invalidate()
+    }
 }
 
 @SuppressLint("SimpleDateFormat")

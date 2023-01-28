@@ -37,7 +37,7 @@ import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.data.source.local.entity.Note
 import com.patriciafiona.tentangku.factory.ViewModelFactory
 import com.patriciafiona.tentangku.navigation.TentangkuScreen
-import com.patriciafiona.tentangku.ui.main.ui.theme.Eunry
+import com.patriciafiona.tentangku.ui.main.ui.theme.DappledDaydream
 import com.patriciafiona.tentangku.ui.main.ui.theme.VeronaGreen
 import com.patriciafiona.tentangku.ui.widgets.ItemNotes
 import com.patriciafiona.tentangku.ui.widgets.Loader
@@ -56,7 +56,7 @@ fun NotesScreen (navController: NavController, appCompatActivity: AppCompatActiv
 
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(
-        color = VeronaGreen
+        color = DappledDaydream
     )
 
     val isLoading = remember{ mutableStateOf(true) }
@@ -258,7 +258,7 @@ private fun MainContent(
                 text = stringResource(id = R.string.no_data),
                 style = TextStyle(
                     fontSize = 14.sp,
-                    color = Eunry,
+                    color = Color.Black,
                     textAlign = TextAlign.Center
                 )
             )

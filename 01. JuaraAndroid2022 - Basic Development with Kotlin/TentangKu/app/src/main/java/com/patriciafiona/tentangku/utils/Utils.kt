@@ -36,6 +36,13 @@ object Utils {
         return "-"
     }
 
+    @SuppressLint("SimpleDateFormat")
+    fun getCurrentTime(): String {
+        val date = Calendar.getInstance().time
+        val formatter = SimpleDateFormat("HH:mm")
+        return formatter.format(date).toString()
+    }
+
     fun setRupiahFormat(nominal: Double): String{
         val formatter: NumberFormat = DecimalFormat("#,###")
         return if (nominal >= 0){

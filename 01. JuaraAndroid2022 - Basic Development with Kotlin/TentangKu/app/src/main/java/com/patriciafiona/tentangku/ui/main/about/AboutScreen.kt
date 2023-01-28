@@ -24,13 +24,14 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.patriciafiona.tentangku.R
 import com.patriciafiona.tentangku.ui.main.ui.theme.AppleBlossom
+import com.patriciafiona.tentangku.ui.main.ui.theme.NightShadz
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AboutScreen (navController: NavController) {
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(
-        color = AppleBlossom
+        color = NightShadz
     )
 
     val backdropScaffoldState = rememberBackdropScaffoldState(
