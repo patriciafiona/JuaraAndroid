@@ -1,13 +1,20 @@
 package com.patriciafiona.tentangku.utils
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.DialogInterface
+import android.content.Intent
+import android.location.LocationManager
+import android.provider.Settings
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -119,12 +126,55 @@ object Utils {
                 return R.drawable.gradient_night
             }
         }
-        return R.drawable.gradient_morning
+        return com.patriciafiona.tentangku.R.drawable.gradient_morning
     }
 
     fun Context.getActivity(): AppCompatActivity? = when (this) {
         is AppCompatActivity -> this
         is ContextWrapper -> baseContext.getActivity()
         else -> null
+    }
+
+    fun checkLocation(context: Context) {
+        val lm: LocationManager =
+            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        var gpsEnabled = false
+        var networkEnabled = false
+
+        try {
+            gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (ex: Exception) {
+            Toast.makeText(
+                context,
+                context.getText(R.string.failed_get_gps_service_provider),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        try {
+            networkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        } catch (ex: Exception) {
+            Toast.makeText(
+                context,
+                context.getText(R.string.failed_get_network_service_provider),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        if (!gpsEnabled && !networkEnabled) {
+            // notify user
+            AlertDialog.Builder(context)
+                .setMessage(R.string.gps_network_not_enabled)
+                .setPositiveButton(R.string.open_location_settings) { dialog, _ ->
+                    context.startActivity(
+                        Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    )
+
+                    //close dialog
+                    dialog.dismiss()
+                }
+                .setNegativeButton(R.string.cancel, null)
+                .show()
+        }
     }
 }
