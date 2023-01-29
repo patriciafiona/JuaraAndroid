@@ -139,4 +139,8 @@
     </string>
     <string name="please_fill_correct_value">Please fill correct value</string>
     <string name="note_history">Note History</string>
+    <string name="gps_network_not_enabled">GPS Network not enabled yet, please turn it on to use this feature</string>
+    <string name="open_location_settings">Open location settings</string>
+    <string name="failed_get_gps_service_provider">Failed get GPS service provider</string>
+    <string name="failed_get_network_service_provider">Failed to get network service provider</string>
 </resources>

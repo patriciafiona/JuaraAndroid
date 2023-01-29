@@ -58,7 +58,12 @@ fun TextFieldDoubleTemplate(
         modifier = modifier,
         value = mValue.value.toString(),
         onValueChange = { data ->
-            mValue.value = data.toDouble()
+            try {
+                mValue.value = data.toDouble()
+                isError.value = false
+            }catch (e: java.lang.Exception) {
+                isError.value = true
+            }
         },
         label = { Text(mTitle) },
         enabled = enable,

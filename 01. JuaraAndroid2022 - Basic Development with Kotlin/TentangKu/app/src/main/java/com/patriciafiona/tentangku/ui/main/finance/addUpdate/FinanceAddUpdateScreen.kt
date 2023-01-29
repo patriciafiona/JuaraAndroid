@@ -217,7 +217,7 @@ fun FinanceAddUpdateScreen(
                             Text(
                                 modifier = Modifier
                                     .weight(1f),
-                                text = stringResource(id = R.string.nominal),
+                                text = stringResource(id = R.string.transaction_type),
                                 style = TextStyle(
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Bold,
