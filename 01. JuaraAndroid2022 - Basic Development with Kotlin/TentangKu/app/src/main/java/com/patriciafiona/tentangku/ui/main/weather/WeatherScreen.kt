@@ -48,6 +48,7 @@ import com.patriciafiona.tentangku.ui.main.ui.theme.Boulder
 import com.patriciafiona.tentangku.ui.widgets.Loader
 import com.patriciafiona.tentangku.ui.widgets.LocationPermission
 import com.patriciafiona.tentangku.utils.Utils
+import com.patriciafiona.tentangku.utils.Utils.checkLocation
 import com.patriciafiona.tentangku.utils.Utils.setBackgroundBaseOnTime
 import java.util.*
 
@@ -445,6 +446,8 @@ private fun OnLifecycle(
         // do stuff on event
         when (event) {
             Lifecycle.Event.ON_RESUME -> {
+                checkLocation(context = context)
+
                 if (ContextCompat.checkSelfPermission(
                         context,
                         Manifest.permission.ACCESS_FINE_LOCATION
