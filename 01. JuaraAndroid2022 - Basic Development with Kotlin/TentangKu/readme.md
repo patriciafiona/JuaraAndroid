@@ -3,6 +3,7 @@
 <p align="center">
   <img src="https://user-images.githubusercontent.com/32255348/215633542-18788b1b-b002-41e9-8d0c-eb42d8a0f8bc.png" width="400"/>
 </p>
+<p align="center"><i><b>Figure 1</b> Compose Champion Indonesia 2023 - Challenge banner</i></p>
 
 ## About the Challenge
 For the last 2 years, the Android team from Google has developed a new UI Toolkit that revolutionizes the current paradigm 
@@ -20,7 +21,7 @@ Developers who already have applications to migrate their UI to Jetpack Compose.
 <p align="center">
   <img src="https://img.tek.id/img/content/2019/08/23/19621/google-resmi-umumkan-nama-android-terbaru-3BlX51XEX7.jpg" width="300"/>
 </p>
-<p align="center"><i><b>Figure 1</b> Android Logo</i></p>
+<p align="center"><i><b>Figure 2</b> Android Logo</i></p>
 
 ```diff
 Type                        : Portofolio
