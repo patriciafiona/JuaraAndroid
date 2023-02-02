@@ -33,7 +33,7 @@ Programming Language        : [Kotlin](https://kotlinlang.org/)
 
 Current version             : V2.0.0
 
-Before migration result     : [Repository link](https://github.com/patriciafiona/JuaraAndroid2022/tree/main/01.%20JuaraAndroid2022%20-%20Basic%20Development%20with%20Kotlin)
+Before migration result     : [Repository link](https://github.com/patriciafiona/JuaraAndroid2022/tree/fdca2541dc8b30ad8f9bbdf8ef3d0d4034aaeb72/01.%20JuaraAndroid2022%20-%20Basic%20Development%20with%20Kotlin/TentangKu)
 
 Challenge reference         : [Dicoding Challenge] (https://www.dicoding.com/challenges/785)
 ```
