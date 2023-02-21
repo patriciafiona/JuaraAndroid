@@ -1,9 +1,4 @@
 # Compose Champion Indonesia 2023: Compose Migration Champion Challenge
-[![Platform](https://img.shields.io/badge/TentangKu-2.0.0-yellow)](https://bit.ly/tentangku-apk-v2_0_0)
-[![Platform](https://img.shields.io/badge/Android-2022.1.1%20Patch%201-green)](https://developer.android.com/studio)
-[![Platform](https://img.shields.io/badge/Kotlin%20Plugin-1.8.0-blue)](https://kotlinlang.org/)
-[![Platform](https://img.shields.io/badge/Compose%20version-1.3.3-orange)](https://developer.android.com/jetpack/androidx/releases/compose-ui)
-
 <p align="center">
   <img src="https://user-images.githubusercontent.com/32255348/215633542-18788b1b-b002-41e9-8d0c-eb42d8a0f8bc.png" width="400"/>
 </p>
@@ -74,3 +69,8 @@ Challenge reference         : [Dicoding Challenge] (https://www.dicoding.com/cha
 | Reminder | <img src="https://user-images.githubusercontent.com/32255348/215643405-9280ba0c-5f85-4324-b562-aed8e6bca7d3.gif" width="200"/>                                                                                                                                            |||
 ## 💖 Support the Project
 Thank you so much already visiting my projects! If you want to support my open source work, please star this repository. 
+
+[![Platform](https://img.shields.io/badge/TentangKu-2.0.0-yellow)](https://bit.ly/tentangku-apk-v2_0_0)
+[![Platform](https://img.shields.io/badge/Android-2022.1.1%20Patch%201-green)](https://developer.android.com/studio)
+[![Platform](https://img.shields.io/badge/Kotlin%20Plugin-1.8.0-blue)](https://kotlinlang.org/)
+[![Platform](https://img.shields.io/badge/Compose%20version-1.3.3-orange)](https://developer.android.com/jetpack/androidx/releases/compose-ui)
