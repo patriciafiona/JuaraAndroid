@@ -51,6 +51,19 @@ Open API              : openweather.org (https://openweathermap.org/current)
 Version               : V01.01
 ```
 
+<br/>
+<h3 align="center">==== This App Has Won The Challenge ====</h3>
+<br/>
+
+Find Tentang-Ku in the winner section of Dicoding Challenge: Compose Champion Indonesia 2023: Compose Migration Champion Challenge! You can find the details [here](https://www.dicoding.com/challenges/785/winningapps).
+
+<p align="center">
+  <img src="https://www.dicoding.com/blog/wp-content/uploads/2014/12/dicoding-header-logo.png" width="400"/>
+</p>
+<p align="center"><i><b>Figure 2</b> Dicoding Logo</i></p>
+
+> For the information, Dicoding Challenge is a place for developers to test their abilities in applying the skills and knowledge gained from the Academy. They can participate in solving challenges from our corporate partners with your digital solutions. This is an effective way to get your work validated by the industry. More info, please visit this [page](https://www.dicoding.com/challenges).
+
 For the preview of each function, please see the details bellow:
 | Function      | Result Preview  | Function      | Result Preview  |
 | :-: | :-: | :-: | :-: | 
