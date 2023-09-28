@@ -1,7 +1,7 @@
-# JuaraAndroid2022
+# JuaraAndroid
 Welcome to my #JuaraAndroid repository! 
 
-This is the results of my learning journey in JuaraAndroid 2022 program.
+This is the results of my learning journey in JuaraAndroid program.
 
 ## Information
 <p align="center">
@@ -10,7 +10,7 @@ This is the results of my learning journey in JuaraAndroid 2022 program.
 <p align="center"><i><b>Figure 1</b> Android Logo</i></p>
 
 ```diff
-Type                  : Juara Android 2022 Challenges
+Type                  : Juara Android Challenges
 
 Information           : Project results for #JuaraAndroid2022 based on the Google Developers Codelabs
 
