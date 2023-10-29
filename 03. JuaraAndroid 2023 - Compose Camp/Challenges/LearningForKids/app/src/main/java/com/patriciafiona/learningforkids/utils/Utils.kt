@@ -13,8 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -51,6 +53,17 @@ object Utils {
             color = color
         )
     }
+
+    @Composable
+    fun Dp.dpToPx() = with(LocalDensity.current) { this@dpToPx.toPx() }
+
+    @Composable
+    fun Int.pxToDp() = with(LocalDensity.current) { this@pxToDp.toDp() }
+
+    fun getColor(colorString: String): Color {
+        return Color(android.graphics.Color.parseColor(colorString))
+    }
+
     fun getTimeGreetingStatus() : String {
         val c = Calendar.getInstance()
 
