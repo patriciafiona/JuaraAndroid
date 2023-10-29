@@ -72,6 +72,9 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-permissions:0.29.0-alpha")
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
 
+    //Youtube player
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
+
     //Firebase
     implementation("com.google.firebase:firebase-storage:20.3.0")
 

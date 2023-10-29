@@ -127,7 +127,7 @@ fun HomeScreen(navController: NavController){
                         )
                         LottieAnim(
                             modifier = Modifier
-                                .width(250.dp)
+                                .fillMaxSize(.6f)
                                 .fillMaxHeight()
                                 .align(Alignment.CenterEnd),
                             R.raw.croc_animation
@@ -149,7 +149,7 @@ fun HomeScreen(navController: NavController){
                                 "nimal",
                                 style = TextStyle(
                                     fontFamily = PlayoutDemoFont,
-                                    fontSize = 20.sp,
+                                    fontSize = 24.sp,
                                     color = Color.Magenta
                                 ),
                                 modifier = Modifier

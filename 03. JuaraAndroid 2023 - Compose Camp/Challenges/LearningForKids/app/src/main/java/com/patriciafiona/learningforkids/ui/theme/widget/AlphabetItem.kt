@@ -1,9 +1,11 @@
 package com.patriciafiona.learningforkids.ui.theme.widget
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.Coil
 import coil.ImageLoader
 import coil.compose.AsyncImage
@@ -37,12 +40,14 @@ import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.patriciafiona.learningforkids.R
 import com.patriciafiona.learningforkids.data.Alphabet
+import com.patriciafiona.learningforkids.navigation.AppScreen
 import com.patriciafiona.learningforkids.ui.theme.PlayoutDemoFont
 import com.patriciafiona.learningforkids.ui.theme.goldVessel
+import com.patriciafiona.learningforkids.ui.theme.viewModel.AppViewModel
 import com.patriciafiona.learningforkids.utils.Utils.getColor
 
 @Composable
-fun AlphabetItem(data: Alphabet) {
+fun AlphabetItem(navController: NavController, data: Alphabet, viewModel: AppViewModel) {
     val character = data.name.first().toString()
     val context = LocalContext.current
     val imgLoader = ImageLoader.Builder(context)
@@ -55,6 +60,10 @@ fun AlphabetItem(data: Alphabet) {
 
     Box(modifier = Modifier
         .padding(bottom = 24.dp)
+        .clickable {
+            viewModel.selectedData.value = data
+            navController.navigate(AppScreen.AlphabetDetailScreen.route)
+        }
     ) {
         //Main Container Shadow
         Box(
@@ -62,7 +71,7 @@ fun AlphabetItem(data: Alphabet) {
                 .offset {
                     IntOffset(0, 85)
                 }
-                .size(190.dp)
+                .size(140.dp)
                 .background(goldVessel)
                 .align(Alignment.TopCenter)
         )
@@ -73,7 +82,7 @@ fun AlphabetItem(data: Alphabet) {
                 .offset {
                     IntOffset(0, 35)
                 }
-                .size(200.dp)
+                .size(150.dp)
                 .background(Color.White)
                 .align(Alignment.TopCenter)
         ){
@@ -98,7 +107,7 @@ fun AlphabetItem(data: Alphabet) {
                 style = TextStyle(
                     color = getColor(data.color_dark),
                     fontFamily = PlayoutDemoFont,
-                    fontSize = 40.sp
+                    fontSize = 30.sp
                 )
             )
         }
