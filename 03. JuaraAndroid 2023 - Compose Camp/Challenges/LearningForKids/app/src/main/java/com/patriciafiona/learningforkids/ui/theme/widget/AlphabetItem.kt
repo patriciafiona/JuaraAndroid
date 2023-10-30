@@ -1,6 +1,7 @@
 package com.patriciafiona.learningforkids.ui.theme.widget
 
 import android.graphics.Bitmap
+import android.media.MediaPlayer
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,6 +19,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,24 +48,35 @@ import com.patriciafiona.learningforkids.ui.theme.PlayoutDemoFont
 import com.patriciafiona.learningforkids.ui.theme.goldVessel
 import com.patriciafiona.learningforkids.ui.theme.viewModel.AppViewModel
 import com.patriciafiona.learningforkids.utils.Utils.getColor
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun AlphabetItem(navController: NavController, data: Alphabet, viewModel: AppViewModel) {
     val character = data.name.first().toString()
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
     val imgLoader = ImageLoader.Builder(context)
         .respectCacheHeaders(false)
         .memoryCachePolicy(CachePolicy.ENABLED)
         .diskCachePolicy(CachePolicy.ENABLED)
         .build()
 
+    val buttonSound = remember { MediaPlayer.create(context, R.raw.button) }
+
     Coil.setImageLoader(imgLoader)
 
     Box(modifier = Modifier
         .padding(bottom = 24.dp)
         .clickable {
-            viewModel.selectedData.value = data
-            navController.navigate(AppScreen.AlphabetDetailScreen.route)
+            coroutineScope.launch {
+                launch {
+                    buttonSound.start()
+                }
+                delay(500)
+                viewModel.selectedData.value = data
+                navController.navigate(AppScreen.AlphabetDetailScreen.route)
+            }
         }
     ) {
         //Main Container Shadow

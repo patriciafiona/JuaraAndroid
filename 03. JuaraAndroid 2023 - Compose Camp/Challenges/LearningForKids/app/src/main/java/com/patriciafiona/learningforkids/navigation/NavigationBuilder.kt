@@ -2,6 +2,8 @@ package com.patriciafiona.learningforkids.navigation
 
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,6 +18,7 @@ import com.patriciafiona.learningforkids.ui.theme.viewModel.AppViewModel
 fun NavigationBuilder() {
     val navigationController = rememberNavController()
     val viewModel = AppViewModel()
+    val isMute = remember{ mutableStateOf(false) }
 
     NavHost(navController = navigationController, startDestination = AppScreen.SplashScreen.route) {
 
@@ -24,11 +27,11 @@ fun NavigationBuilder() {
         }
 
         composable(route = AppScreen.HomeScreen.route) {
-            HomeScreen(navController = navigationController)
+            HomeScreen(navController = navigationController, isMute = isMute)
         }
 
         composable(route = AppScreen.AlphabetListScreen.route) {
-            AlphabetListScreen(navController = navigationController, viewModel)
+            AlphabetListScreen(navController = navigationController, viewModel, isMute)
         }
 
         composable(route = AppScreen.AlphabetDetailScreen.route) {

@@ -1,5 +1,6 @@
 package com.patriciafiona.learningforkids.ui.theme.screen.home
 
+import android.media.MediaPlayer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -24,6 +26,12 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -31,11 +39,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.patriciafiona.learningforkids.R
@@ -48,10 +59,30 @@ import com.patriciafiona.learningforkids.ui.theme.vividRed
 import com.patriciafiona.learningforkids.ui.theme.widget.CircleButton
 import com.patriciafiona.learningforkids.ui.theme.widget.LottieAnim
 import com.patriciafiona.learningforkids.utils.Utils
+import com.patriciafiona.learningforkids.utils.Utils.OnLifecycleEvent
 import com.patriciafiona.learningforkids.utils.Utils.getTimeGreetingStatus
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
-fun HomeScreen(navController: NavController){
+fun HomeScreen(
+    navController: NavController,
+    isMute: MutableState<Boolean>,
+){
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
+    val currentPos = rememberSaveable{ mutableIntStateOf(0) }
+    val buttonSound = remember { MediaPlayer.create(context, R.raw.decidemp) }
+    val bgmSound = remember { MediaPlayer.create(context, R.raw.funny_bgm) }
+
+    OnLifecycle(
+        buttonSound = buttonSound,
+        bgmSound = bgmSound,
+        currentPos = currentPos,
+        isMute = isMute
+    )
+
     Utils.setSystemBarColor(color = colorPrimary)
     
     Scaffold {
@@ -113,7 +144,15 @@ fun HomeScreen(navController: NavController){
                         .fillMaxWidth()
                         .height(200.dp)
                         .padding(16.dp)
-                        .clickable { navController.navigate(AppScreen.AlphabetListScreen.route) },
+                        .clickable {
+                            coroutineScope.launch {
+                                launch {
+                                    buttonSound.start()
+                                }
+                                delay(500)
+                                navController.navigate(AppScreen.AlphabetListScreen.route)
+                            }
+                       },
                     colors = CardDefaults.cardColors(
                         containerColor = Color.Yellow,
                     ),
@@ -133,27 +172,43 @@ fun HomeScreen(navController: NavController){
                             R.raw.croc_animation
                         )
 
-                        Row(
-                            verticalAlignment = Alignment.Bottom
-                        ) {
-                            Text(
-                                "A",
-                                style = TextStyle(
-                                    fontFamily = PlayoutDemoFont,
-                                    fontSize = 80.sp,
-                                    color = Color.Magenta
+                        Column{
+                            Row(
+                                verticalAlignment = Alignment.Bottom
+                            ) {
+                                Text(
+                                    "A",
+                                    style = TextStyle(
+                                        fontFamily = PlayoutDemoFont,
+                                        fontSize = 60.sp,
+                                        color = Color.Magenta
+                                    )
                                 )
-                            )
+
+                                Text(
+                                    "nimal",
+                                    style = TextStyle(
+                                        fontFamily = PlayoutDemoFont,
+                                        fontSize = 24.sp,
+                                        color = Color.Magenta
+                                    ),
+                                    modifier = Modifier
+                                        .padding(bottom = 22.dp),
+                                )
+                            }
 
                             Text(
-                                "nimal",
+                                "Alphabet",
                                 style = TextStyle(
                                     fontFamily = PlayoutDemoFont,
                                     fontSize = 24.sp,
                                     color = Color.Magenta
                                 ),
                                 modifier = Modifier
-                                    .padding(bottom = 22.dp),
+                                    .padding(bottom = 22.dp, start = 28.dp)
+                                    .offset {
+                                        IntOffset(0, -50)
+                                    }
                             )
                         }
 
@@ -172,9 +227,56 @@ fun HomeScreen(navController: NavController){
     }
 }
 
+@Composable
+private fun OnLifecycle(
+    buttonSound: MediaPlayer,
+    bgmSound: MediaPlayer,
+    currentPos: MutableState<Int>,
+    isMute: MutableState<Boolean>
+) {
+    OnLifecycleEvent { _, event ->
+        // do stuff on event
+        when (event) {
+            Lifecycle.Event.ON_RESUME -> {
+                buttonSound.isLooping = false
+                bgmSound.isLooping = true
+
+                if(isMute.value) {
+                    bgmSound.setVolume(0.0f, 0.0f)
+                }else{
+                    bgmSound.setVolume(1.0f, 1.0f)
+                }
+
+                if (currentPos.value != 0) {
+                    bgmSound.seekTo(currentPos.value)
+                }
+                buttonSound.seekTo(0)
+                bgmSound.start()
+            }
+            Lifecycle.Event.ON_PAUSE -> {
+                currentPos.value = bgmSound.currentPosition
+                bgmSound.pause()
+            }
+            Lifecycle.Event.ON_DESTROY -> {
+                currentPos.value = 0
+
+                bgmSound.stop()
+                bgmSound.release()
+            }
+            else -> {}
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview(){
     val navController = rememberNavController()
-    HomeScreen(navController = navController)
+    val isMute = remember {
+        mutableStateOf(false)
+    }
+    HomeScreen(
+        navController = navController,
+        isMute = isMute
+    )
 }

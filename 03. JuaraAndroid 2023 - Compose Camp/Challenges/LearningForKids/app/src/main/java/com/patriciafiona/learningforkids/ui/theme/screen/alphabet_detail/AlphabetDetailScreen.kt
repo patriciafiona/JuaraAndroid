@@ -1,5 +1,6 @@
 package com.patriciafiona.learningforkids.ui.theme.screen.alphabet_detail
 
+import android.media.MediaPlayer
 import android.net.Uri
 import android.speech.tts.TextToSpeech
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -37,8 +38,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -73,6 +77,8 @@ import com.patriciafiona.learningforkids.ui.theme.widget.YoutubeScreen
 import com.patriciafiona.learningforkids.utils.Utils
 import com.patriciafiona.learningforkids.utils.Utils.getColor
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.IOException
@@ -96,6 +102,9 @@ fun AlphabetDetailScreen(navController: NavController, viewModel: AppViewModel){
     val pitchRate by remember { mutableStateOf(1f) }
     val speechRate by remember { mutableStateOf(1f) }
     var selectedFileUri by remember { mutableStateOf<Uri?>(null) }
+
+    val coroutineScope = rememberCoroutineScope()
+    val backBtnSound = remember { MediaPlayer.create(context, R.raw.shooting_sound_fx) }
 
     Coil.setImageLoader(imgLoader)
 
@@ -160,7 +169,15 @@ fun AlphabetDetailScreen(navController: NavController, viewModel: AppViewModel){
             ) {
                 Row(modifier = Modifier.padding(start = 8.dp, top = 16.dp)){
                     IconButton(
-                        onClick = {navController.popBackStack()}
+                        onClick = {
+                            coroutineScope.launch {
+                                launch {
+                                    backBtnSound.start()
+                                }
+                                delay(500)
+                                navController.popBackStack()
+                            }
+                        }
                     ) {
                         Icon(
                             Icons.Filled.ArrowBack,
