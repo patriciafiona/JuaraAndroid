@@ -1,31 +1,18 @@
 package com.patriciafiona.learningforkids.utils
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.Context
-import android.content.ContextWrapper
-import android.content.DialogInterface
-import android.content.Intent
-import android.location.LocationManager
-import android.provider.Settings
-import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.patriciafiona.learningforkids.R
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.util.*
+import java.net.InetAddress
+import java.util.Calendar
 
 
 object Utils {
@@ -62,6 +49,15 @@ object Utils {
 
     fun getColor(colorString: String): Color {
         return Color(android.graphics.Color.parseColor(colorString))
+    }
+
+    fun isInternetAvailable(): Boolean {
+        return try {
+            val ipAddr = InetAddress.getByName("google.com")
+            return !ipAddr.equals("")
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun getTimeGreetingStatus() : String {
