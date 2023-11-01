@@ -1,6 +1,9 @@
 package com.patriciafiona.learningforkids.ui.theme.screen.home
 
+import android.app.Activity
+import android.content.SharedPreferences
 import android.media.MediaPlayer
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,6 +23,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.MusicOff
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -61,6 +66,7 @@ import com.patriciafiona.learningforkids.ui.theme.widget.LottieAnim
 import com.patriciafiona.learningforkids.utils.Utils
 import com.patriciafiona.learningforkids.utils.Utils.OnLifecycleEvent
 import com.patriciafiona.learningforkids.utils.Utils.getTimeGreetingStatus
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -68,6 +74,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     navController: NavController,
     isMute: MutableState<Boolean>,
+    sharedPreferences: SharedPreferences
 ){
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -120,11 +127,24 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.weight(1f))
 
                     CircleButton(
-                        onCLickAction = { },
+                        onCLickAction = {
+                            val currentState = sharedPreferences.getBoolean("isMute", false)
+                            sharedPreferences.edit()
+                                .putBoolean("isMute", !currentState)
+                                .apply()
+                            isMute.value = !currentState
+
+                            bgmSound.start()
+                            if(isMute.value) {
+                                bgmSound.setVolume(0.0f, 0.0f)
+                            }else{
+                                bgmSound.setVolume(1.0f, 1.0f)
+                            }
+                        },
                         btnSize = 50,
                         btnColor = brightRed,
                         btnOutlineColor = vividRed,
-                        btnIcon = Icons.Filled.Settings,
+                        btnIcon = if (isMute.value) { Icons.Filled.MusicOff } else{ Icons.Filled.MusicNote },
                         btnIconColor = Color.White
                     )
                 }
@@ -139,90 +159,180 @@ fun HomeScreen(
                     )
                 )
 
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .padding(16.dp)
-                        .clickable {
-                            coroutineScope.launch {
-                                launch {
-                                    buttonSound.start()
-                                }
-                                delay(500)
-                                navController.navigate(AppScreen.AlphabetListScreen.route)
-                            }
-                       },
-                    colors = CardDefaults.cardColors(
-                        containerColor = Color.Yellow,
-                    ),
-                ) {
-                    Box (modifier = Modifier.fillMaxSize()){
-                        Image(
-                            painter = painterResource(id = R.drawable.pattern_star),
-                            contentDescription = "pattern background",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize()
-                        )
-                        LottieAnim(
-                            modifier = Modifier
-                                .fillMaxSize(.6f)
-                                .fillMaxHeight()
-                                .align(Alignment.CenterEnd),
-                            R.raw.croc_animation
-                        )
+                AnimalAlphabetCard(coroutineScope, buttonSound, navController)
+                ColorCard(coroutineScope, buttonSound, navController)
+            }
+        }
+    }
+}
 
-                        Column{
-                            Row(
-                                verticalAlignment = Alignment.Bottom
-                            ) {
-                                Text(
-                                    "A",
-                                    style = TextStyle(
-                                        fontFamily = PlayoutDemoFont,
-                                        fontSize = 60.sp,
-                                        color = Color.Magenta
-                                    )
-                                )
-
-                                Text(
-                                    "nimal",
-                                    style = TextStyle(
-                                        fontFamily = PlayoutDemoFont,
-                                        fontSize = 24.sp,
-                                        color = Color.Magenta
-                                    ),
-                                    modifier = Modifier
-                                        .padding(bottom = 22.dp),
-                                )
-                            }
-
-                            Text(
-                                "Alphabet",
-                                style = TextStyle(
-                                    fontFamily = PlayoutDemoFont,
-                                    fontSize = 24.sp,
-                                    color = Color.Magenta
-                                ),
-                                modifier = Modifier
-                                    .padding(bottom = 22.dp, start = 28.dp)
-                                    .offset {
-                                        IntOffset(0, -50)
-                                    }
-                            )
-                        }
-
-                        LottieAnim(
-                            modifier = Modifier
-                                .width(70.dp)
-                                .height(70.dp)
-                                .padding(8.dp)
-                                .align(Alignment.BottomStart),
-                            R.raw.play_animation
-                        )
+@Composable
+private fun ColorCard(
+    coroutineScope: CoroutineScope,
+    buttonSound: MediaPlayer,
+    navController: NavController
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+            .padding(16.dp)
+            .clickable {
+                coroutineScope.launch {
+                    launch {
+                        buttonSound.start()
                     }
+                    delay(500)
+                    navController.navigate(AppScreen.ColorListScreen.route)
+                }
+            },
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White,
+        ),
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Image(
+                painter = painterResource(id = R.drawable.pattern_star),
+                contentDescription = "pattern background",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+
+            LottieAnim(
+                modifier = Modifier
+                    .fillMaxSize(.6f)
+                    .fillMaxHeight()
+                    .align(Alignment.CenterEnd),
+                R.raw.color_animation
+            )
+
+            Column {
+                Row(
+                    modifier = Modifier.padding(start = 16.dp),
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    Text(
+                        "C",
+                        style = TextStyle(
+                            fontFamily = PlayoutDemoFont,
+                            fontSize = 70.sp,
+                            color = Color.DarkGray
+                        )
+                    )
+
+                    Text(
+                        "olor",
+                        style = TextStyle(
+                            fontFamily = PlayoutDemoFont,
+                            fontSize = 34.sp,
+                            color = Color.DarkGray
+                        ),
+                        modifier = Modifier
+                            .padding(bottom = 22.dp),
+                    )
                 }
             }
+
+            LottieAnim(
+                modifier = Modifier
+                    .width(70.dp)
+                    .height(70.dp)
+                    .padding(8.dp)
+                    .align(Alignment.BottomStart),
+                R.raw.play_animation
+            )
+        }
+    }
+}
+
+@Composable
+private fun AnimalAlphabetCard(
+    coroutineScope: CoroutineScope,
+    buttonSound: MediaPlayer,
+    navController: NavController
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+            .padding(16.dp)
+            .clickable {
+                coroutineScope.launch {
+                    launch {
+                        buttonSound.start()
+                    }
+                    delay(500)
+                    navController.navigate(AppScreen.AlphabetListScreen.route)
+                }
+            },
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Yellow,
+        ),
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Image(
+                painter = painterResource(id = R.drawable.pattern_star),
+                contentDescription = "pattern background",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+            LottieAnim(
+                modifier = Modifier
+                    .fillMaxSize(.6f)
+                    .fillMaxHeight()
+                    .align(Alignment.CenterEnd),
+                R.raw.croc_animation
+            )
+
+            Column {
+                Row(
+                    modifier = Modifier.padding(start = 16.dp),
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    Text(
+                        "A",
+                        style = TextStyle(
+                            fontFamily = PlayoutDemoFont,
+                            fontSize = 60.sp,
+                            color = Color.Magenta
+                        )
+                    )
+
+                    Text(
+                        "nimal",
+                        style = TextStyle(
+                            fontFamily = PlayoutDemoFont,
+                            fontSize = 24.sp,
+                            color = Color.Magenta
+                        ),
+                        modifier = Modifier
+                            .padding(bottom = 22.dp),
+                    )
+                }
+
+                Text(
+                    "Alphabet",
+                    style = TextStyle(
+                        fontFamily = PlayoutDemoFont,
+                        fontSize = 24.sp,
+                        color = Color.Magenta
+                    ),
+                    modifier = Modifier
+                        .padding(bottom = 22.dp, start = 34.dp)
+                        .offset {
+                            IntOffset(0, -50)
+                        }
+                )
+            }
+
+            LottieAnim(
+                modifier = Modifier
+                    .width(70.dp)
+                    .height(70.dp)
+                    .padding(8.dp)
+                    .align(Alignment.BottomStart),
+                R.raw.play_animation
+            )
         }
     }
 }
@@ -271,12 +381,15 @@ private fun OnLifecycle(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview(){
+    val activity = LocalContext.current as Activity
     val navController = rememberNavController()
     val isMute = remember {
         mutableStateOf(false)
     }
+    val sharedPreferences = activity.getSharedPreferences("learning_app", ComponentActivity.MODE_PRIVATE)
     HomeScreen(
         navController = navController,
-        isMute = isMute
+        isMute = isMute,
+        sharedPreferences
     )
 }

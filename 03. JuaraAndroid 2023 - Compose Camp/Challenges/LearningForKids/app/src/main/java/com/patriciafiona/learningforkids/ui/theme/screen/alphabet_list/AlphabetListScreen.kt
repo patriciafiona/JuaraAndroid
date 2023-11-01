@@ -1,6 +1,7 @@
 package com.patriciafiona.learningforkids.ui.theme.screen.alphabet_list
 
 import android.media.MediaPlayer
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -69,6 +70,7 @@ fun AlphabetListScreen(
     )
 
     val listData = viewModel.alphabets
+    Log.d("Alphabet_List", listData.toList().toString())
 
     Utils.setSystemBarColor(color = vividOrange)
 

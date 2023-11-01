@@ -1,4 +1,4 @@
-package com.patriciafiona.learningforkids.data
+package com.patriciafiona.learningforkids.data.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
