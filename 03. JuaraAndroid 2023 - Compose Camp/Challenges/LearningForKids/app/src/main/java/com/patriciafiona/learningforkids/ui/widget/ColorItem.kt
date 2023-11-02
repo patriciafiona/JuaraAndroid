@@ -1,4 +1,4 @@
-package com.patriciafiona.learningforkids.ui.theme.widget
+package com.patriciafiona.learningforkids.ui.widget
 
 import android.media.MediaPlayer
 import androidx.compose.foundation.background
@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -40,7 +41,7 @@ import com.patriciafiona.learningforkids.ui.theme.NilamTracingFont
 import com.patriciafiona.learningforkids.ui.theme.PlayoutDemoFont
 import com.patriciafiona.learningforkids.ui.theme.blanchedAlmond
 import com.patriciafiona.learningforkids.ui.theme.goldVessel
-import com.patriciafiona.learningforkids.ui.theme.viewModel.AppViewModel
+import com.patriciafiona.learningforkids.ui.viewModel.AppViewModel
 import com.patriciafiona.learningforkids.utils.Utils.getColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -49,7 +50,8 @@ import kotlinx.coroutines.launch
 fun ColorItem(
     data: ColorData,
     navController: NavController,
-    viewModel: AppViewModel
+    viewModel: AppViewModel,
+    windowSize: WindowWidthSizeClass
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -72,9 +74,9 @@ fun ColorItem(
         Box(
             modifier = Modifier
                 .offset {
-                    IntOffset(0, 85)
+                    IntOffset(0, 65)
                 }
-                .size(140.dp)
+                .size(if(windowSize == WindowWidthSizeClass.Compact) 140.dp else 280.dp)
                 .background(goldVessel)
                 .align(Alignment.TopCenter)
         )
@@ -85,7 +87,7 @@ fun ColorItem(
                 .offset {
                     IntOffset(0, 35)
                 }
-                .size(150.dp)
+                .size(if(windowSize == WindowWidthSizeClass.Compact) 150.dp else 300.dp)
                 .background(blanchedAlmond)
                 .align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -95,7 +97,7 @@ fun ColorItem(
 
             Box(
                 modifier = Modifier
-                    .size(70.dp)
+                    .size(if(windowSize == WindowWidthSizeClass.Compact) 70.dp else 140.dp)
                     .clip(CircleShape)
                     .background(getColor(data.color))
                     .padding(bottom = 16.dp)
@@ -104,12 +106,12 @@ fun ColorItem(
             Text(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
                 text = data.name,
                 style = TextStyle(
                     color = Color.Black,
                     fontFamily = PlayoutDemoFont,
-                    fontSize = 30.sp,
+                    fontSize = if(windowSize == WindowWidthSizeClass.Compact) 30.sp else 60.sp,
                     textAlign = TextAlign.Center
                 )
             )

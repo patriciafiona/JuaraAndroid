@@ -1,6 +1,9 @@
-package com.patriciafiona.learningforkids.ui.theme.screen.color_detail
+package com.patriciafiona.learningforkids.ui.screen.color.color_list
 
 import android.media.MediaPlayer
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,10 +14,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -24,54 +29,72 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.patriciafiona.learningforkids.R
 import com.patriciafiona.learningforkids.ui.theme.PlayoutDemoFont
-import com.patriciafiona.learningforkids.ui.theme.viewModel.AppViewModel
-import com.patriciafiona.learningforkids.ui.theme.widget.ColorImageItem
-import com.patriciafiona.learningforkids.ui.theme.widget.ColorItem
-import com.patriciafiona.learningforkids.ui.theme.widget.LottieAnim
+import com.patriciafiona.learningforkids.ui.theme.brightYellow
+import com.patriciafiona.learningforkids.ui.theme.colorPrimary
+import com.patriciafiona.learningforkids.ui.screen.alphabets.alphabet_list.AlphabetListScreen
+import com.patriciafiona.learningforkids.ui.viewModel.AppViewModel
+import com.patriciafiona.learningforkids.ui.widget.AlphabetItem
+import com.patriciafiona.learningforkids.ui.widget.ColorItem
+import com.patriciafiona.learningforkids.ui.widget.LottieAnim
 import com.patriciafiona.learningforkids.utils.Utils
-import com.patriciafiona.learningforkids.utils.Utils.getColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun ColorDetailScreen(
+fun ColorListScreen(
     navController: NavController,
     viewModel: AppViewModel,
+    isMute: MutableState<Boolean>,
+    windowSize: WindowWidthSizeClass
 ){
-    val selectedColor = viewModel.selectedColorData.value
-    Utils.setSystemBarColor(color = getColor(selectedColor.color))
+    val listData = viewModel.colors
+    Log.d("Color_List", listData.toList().toString())
+
+    val isInternetConnected = remember{ mutableStateOf(true) }
 
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val currentPos = rememberSaveable{ mutableIntStateOf(0) }
-    val bgmSound = remember { MediaPlayer.create(context, R.raw.cute_creatures) }
+    val bgmSound = remember { MediaPlayer.create(context, R.raw.happy_childhood_loop_173335) }
     val backBtnSound = remember { MediaPlayer.create(context, R.raw.shooting_sound_fx) }
+    OnLifecycle(
+        bgmSound = bgmSound,
+        currentPos = currentPos,
+        isMute = isMute
+    )
+
+    Utils.setSystemBarColor(color = Color.LightGray)
 
     Scaffold {
         Box (modifier = Modifier
             .fillMaxSize()
-            .background(getColor(selectedColor.color))
+            .background(Color.White)
             .padding(it)
         ) {
             Image(
@@ -92,7 +115,7 @@ fun ColorDetailScreen(
             ) {
 
                 Row(modifier = Modifier.padding(start = 8.dp)){
-                    if(selectedColor.images.size > 0) {
+                    if(listData.size > 0) {
                         IconButton(
                             onClick = {
                                 coroutineScope.launch {
@@ -116,56 +139,32 @@ fun ColorDetailScreen(
                     Spacer(modifier = Modifier.weight(1f))
                 }
 
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth(.6f)
-                        .padding(bottom = 32.dp, top = 16.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = Color.White
-                    ),
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        text = "Colors",
-                        style = TextStyle(
-                            color = getColor(selectedColor.color),
-                            fontFamily = PlayoutDemoFont,
-                            fontSize = 32.sp,
-                            textAlign = TextAlign.Center
-                        )
-                    )
-                }
-
-                if(selectedColor.images.size > 0) {
+                if(listData.size > 0) {
                     LazyVerticalGrid(
                         modifier = Modifier
                             .weight(1f)
                             .padding(vertical = 8.dp),
-                        columns = GridCells.Adaptive(150.dp),
+                        columns = GridCells.Adaptive(if(windowSize == WindowWidthSizeClass.Compact) 150.dp else 310.dp),
 
                         // content padding
                         contentPadding = PaddingValues(
                             start = 8.dp,
                             top = 16.dp,
                             end = 16.dp,
-                            bottom = 8.dp
+                            bottom = 16.dp
                         ),
                         content = {
-                            items(selectedColor.images.size) { index ->
-                                ColorImageItem(
+                            items(listData.size) { index ->
+                                ColorItem(
                                     navController = navController,
-                                    url = selectedColor.images.values.elementAt(index),
-                                    name = selectedColor.images.keys.elementAt(index),
-                                    color = selectedColor.color,
-                                    viewModel = viewModel
+                                    data = listData[index],
+                                    viewModel = viewModel,
+                                    windowSize = windowSize
                                 )
                             }
                         }
                     )
-                }else{
+                }else if(isInternetConnected.value){
                     Spacer(modifier = Modifier.weight(1f))
 
                     LottieAnim(
@@ -173,6 +172,42 @@ fun ColorDetailScreen(
                         modifier = Modifier
                             .fillMaxWidth(.7f)
                     )
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isInternetConnected.value = Utils.isInternetAvailable()
+                    }, 1500)
+
+                    Spacer(modifier = Modifier.weight(1f))
+                }else{
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Box(
+                        modifier = Modifier
+                            .size(200.dp)
+                            .clip(CircleShape)
+                            .background(Color.Red)
+                    ){
+                        LottieAnim(
+                            anim = R.raw.no_connection,
+                            modifier = Modifier
+                                .fillMaxSize()
+                        )
+                    }
+
+                    Text(
+                        modifier = Modifier
+                            .padding(vertical = 16.dp),
+                        text = "No Internet Connection",
+                        style = TextStyle(
+                            color = Color.Red,
+                            fontSize = 30.sp,
+                            fontFamily = PlayoutDemoFont
+                        )
+                    )
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isInternetConnected.value = Utils.isInternetAvailable()
+                    }, 100)
 
                     Spacer(modifier = Modifier.weight(1f))
                 }

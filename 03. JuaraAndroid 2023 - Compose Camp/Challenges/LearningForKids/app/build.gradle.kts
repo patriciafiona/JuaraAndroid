@@ -15,7 +15,7 @@ android {
         minSdk = 28
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -95,6 +95,15 @@ dependencies {
 
     //Lottie - GIF Animation
     implementation("com.airbnb.android:lottie-compose:5.0.3")
+
+    debugImplementation("androidx.compose.ui:ui-tooling:1.5.4")
+    implementation ("androidx.compose.ui:ui-tooling-preview:1.5.4")
+
+    debugImplementation ("androidx.customview:customview:1.2.0-alpha02")
+    debugImplementation ("androidx.customview:customview-poolingcontainer:1.0.0")
+
+    //Adaptive layout
+    implementation ("androidx.compose.material3:material3-window-size-class:1.2.0-alpha10")
 
     //Testing
     testImplementation("junit:junit:4.13.2")

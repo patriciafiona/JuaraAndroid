@@ -1,4 +1,4 @@
-package com.patriciafiona.learningforkids.ui.theme.screen.home
+package com.patriciafiona.learningforkids.ui.screen.home
 
 import android.app.Activity
 import android.content.SharedPreferences
@@ -30,6 +30,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
@@ -61,8 +62,8 @@ import com.patriciafiona.learningforkids.ui.theme.brightRed
 import com.patriciafiona.learningforkids.ui.theme.colorPrimary
 import com.patriciafiona.learningforkids.ui.theme.vividOrange
 import com.patriciafiona.learningforkids.ui.theme.vividRed
-import com.patriciafiona.learningforkids.ui.theme.widget.CircleButton
-import com.patriciafiona.learningforkids.ui.theme.widget.LottieAnim
+import com.patriciafiona.learningforkids.ui.widget.CircleButton
+import com.patriciafiona.learningforkids.ui.widget.LottieAnim
 import com.patriciafiona.learningforkids.utils.Utils
 import com.patriciafiona.learningforkids.utils.Utils.OnLifecycleEvent
 import com.patriciafiona.learningforkids.utils.Utils.getTimeGreetingStatus
@@ -74,7 +75,8 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     navController: NavController,
     isMute: MutableState<Boolean>,
-    sharedPreferences: SharedPreferences
+    sharedPreferences: SharedPreferences,
+    windowSize: WindowWidthSizeClass,
 ){
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -120,7 +122,7 @@ fun HomeScreen(
                         painter = painterResource(id = R.drawable.app_icon),
                         contentDescription = "Splash image",
                         modifier = Modifier
-                            .width(50.dp)
+                            .width(if(windowSize == WindowWidthSizeClass.Compact) 50.dp else 100.dp )
                             .clip(CircleShape)
                     )
 
@@ -141,11 +143,12 @@ fun HomeScreen(
                                 bgmSound.setVolume(1.0f, 1.0f)
                             }
                         },
-                        btnSize = 50,
+                        btnSize = if(windowSize == WindowWidthSizeClass.Compact) 50 else 100 ,
                         btnColor = brightRed,
                         btnOutlineColor = vividRed,
                         btnIcon = if (isMute.value) { Icons.Filled.MusicOff } else{ Icons.Filled.MusicNote },
-                        btnIconColor = Color.White
+                        btnIconColor = Color.White,
+                        windowSize = windowSize
                     )
                 }
 
@@ -155,12 +158,12 @@ fun HomeScreen(
                     style = TextStyle(
                         color = Color.White,
                         fontFamily = PlayoutDemoFont,
-                        fontSize = 32.sp
+                        fontSize = if(windowSize == WindowWidthSizeClass.Compact) 32.sp else 64.sp
                     )
                 )
 
-                AnimalAlphabetCard(coroutineScope, buttonSound, navController)
-                ColorCard(coroutineScope, buttonSound, navController)
+                AnimalAlphabetCard(coroutineScope, buttonSound, navController, windowSize)
+                ColorCard(coroutineScope, buttonSound, navController, windowSize)
             }
         }
     }
@@ -170,12 +173,13 @@ fun HomeScreen(
 private fun ColorCard(
     coroutineScope: CoroutineScope,
     buttonSound: MediaPlayer,
-    navController: NavController
+    navController: NavController,
+    windowSize: WindowWidthSizeClass
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .height(if(windowSize == WindowWidthSizeClass.Compact) 200.dp else 350.dp)
             .padding(16.dp)
             .clickable {
                 coroutineScope.launch {
@@ -215,7 +219,7 @@ private fun ColorCard(
                         "C",
                         style = TextStyle(
                             fontFamily = PlayoutDemoFont,
-                            fontSize = 70.sp,
+                            fontSize = if(windowSize == WindowWidthSizeClass.Compact) 70.sp else 140.sp,
                             color = Color.DarkGray
                         )
                     )
@@ -224,7 +228,7 @@ private fun ColorCard(
                         "olor",
                         style = TextStyle(
                             fontFamily = PlayoutDemoFont,
-                            fontSize = 34.sp,
+                            fontSize = if(windowSize == WindowWidthSizeClass.Compact) 34.sp else 68.sp,
                             color = Color.DarkGray
                         ),
                         modifier = Modifier
@@ -233,10 +237,11 @@ private fun ColorCard(
                 }
             }
 
+            val playIconSize = if(windowSize == WindowWidthSizeClass.Compact) 70.dp else 140.dp
             LottieAnim(
                 modifier = Modifier
-                    .width(70.dp)
-                    .height(70.dp)
+                    .width(playIconSize)
+                    .height(playIconSize)
                     .padding(8.dp)
                     .align(Alignment.BottomStart),
                 R.raw.play_animation
@@ -249,12 +254,13 @@ private fun ColorCard(
 private fun AnimalAlphabetCard(
     coroutineScope: CoroutineScope,
     buttonSound: MediaPlayer,
-    navController: NavController
+    navController: NavController,
+    windowSize: WindowWidthSizeClass
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .height(if(windowSize == WindowWidthSizeClass.Compact) 200.dp else 450.dp)
             .padding(16.dp)
             .clickable {
                 coroutineScope.launch {
@@ -262,7 +268,7 @@ private fun AnimalAlphabetCard(
                         buttonSound.start()
                     }
                     delay(500)
-                    navController.navigate(AppScreen.AlphabetListScreen.route)
+                    navController.navigate(AppScreen.AlphabetScreen.route)
                 }
             },
         colors = CardDefaults.cardColors(
@@ -293,7 +299,7 @@ private fun AnimalAlphabetCard(
                         "A",
                         style = TextStyle(
                             fontFamily = PlayoutDemoFont,
-                            fontSize = 60.sp,
+                            fontSize = if(windowSize == WindowWidthSizeClass.Compact) 60.sp else 120.sp,
                             color = Color.Magenta
                         )
                     )
@@ -302,7 +308,7 @@ private fun AnimalAlphabetCard(
                         "nimal",
                         style = TextStyle(
                             fontFamily = PlayoutDemoFont,
-                            fontSize = 24.sp,
+                            fontSize = if(windowSize == WindowWidthSizeClass.Compact) 24.sp else 48.sp,
                             color = Color.Magenta
                         ),
                         modifier = Modifier
@@ -314,21 +320,22 @@ private fun AnimalAlphabetCard(
                     "Alphabet",
                     style = TextStyle(
                         fontFamily = PlayoutDemoFont,
-                        fontSize = 24.sp,
+                        fontSize = if(windowSize == WindowWidthSizeClass.Compact) 24.sp else 48.sp,
                         color = Color.Magenta
                     ),
                     modifier = Modifier
-                        .padding(bottom = 22.dp, start = 34.dp)
+                        .padding(bottom = 22.dp, start = 34.dp, top = if(windowSize == WindowWidthSizeClass.Compact) 0.dp else 8.dp)
                         .offset {
                             IntOffset(0, -50)
                         }
                 )
             }
 
+            val playIconSize = if(windowSize == WindowWidthSizeClass.Compact) 70.dp else 140.dp
             LottieAnim(
                 modifier = Modifier
-                    .width(70.dp)
-                    .height(70.dp)
+                    .width(playIconSize)
+                    .height(playIconSize)
                     .padding(8.dp)
                     .align(Alignment.BottomStart),
                 R.raw.play_animation
@@ -376,20 +383,4 @@ private fun OnLifecycle(
             else -> {}
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview(){
-    val activity = LocalContext.current as Activity
-    val navController = rememberNavController()
-    val isMute = remember {
-        mutableStateOf(false)
-    }
-    val sharedPreferences = activity.getSharedPreferences("learning_app", ComponentActivity.MODE_PRIVATE)
-    HomeScreen(
-        navController = navController,
-        isMute = isMute,
-        sharedPreferences
-    )
 }

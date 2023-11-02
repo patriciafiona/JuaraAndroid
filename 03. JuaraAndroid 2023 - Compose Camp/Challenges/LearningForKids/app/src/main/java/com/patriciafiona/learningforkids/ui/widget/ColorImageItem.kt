@@ -1,4 +1,4 @@
-package com.patriciafiona.learningforkids.ui.theme.widget
+package com.patriciafiona.learningforkids.ui.widget
 
 import android.media.MediaPlayer
 import android.speech.tts.TextToSpeech
@@ -25,6 +25,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -54,7 +55,7 @@ import com.patriciafiona.learningforkids.ui.theme.NilamTracingFont
 import com.patriciafiona.learningforkids.ui.theme.PlayoutDemoFont
 import com.patriciafiona.learningforkids.ui.theme.blanchedAlmond
 import com.patriciafiona.learningforkids.ui.theme.goldVessel
-import com.patriciafiona.learningforkids.ui.theme.viewModel.AppViewModel
+import com.patriciafiona.learningforkids.ui.viewModel.AppViewModel
 import com.patriciafiona.learningforkids.utils.Utils.getColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -65,12 +66,9 @@ fun ColorImageItem(
     url: String,
     name: String,
     color: String,
-    navController: NavController,
-    viewModel: AppViewModel
+    windowSize: WindowWidthSizeClass
 ) {
     val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
-    val buttonSound = remember { MediaPlayer.create(context, R.raw.button) }
 
     var tts: TextToSpeech? = null
     var isBtnEnabled by remember { mutableStateOf(true) }
@@ -79,9 +77,9 @@ fun ColorImageItem(
 
     Card(
         modifier = Modifier
-            .width(150.dp)
-            .height(200.dp)
-            .padding(8.dp)
+            .width(if(windowSize == WindowWidthSizeClass.Compact) 150.dp else 400.dp)
+            .height(if(windowSize == WindowWidthSizeClass.Compact) 200.dp else 400.dp)
+            .padding(if(windowSize == WindowWidthSizeClass.Compact) 8.dp else 16.dp)
             .clickable {
                 if (isBtnEnabled)
                     isBtnEnabled = false
@@ -125,7 +123,7 @@ fun ColorImageItem(
                         tint = Color.DarkGray,
                         contentDescription = "Character Sound",
                         modifier = Modifier
-                            .size(30.dp)
+                            .size(if(windowSize == WindowWidthSizeClass.Compact) 30.dp else 60.dp)
                     )
                 }else {
                     Icon(
@@ -133,7 +131,7 @@ fun ColorImageItem(
                         tint = getColor(color),
                         contentDescription = "Character Sound",
                         modifier = Modifier
-                            .size(30.dp)
+                            .size(if(windowSize == WindowWidthSizeClass.Compact) 30.dp else 60.dp)
                     )
                 }
             }
@@ -152,7 +150,7 @@ fun ColorImageItem(
                     contentDescription = "Character image",
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
-                        .size(100.dp)
+                        .size(if(windowSize == WindowWidthSizeClass.Compact) 100.dp else 200.dp)
                         .padding(top = 16.dp),
                 )
 
@@ -166,7 +164,7 @@ fun ColorImageItem(
                     style = TextStyle(
                         color = Color.Black,
                         fontFamily = NilamTracingFont,
-                        fontSize = 30.sp,
+                        fontSize = if(windowSize == WindowWidthSizeClass.Compact) 30.sp else 60.sp,
                         textAlign = TextAlign.Center
                     )
                 )

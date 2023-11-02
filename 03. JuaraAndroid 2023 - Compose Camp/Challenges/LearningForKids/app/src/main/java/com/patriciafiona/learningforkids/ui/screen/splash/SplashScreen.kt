@@ -1,4 +1,4 @@
-package com.patriciafiona.learningforkids.ui.theme.screen.splash
+package com.patriciafiona.learningforkids.ui.screen.splash
 
 import android.media.MediaPlayer
 import android.view.animation.OvershootInterpolator

@@ -1,4 +1,4 @@
-package com.patriciafiona.learningforkids.ui.theme.widget
+package com.patriciafiona.learningforkids.ui.widget
 
 import android.media.MediaPlayer
 import androidx.compose.foundation.background
@@ -35,13 +35,13 @@ import com.patriciafiona.learningforkids.data.entity.Alphabet
 import com.patriciafiona.learningforkids.navigation.AppScreen
 import com.patriciafiona.learningforkids.ui.theme.PlayoutDemoFont
 import com.patriciafiona.learningforkids.ui.theme.goldVessel
-import com.patriciafiona.learningforkids.ui.theme.viewModel.AppViewModel
+import com.patriciafiona.learningforkids.ui.viewModel.AppViewModel
 import com.patriciafiona.learningforkids.utils.Utils.getColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun AlphabetItem(navController: NavController, data: Alphabet, viewModel: AppViewModel) {
+fun AlphabetItem(data: Alphabet, viewModel: AppViewModel) {
     val character = data.name.first().toString()
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -56,15 +56,16 @@ fun AlphabetItem(navController: NavController, data: Alphabet, viewModel: AppVie
     Coil.setImageLoader(imgLoader)
 
     Box(modifier = Modifier
-        .padding(bottom = 24.dp)
+        .padding(bottom = 48.dp)
         .clickable {
             coroutineScope.launch {
                 launch {
                     buttonSound.start()
                 }
                 delay(500)
-                viewModel.selectedData.value = data
-                navController.navigate(AppScreen.AlphabetDetailScreen.route)
+
+                viewModel.updateCurrentAlphabet(data)
+                viewModel.navigateToDetailPage(data)
             }
         }
     ) {
@@ -72,7 +73,7 @@ fun AlphabetItem(navController: NavController, data: Alphabet, viewModel: AppVie
         Box(
             modifier = Modifier
                 .offset {
-                    IntOffset(0, 85)
+                    IntOffset(0, 75)
                 }
                 .size(140.dp)
                 .background(goldVessel)

@@ -1,4 +1,4 @@
-package com.patriciafiona.learningforkids.ui.theme.widget
+package com.patriciafiona.learningforkids.ui.widget
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

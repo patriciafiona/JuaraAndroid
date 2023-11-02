@@ -1,4 +1,4 @@
-package com.patriciafiona.learningforkids.ui.theme.widget
+package com.patriciafiona.learningforkids.ui.widget
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,10 +13,9 @@ fun YoutubeScreen(
     videoId: String,
     modifier: Modifier
 ) {
-    val ctx = LocalContext.current
     AndroidView(modifier = modifier,
         factory = {
-        var view = YouTubePlayerView(it)
+        val view = YouTubePlayerView(it)
         val fragment = view.addYouTubePlayerListener(
             object : AbstractYouTubePlayerListener() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {

@@ -1,5 +1,6 @@
-package com.patriciafiona.learningforkids.ui.theme.viewModel
+package com.patriciafiona.learningforkids.ui.viewModel
 
+import android.os.Handler
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -12,19 +13,56 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.patriciafiona.learningforkids.data.entity.Alphabet
 import com.patriciafiona.learningforkids.data.entity.ColorData
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
 class AppViewModel: ViewModel() {
     private val database = Firebase.database
 
     val alphabets = mutableStateListOf<Alphabet>()
-    var selectedData = mutableStateOf(Alphabet())
 
     val colors = mutableStateListOf<ColorData>()
     var selectedColorData = mutableStateOf(ColorData())
+    var isDetailReady = mutableStateOf(false)
+    var isDetailLoading = mutableStateOf(false)
+
+    private val _uiState = MutableStateFlow(
+        AnimalAlphabetUiState(
+            alphabetsList = alphabets,
+            currentAlphabet = Alphabet(),
+        )
+    )
+    val uiState: MutableStateFlow<AnimalAlphabetUiState> = _uiState
 
     init {
         getListAlphabet()
         getListColor()
+    }
+
+    fun updateCurrentAlphabet(selectedAlphabet: Alphabet) {
+        _uiState.update {
+            it.copy(currentAlphabet = selectedAlphabet)
+        }
+
+        isDetailLoading.value = true
+        Handler().postDelayed({
+            isDetailReady.value = true
+            isDetailLoading.value = false
+        }, 1000)
+    }
+
+    fun navigateToListPage() {
+        _uiState.update {
+            it.copy(isShowingListPage = true)
+        }
+    }
+
+
+    fun navigateToDetailPage(selectedData: Alphabet) {
+        _uiState.update {
+            it.copy(isShowingListPage = false, currentAlphabet = selectedData)
+        }
     }
 
     private fun getListAlphabet() {
@@ -92,3 +130,9 @@ class AppViewModel: ViewModel() {
         })
     }
 }
+
+data class AnimalAlphabetUiState(
+    val alphabetsList: List<Alphabet> = emptyList(),
+    val currentAlphabet: Alphabet = Alphabet(),
+    val isShowingListPage: Boolean = true
+)

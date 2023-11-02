@@ -1,7 +1,9 @@
-package com.patriciafiona.learningforkids.ui.theme.widget
+package com.patriciafiona.learningforkids.ui.widget
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -9,6 +11,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,6 +28,7 @@ fun CircleButton(
     btnOutlineColor: Color,
     btnIcon: ImageVector,
     btnIconColor: Color,
+    windowSize: WindowWidthSizeClass
 ) {
     IconButton(onClick = onCLickAction,
         modifier = Modifier
@@ -36,20 +40,10 @@ fun CircleButton(
         Icon(
             btnIcon,
             contentDescription = "content description",
-            tint = btnIconColor
+            tint = btnIconColor,
+            modifier = Modifier
+                .fillMaxSize(if(windowSize == WindowWidthSizeClass.Compact) 1f else .7f)
+                .padding(if(windowSize == WindowWidthSizeClass.Compact) 8.dp else 16.dp),
         )
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun CircleButtonPreview(){
-    CircleButton(
-        onCLickAction = {},
-        btnSize = 50,
-        btnColor = Color.Green,
-        btnOutlineColor = Color.DarkGray,
-        btnIcon = Icons.Filled.Settings,
-        btnIconColor = Color.White
-    )
 }
