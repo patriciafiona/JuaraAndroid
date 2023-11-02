@@ -21,8 +21,10 @@ Current version             : V1.0.0
 ```
 
 ## Results video
-[Video Preview will be add later]
-<p align="center"><i><b>Figure 2</b> Youtube Video | Clickable image link</i></p>
+<p align="center">
+  <img src="https://github.com/patriciafiona/JuaraAndroid/assets/32255348/1477a83d-b26e-4fe4-8cdf-f4437e625936" width="700"/>
+</p>
+<p align="center"><i><b>Figure 2</b> Youtube Video | Clickable image link [Video Preview will be add later] </i></p>
 
 If the link not work, please click [here...]()
 
