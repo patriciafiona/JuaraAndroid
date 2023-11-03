@@ -50,7 +50,7 @@ Get (Choose one) between Stylish Backpack / Comfy Crewneck, Sticker Pack, and En
 - <b>Form factors</b> - [Link](https://developer.android.com/courses/pathways/jetpack-compose-for-android-developers-5)
 
 ## My Android Project Idea & Result
-[Coming Soon!]
+See the result of my JuaraAndroid Challenge in [here...](https://github.com/patriciafiona/JuaraAndroid/tree/season_3_challenge/03.%20JuaraAndroid%202023%20-%20Compose%20Camp/Challenges)
 
 ## My Codelab Project List
 The list of the projects:
