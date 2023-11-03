@@ -40,7 +40,7 @@ Thanks to [pixabay](https://pixabay.com/) as a royalty-free muisc stock provider
 </p>
 <p align="center"><i><b>Figure 3</b> Youtube Video Banner</i></p>
 
-For open the preview viedeo in Youtube, please click [here...]()
+For open the preview viedeo in Youtube, please click [here...](https://youtu.be/PpOqhTmCrVc)
 
 ## Detail Results
 | Function      | Result Preview      | Large Screen Portrait Preview  | Large Screen Landscape Preview  |
