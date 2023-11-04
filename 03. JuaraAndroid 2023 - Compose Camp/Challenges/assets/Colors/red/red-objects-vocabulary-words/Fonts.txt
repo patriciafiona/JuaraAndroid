@@ -1,0 +1,9 @@
+Fonts used in this design:
+
+Font: Helsinki
+Author: Vic Fieger
+Url: http://www.fontsquirrel.com/fonts/helsinki
+
+Font: Metropolis
+Author: Chris Simpson
+Url: https://www.fontsquirrel.com/fonts/metropolis
