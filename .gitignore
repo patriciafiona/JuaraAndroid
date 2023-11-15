@@ -40,4 +40,4 @@ apikey.properties
 *.gif
 
 # apikey.properties
-apikey.properties
+secrets.xml
