@@ -1,15 +1,19 @@
 package com.patriciafiona.bookstore.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.patriciafiona.bookstore.ui.screens.HomeScreen
-import com.patriciafiona.bookstore.ui.screens.SplashScreen
+import com.patriciafiona.bookstore.ui.screens.home.HomeScreen
+import com.patriciafiona.bookstore.ui.screens.splash.SplashScreen
+import com.patriciafiona.bookstore.ui.viewModel.BookViewModel
 
 @Composable
 fun NavigationBuilder() {
+    val viewModel : BookViewModel = viewModel(factory = BookViewModel.Factory)
     val navigationController = rememberNavController()
 
     NavHost(
@@ -21,7 +25,11 @@ fun NavigationBuilder() {
         }
 
         composable(route = AppScreen.HomeScreen.route) {
-            HomeScreen(navController = navigationController)
+            HomeScreen(
+                viewModel = viewModel,
+                retryAction = viewModel::getAllBooks,
+                navController = navigationController
+            )
         }
 
 //        composable(route = MarioScreen.DetailCharacterScreen.route) { previousBackStackEntry ->

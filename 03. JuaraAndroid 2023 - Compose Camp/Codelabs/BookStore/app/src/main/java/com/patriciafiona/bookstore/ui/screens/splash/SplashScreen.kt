@@ -1,4 +1,4 @@
-package com.patriciafiona.bookstore.ui.screens
+package com.patriciafiona.bookstore.ui.screens.splash
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
@@ -22,6 +22,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.patriciafiona.bookstore.R
 import com.patriciafiona.bookstore.navigation.AppScreen
+import com.patriciafiona.bookstore.ui.theme.GoogleBlue
+import com.patriciafiona.bookstore.utils.Utils.setStatusBarColor
 import kotlinx.coroutines.delay
 
 @Composable

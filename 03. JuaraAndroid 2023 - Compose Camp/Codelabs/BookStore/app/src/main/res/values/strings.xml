@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BookStore</string>
+    <string name="loading_failed">Failed to Load data from API</string>
+    <string name="retry">Retry</string>
 </resources>

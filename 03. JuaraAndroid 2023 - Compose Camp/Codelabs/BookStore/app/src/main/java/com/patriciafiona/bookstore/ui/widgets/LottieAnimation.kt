@@ -14,8 +14,8 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.patriciafiona.bookstore.R
 
 @Composable
-fun Loader(modifier: Modifier = Modifier) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.book_animation))
+fun Loader(modifier: Modifier = Modifier, animFile: Int) {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(animFile))
     Box(modifier = Modifier.fillMaxWidth()){
         LottieAnimation(
             composition = composition,

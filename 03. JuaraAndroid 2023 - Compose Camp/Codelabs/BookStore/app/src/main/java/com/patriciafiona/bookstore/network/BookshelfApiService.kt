@@ -19,8 +19,14 @@ interface BookshelfApiService {
      * HTTP method
      */
     @GET("volumes")
-    suspend fun getBooks(@Query("q") query: String): Response<QueryResponse>
+    suspend fun getBooks(
+        @Query("q") query: String,
+        @Query("key") key: String,
+    ): Response<QueryResponse>
 
     @GET("volumes/{id}")
-    suspend fun getBook(@Path("id") id: String): Response<Book>
+    suspend fun getBook(
+        @Path("id") id: String,
+        @Query("key") key: String
+    ): Response<Book>
 }

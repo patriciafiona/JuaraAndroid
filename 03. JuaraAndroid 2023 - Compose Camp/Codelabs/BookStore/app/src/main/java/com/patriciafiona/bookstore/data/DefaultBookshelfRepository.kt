@@ -1,5 +1,6 @@
 package com.patriciafiona.bookstore.data
 
+import com.patriciafiona.bookstore.MainActivity.Companion.API_KEY
 import com.patriciafiona.bookstore.model.Book
 import com.patriciafiona.bookstore.network.BookshelfApiService
 
@@ -9,7 +10,7 @@ class DefaultBookshelfRepository(
     /** Retrieves list of Volumes from underlying data source */
     override suspend fun getBooks(query: String): List<Book>? {
         return try {
-            val res = bookshelfApiService.getBooks(query)
+            val res = bookshelfApiService.getBooks(query, API_KEY)
             if (res.isSuccessful) {
                 res.body()?.items ?: emptyList()
             } else {
@@ -23,7 +24,7 @@ class DefaultBookshelfRepository(
 
     override suspend fun getBook(id: String): Book? {
         return try {
-            val res = bookshelfApiService.getBook(id)
+            val res = bookshelfApiService.getBook(id, API_KEY)
             if (res.isSuccessful) {
                 res.body()
             } else {
