@@ -36,6 +36,8 @@ class BookViewModel(
         getAllBooks()
     }
 
+    lateinit var selectedBook: Book
+
     fun getBooks(query: String = "") {
         viewModelScope.launch {
             _uiState.value = QueryUiState.Loading

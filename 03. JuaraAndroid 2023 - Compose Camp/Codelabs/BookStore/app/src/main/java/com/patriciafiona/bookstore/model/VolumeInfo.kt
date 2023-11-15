@@ -1,8 +1,10 @@
 package com.patriciafiona.bookstore.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
-@Serializable
+@Parcelize
 data class VolumeInfo(
     val title: String,
     val subtitle: String,
@@ -11,7 +13,7 @@ data class VolumeInfo(
     val authors: List<String>,
     val publisher: String,
     val publishedDate: String,
-) {
+): Parcelable {
     val allAuthorsx: String
         get() = allAuthors()
 

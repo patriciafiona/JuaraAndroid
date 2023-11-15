@@ -57,12 +57,14 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.patriciafiona.bookstore.R
 import com.patriciafiona.bookstore.model.Book
+import com.patriciafiona.bookstore.navigation.AppScreen
 import com.patriciafiona.bookstore.ui.theme.GoogleBlue
 import com.patriciafiona.bookstore.ui.theme.GoogleGreen
 import com.patriciafiona.bookstore.ui.theme.GoogleRed
 import com.patriciafiona.bookstore.ui.theme.GoogleYellow
 import com.patriciafiona.bookstore.ui.viewModel.BookViewModel
 import com.patriciafiona.bookstore.ui.viewModel.QueryUiState
+import com.patriciafiona.bookstore.ui.widgets.GoogleColorLine
 import com.patriciafiona.bookstore.ui.widgets.GridItem
 import com.patriciafiona.bookstore.ui.widgets.Loader
 
@@ -87,48 +89,7 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(it)
         ){
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(5.dp)
-            ){
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .background(GoogleBlue)
-                )
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .background(GoogleRed)
-                )
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .background(GoogleYellow)
-                )
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .background(GoogleBlue)
-                )
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .background(GoogleGreen)
-                )
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .background(GoogleRed)
-                )
-            }
+            GoogleColorLine()
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -183,6 +144,8 @@ fun HomeScreen(
                             .fillMaxWidth()
                             .weight(1f),
                         bookshelfList = uiState.bookshelfList,
+                        navController = navController,
+                        viewModel = viewModel
                     )
                 else -> ErrorScreen(modifier = Modifier.weight(1f), retryAction = retryAction)
             }
@@ -215,6 +178,8 @@ fun ErrorScreen(
 
 @Composable
 private fun BooksListScreen(
+    viewModel: BookViewModel,
+    navController: NavController,
     bookshelfList: List<Book>,
     modifier: Modifier = Modifier,
 ) {
@@ -239,11 +204,12 @@ private fun BooksListScreen(
         ) {
             items(
                 items = bookshelfList,
-            ) {
+            ) { book ->
                 GridItem(
-                    book = it,
+                    book = book,
                     onDetailsClick = {
-
+                        viewModel.selectedBook = book
+                        navController.navigate(AppScreen.DetailScreen.route)
                     },
                 )
             }
