@@ -39,5 +39,5 @@ apikey.properties
 *.mov
 *.gif
 
-# apikey.properties
-secrets.xml
+# secrets.xml
+**/secrets.xml
