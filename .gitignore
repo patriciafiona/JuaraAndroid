@@ -38,3 +38,6 @@ apikey.properties
 *.mp4
 *.mov
 *.gif
+
+# apikey.properties
+apikey.properties
